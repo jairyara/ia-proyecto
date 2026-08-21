@@ -27,6 +27,8 @@ aplica a las entregas de los cortes 1, 2 y 3.
   - `fix` Alineación con las fuentes originales: Python 3.13.x, 20 casos base
     obligatorios, 20 casos logísticos, cinco reglas propias diferenciadas y
     justificación oficial preservada en `docs/`.
+  - `chore` Publicación del repositorio privado en GitHub e invitación de
+    colaboración con permiso de escritura enviada a `CatherinneG`.
 
 <!-- Plantilla de entrega:
 ## [v1.0.0] - Corte 1 - AAAA-MM-DD

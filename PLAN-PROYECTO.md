@@ -42,7 +42,10 @@ produjo.
 - [x] Clasificador simbólico como línea base de requerimientos logísticos.
 - [x] 20 casos base, 20 casos logísticos, cinco reglas propias, pruebas
   automatizadas e informes reproducibles.
-- [ ] Crear el repositorio remoto y configurar acceso para ambos integrantes.
+- [x] Repositorio privado creado en GitHub e invitación de escritura enviada a
+  `CatherinneG`.
+- [ ] Aceptar la invitación pendiente de GitHub para completar el acceso de
+  ambos integrantes.
 - [ ] Confirmar las decisiones de datos y modelado del corte 1.
 
 ## Arquitectura incremental
