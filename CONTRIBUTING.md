@@ -1,0 +1,100 @@
+# Guía de contribución
+
+Convenciones de trabajo para mantener evidencia clara, cambios revisables y
+ejecuciones reproducibles durante el semestre.
+
+## Flujo recomendado
+
+1. Crear una rama corta a partir de `main`.
+2. Implementar un único cambio coherente.
+3. Ejecutar el script o notebook afectado y las pruebas.
+4. Actualizar el reporte semanal y `CHANGELOG.md` cuando corresponda.
+5. Solicitar revisión antes de integrar a `main`.
+
+No se deben versionar entornos virtuales, credenciales, cachés, datasets con
+información sensible ni artefactos binarios reproducibles.
+
+## Convención de commits
+
+Formato inspirado en Conventional Commits:
+
+```text
+<tipo>(sem<NN>-ses<N>): <descripción corta en imperativo>
+
+<instrucciones, contexto y resultados relevantes>
+```
+
+Para cambios del proyecto final se acepta el scope `proyecto-corte<N>`; para
+cambios transversales, `repo`.
+
+### Reglas
+
+- título de máximo 72 caracteres y escrito en imperativo;
+- un commit por tarea o cambio coherente;
+- cuerpo con la tarea y la evidencia obtenida (métricas, salidas o pruebas);
+- no mezclar refactorizaciones con cambios funcionales sin justificación.
+
+### Tipos
+
+| Tipo | Uso |
+|---|---|
+| `feat` | Nueva funcionalidad, modelo o módulo |
+| `fix` | Corrección de un error |
+| `docs` | README, reportes o documentación |
+| `chore` | Entorno, dependencias o estructura |
+| `test` | Pruebas nuevas o corregidas |
+| `refactor` | Reestructura sin cambio de comportamiento |
+| `update` | Actualización de contenido o datos existentes |
+| `entrega` | Entrega formal de un corte |
+
+Ejemplo:
+
+```text
+feat(proyecto-corte1): implementa búsqueda A* sobre el grafo
+
+Tarea: comparar A* con una búsqueda no informada sobre el mismo escenario.
+
+- Registra costo total y nodos expandidos.
+- Conserva el mismo criterio de desempate en ambos algoritmos.
+- Pruebas: python3 -m unittest discover -s tests -v
+```
+
+## Entregas y versiones
+
+Los tres cortes se etiquetan con SemVer:
+
+| Corte | Semana | Tag |
+|---:|---:|---|
+| 1 | 6 | `v1.0.0` |
+| 2 | 12 | `v2.0.0` |
+| 3 | 18 | `v3.0.0` |
+
+El commit de entrega usa `entrega(corte<N>): <nombre>`, seguido de un tag
+anotado. El resto de los cambios se acumula en `[En curso]` dentro de
+`CHANGELOG.md`.
+
+## Criterios de calidad
+
+Antes de integrar un cambio debe comprobarse:
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 -m src.semana03_taxonomia
+```
+
+- **Realizado:** existen el código, los datos y el informe requeridos.
+- **Funciona:** la ejecución termina sin errores y es reproducible.
+- **Coincide:** el resultado corresponde con la actividad y se justifica.
+
+## Reportes
+
+Cada semana debe incluir `reports/report-semana-<N>.md` con:
+
+1. objetivo y alcance;
+2. cambios o commits analizados;
+3. datos, configuración y método;
+4. resultados y métricas;
+5. conclusiones, limitaciones y siguientes pasos.
+
+El reporte de cada corte consolida el avance arquitectónico, las métricas
+comparables y las decisiones que afecten al sistema completo.

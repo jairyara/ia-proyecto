@@ -1,0 +1,29 @@
+# Entornos virtuales y configuración local
+.venv/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE y sistema operativo
+.idea/
+.vscode/
+.DS_Store
+
+# Artefactos generados (conservar la estructura)
+artifacts/*
+!artifacts/.gitkeep
+reports/*.png
+
