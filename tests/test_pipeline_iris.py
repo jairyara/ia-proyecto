@@ -1,9 +1,9 @@
 import unittest
 
-from src.semana02_fundamentos import run_experiment
+from src.pipeline_iris import run_experiment
 
 
-class FundamentalsExperimentTests(unittest.TestCase):
+class IrisPipelineTests(unittest.TestCase):
     def test_iris_pipeline_matches_the_course_reference(self) -> None:
         result = run_experiment()
 

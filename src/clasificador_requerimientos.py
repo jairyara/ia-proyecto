@@ -2,7 +2,7 @@
 
 El módulo usa reglas explícitas y normalización de texto. No pretende sustituir
 un modelo entrenado: ofrece una referencia determinista, interpretable y fácil
-de auditar para la taxonomía definida durante la semana 3.
+de auditar para la taxonomía de áreas de IA definida para el proyecto.
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import unicodedata
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "data" / "casos_ia.csv"
 DEFAULT_DOMAIN_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
-DEFAULT_REPORT = ROOT / "reports" / "semana03.md"
+DEFAULT_REPORT = ROOT / "reports" / "clasificacion-casos-base.md"
 MINIMUM_CASES = 20
 UNCLASSIFIED = "Requiere análisis"
 
@@ -364,9 +364,9 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
     )
 
     lines = [
-        "# Semana 03 — Taxonomía de inteligencia artificial",
+        "# Clasificación de requerimientos por área de IA",
         "",
-        "Reporte generado por `python3 -m src.semana03_taxonomia`.",
+        "Reporte generado por `python -m src.clasificador_requerimientos`.",
         "",
         "## Configuración",
         "",

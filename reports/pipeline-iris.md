@@ -1,4 +1,4 @@
-# Reporte — Semana 2
+# Pipeline supervisado de referencia
 
 **Tema:** fundamentos de inteligencia artificial, entorno y primer modelo
 reproducible.
@@ -19,7 +19,7 @@ clasificador supervisado indicado por la guía del curso.
 El experimento se ejecuta con:
 
 ```bash
-python -m src.semana02_fundamentos
+python -m src.pipeline_iris
 ```
 
 ## 3. Resultados

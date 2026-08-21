@@ -2,7 +2,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from src.semana03_taxonomia import (
+from src.clasificador_requerimientos import (
     DEFAULT_DOMAIN_INPUT,
     DEFAULT_INPUT,
     UNCLASSIFIED,

@@ -1,6 +1,6 @@
-# Semana 03 — Taxonomía de inteligencia artificial
+# Clasificación de requerimientos por área de IA
 
-Reporte generado por `python3 -m src.semana03_taxonomia`.
+Reporte generado por `python -m src.clasificador_requerimientos`.
 
 ## Configuración
 

@@ -1,14 +1,13 @@
-# Reporte — Semana 3
+# Taxonomía de IA y línea base simbólica
 
 **Fecha:** 2026-08-20  
-**Sesión:** 2  
 **Tema:** taxonomía y áreas de inteligencia artificial aplicadas al proyecto.
 
 ## 1. Objetivo
 
-Nivelar el proyecto de logística con los contenidos confirmados hasta la semana
-3: definir el papel de las áreas de IA, construir una línea base simbólica para
-clasificar requerimientos y dejar evidencia reproducible de su funcionamiento.
+Definir el papel de las áreas de IA en el sistema de logística, construir una
+línea base simbólica para clasificar requerimientos y dejar evidencia
+reproducible de su funcionamiento.
 
 ## 2. Método
 
@@ -18,10 +17,11 @@ visión por computador resuelven capacidades específicas. Sistemas autónomos,
 recomendación y PLN cubren la replanificación, la interacción con el operador y
 las explicaciones.
 
-`src/semana03_taxonomia.py` normaliza los textos y busca palabras o frases
-completas para evitar falsos positivos. Cada coincidencia suma evidencia a un
-área. La salida conserva todas las áreas detectadas, elige como principal la de
-mayor puntuación y resuelve empates según el orden explícito de la taxonomía.
+`src/clasificador_requerimientos.py` normaliza los textos y busca palabras o
+frases completas para evitar falsos positivos. Cada coincidencia suma evidencia
+a un área. La salida conserva todas las áreas detectadas, elige como principal
+la de mayor puntuación y resuelve empates según el orden explícito de la
+taxonomía.
 
 ## 3. Datos y validación
 
@@ -34,10 +34,10 @@ La ejecución utilizada fue:
 
 ```bash
 python -m unittest discover -s tests -v
-python -m src.semana03_taxonomia --fail-on-mismatch
-python -m src.semana03_taxonomia \
+python -m src.clasificador_requerimientos --fail-on-mismatch
+python -m src.clasificador_requerimientos \
   --input data/requerimientos_logistica.csv \
-  --output reports/taxonomia-logistica.md \
+  --output reports/clasificacion-requerimientos-logistica.md \
   --fail-on-mismatch
 ```
 
@@ -51,8 +51,8 @@ python -m src.semana03_taxonomia \
 - Las pruebas verifican normalización, coincidencia de palabras completas,
   clasificación multiárea, consistencia del dataset, validación del CSV y
   contenido básico del reporte.
-- El detalle queda en `reports/semana03.md` y
-  `reports/taxonomia-logistica.md`.
+- El detalle queda en `reports/clasificacion-casos-base.md` y
+  `reports/clasificacion-requerimientos-logistica.md`.
 
 ## 5. Conclusiones y limitaciones
 

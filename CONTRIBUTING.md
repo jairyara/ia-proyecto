@@ -12,7 +12,7 @@ se use por accidente el intérprete global.
 1. Crear una rama corta a partir de `main`.
 2. Implementar un único cambio coherente.
 3. Ejecutar el script o notebook afectado y las pruebas.
-4. Actualizar el reporte semanal y `CHANGELOG.md` cuando corresponda.
+4. Actualizar el reporte del tema y `CHANGELOG.md` cuando corresponda.
 5. Solicitar revisión antes de integrar a `main`.
 
 No se deben versionar entornos virtuales, credenciales, cachés, datasets con
@@ -20,16 +20,18 @@ información sensible ni artefactos binarios reproducibles.
 
 ## Convención de commits
 
-Formato inspirado en Conventional Commits:
+Formato inspirado en Conventional Commits, con el scope nombrando el módulo o
+tema afectado:
 
 ```text
-<tipo>(sem<NN>-ses<N>): <descripción corta en imperativo>
+<tipo>(<módulo>): <descripción corta en imperativo>
 
 <instrucciones, contexto y resultados relevantes>
 ```
 
-Para cambios del proyecto final se acepta el scope `proyecto-corte<N>`; para
-cambios transversales, `repo`.
+Scopes habituales: `pipeline-iris`, `clasificador`, `datos`, `reportes`,
+`docs`. Para las entregas de corte se usa `corte<N>` y para cambios
+transversales, `repo`.
 
 ### Reglas
 
@@ -54,7 +56,7 @@ cambios transversales, `repo`.
 Ejemplo:
 
 ```text
-feat(proyecto-corte1): implementa búsqueda A* sobre el grafo
+feat(corte1): implementa búsqueda A* sobre el grafo
 
 Tarea: comparar A* con una búsqueda no informada sobre el mismo escenario.
 
@@ -83,7 +85,7 @@ Antes de integrar un cambio debe comprobarse:
 
 ```bash
 python -m unittest discover -s tests -v
-python -m src.semana03_taxonomia --fail-on-mismatch
+python -m src.clasificador_requerimientos --fail-on-mismatch
 ```
 
 - **Realizado:** existen el código, los datos y el informe requeridos.
@@ -92,7 +94,8 @@ python -m src.semana03_taxonomia --fail-on-mismatch
 
 ## Reportes
 
-Cada semana debe incluir `reports/report-semana-<N>.md` con:
+Cada práctica o componente deja un reporte en `reports/` nombrado por tema
+(`<tema>.md`, por ejemplo `pipeline-iris.md` o `taxonomia-ia.md`) con:
 
 1. objetivo y alcance;
 2. cambios o commits analizados;

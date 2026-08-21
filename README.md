@@ -74,24 +74,22 @@ de la operación.
 | Procesamiento de lenguaje natural | Área complementaria para explicaciones o captura de novedades | Alcance sujeto a las necesidades confirmadas del curso |
 
 La línea base actual es un clasificador simbólico disponible en
-`src/semana03_taxonomia.py`. Conserva las reglas generales de la práctica y
-agrega cinco grupos de reglas propios del dominio logístico.
+`src/clasificador_requerimientos.py`. Conserva las reglas generales de la
+práctica y agrega cinco grupos de reglas propios del dominio logístico.
 
 ## Estado y alcance
 
-El repositorio se encuentra **nivelado con los contenidos confirmados hasta la
-semana 3**:
+El sistema cuenta hoy con una base verificable:
 
 - estructura reproducible y convenciones de trabajo;
-- pipeline supervisado de referencia de la semana 2;
+- pipeline supervisado de referencia (`src/pipeline_iris.py`);
 - taxonomía del dominio logístico;
-- reglas simbólicas para clasificar requerimientos;
+- clasificador simbólico de requerimientos;
 - 20 casos base de la guía y 20 requerimientos del dominio;
-- validación automática y dos reportes reproducibles con referencia manual.
+- validación automática y reportes reproducibles con referencia manual.
 
-Las semanas posteriores se incorporan cuando se confirmen los materiales del
-curso. El alcance de cada corte y las decisiones abiertas están en
-[`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
+Los siguientes módulos se incorporan según el roadmap, los cortes y las
+decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 
 ## Estructura
 
@@ -101,7 +99,7 @@ curso. El alcance de cada corte y las decisiones abiertas están en
 ├── data/        # Datos de entrada versionados
 ├── docs/        # Fuentes específicas del proyecto
 ├── notebooks/   # Exploración reproducible
-├── reports/     # Evidencia y resultados por semana
+├── reports/     # Evidencia y resultados por tema
 ├── src/         # Código fuente
 └── tests/       # Pruebas automatizadas
 ```
@@ -119,29 +117,30 @@ python -m pip install -r requirements.txt
 
 ## Uso
 
-Ejecutar el primer modelo supervisado de la semana 2:
+Ejecutar el pipeline supervisado de referencia:
 
 ```bash
-python -m src.semana02_fundamentos
+python -m src.pipeline_iris
 ```
 
-Ejecutar la línea base de taxonomía desde la raíz del repositorio:
+Ejecutar la línea base de clasificación desde la raíz del repositorio:
 
 ```bash
-python -m src.semana03_taxonomia --fail-on-mismatch
+python -m src.clasificador_requerimientos --fail-on-mismatch
 ```
 
 La ejecución anterior procesa los 20 casos base de `data/casos_ia.csv` y
-actualiza `reports/semana03.md`. La adaptación logística se reproduce con:
+actualiza `reports/clasificacion-casos-base.md`. La adaptación logística se
+reproduce con:
 
 ```bash
-python -m src.semana03_taxonomia \
+python -m src.clasificador_requerimientos \
   --input data/requerimientos_logistica.csv \
-  --output reports/taxonomia-logistica.md \
+  --output reports/clasificacion-requerimientos-logistica.md \
   --fail-on-mismatch
 ```
 
-Para ver todas las opciones: `python -m src.semana03_taxonomia --help`.
+Para ver todas las opciones: `python -m src.clasificador_requerimientos --help`.
 
 Ejecutar las pruebas:
 
@@ -157,8 +156,6 @@ python -m unittest discover -s tests -v
 - [`CHANGELOG.md`](CHANGELOG.md) — historial acumulativo del proyecto.
 - [`docs/justificacion-proyecto-08.pdf`](docs/justificacion-proyecto-08.pdf) —
   descripción, justificación, alineación y casos de uso oficiales.
-- `../ia-semestre/TEMATICAS.md` — temáticas y prácticas del curso en el
-  repositorio académico complementario.
 
 ## Equipo
 

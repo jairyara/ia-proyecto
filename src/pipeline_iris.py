@@ -1,4 +1,4 @@
-"""Primer modelo supervisado reproducible de la semana 2."""
+"""Pipeline supervisado de referencia, reproducible y versionado."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ class ExperimentResult:
 
 
 def run_experiment() -> ExperimentResult:
-    """Entrena y evalúa el pipeline indicado en la guía de la semana 2."""
+    """Entrena y evalúa el pipeline supervisado indicado en la guía del curso."""
 
     features, target = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = train_test_split(

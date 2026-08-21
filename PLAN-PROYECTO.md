@@ -7,7 +7,7 @@
 
 **Fuente primaria:**
 [`docs/justificacion-proyecto-08.pdf`](docs/justificacion-proyecto-08.pdf),
-contrastada con los materiales de las semanas 2 y 3.
+contrastada con los materiales confirmados del curso.
 
 ## Visión del sistema
 
@@ -20,8 +20,8 @@ produjo.
 
 ## Principios de implementación
 
-- Cada práctica confirmada del curso se aplica al proyecto durante la misma
-  semana.
+- Cada práctica confirmada del curso se aplica al proyecto en cuanto se
+  publica.
 - El repositorio es acumulativo y autocontenido; `../ia-semestre` funciona como
   referencia académica, no como dependencia de ejecución.
 - Cada componente declara entradas, salidas, supuestos y una forma objetiva de
@@ -31,12 +31,12 @@ produjo.
 - Las decisiones no confirmadas se mantienen abiertas hasta contar con la guía
   del curso o un acuerdo explícito del equipo.
 
-## Estado de nivelación — semana 3
+## Estado actual
 
 - [x] Estructura `src/`, `data/`, `notebooks/`, `artifacts/`, `reports/` y
   `tests/`.
 - [x] Configuración reproducible, convenciones de commits y changelog.
-- [x] Pipeline supervisado de referencia de la semana 2.
+- [x] Pipeline supervisado de referencia (`src/pipeline_iris.py`).
 - [x] README con problema, justificación, objetivos y arquitectura prevista.
 - [x] Taxonomía del dominio: áreas de IA vinculadas a los componentes.
 - [x] Clasificador simbólico como línea base de requerimientos logísticos.
@@ -129,7 +129,7 @@ resolverse antes de implementar los módulos relacionados:
 | Variables de pedidos | Volumen, ventana, prioridad, frío y otras | Relación justificable con la variable objetivo y sin fuga de datos |
 | Tarea predictiva | Demanda o riesgo de retraso | Disponibilidad de datos, métrica interpretable e integración con rutas |
 | Verificación visual | Conteo, estado o lectura de etiqueta | Correspondencia con el material del curso y datos obtenibles |
-| Reporte de avance | Frecuencia y formato por corte | Evidencia clara sin duplicar los reportes semanales |
+| Reporte de avance | Frecuencia y formato por corte | Evidencia clara sin duplicar los reportes por tema |
 
 ## Riesgos y mitigaciones
 
