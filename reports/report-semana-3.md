@@ -25,33 +25,42 @@ mayor puntuación y resuelve empates según el orden explícito de la taxonomía
 
 ## 3. Datos y validación
 
-`data/requerimientos_logistica.csv` contiene 12 casos iniciales con una
-clasificación manual de referencia. El conjunto cubre las siete áreas y un caso
-híbrido de planificación más reglas.
+`data/casos_ia.csv` conserva los 20 casos exigidos por la guía y
+`data/requerimientos_logistica.csv` contiene 20 casos aplicados al proyecto.
+Ambos incluyen clasificación manual de referencia, cubren las siete áreas y
+contienen casos híbridos.
 
 La ejecución utilizada fue:
 
 ```bash
-python3 -m unittest discover -s tests -v
-python3 -m src.semana03_taxonomia --fail-on-mismatch
+python -m unittest discover -s tests -v
+python -m src.semana03_taxonomia --fail-on-mismatch
+python -m src.semana03_taxonomia \
+  --input data/requerimientos_logistica.csv \
+  --output reports/taxonomia-logistica.md \
+  --fail-on-mismatch
 ```
 
 ## 4. Resultados
 
-- 12 requerimientos procesados.
-- 12/12 categorías principales coinciden con la referencia manual (100%).
+- 20 casos generales y 20 requerimientos logísticos procesados.
+- 20/20 categorías principales coinciden con cada referencia manual (100% en
+  ambos conjuntos).
+- Cinco grupos de reglas propias del dominio se mantienen separados de las
+  reglas generales para que su procedencia sea auditable.
 - Las pruebas verifican normalización, coincidencia de palabras completas,
   clasificación multiárea, consistencia del dataset, validación del CSV y
   contenido básico del reporte.
-- El detalle de reglas activadas queda en `reports/semana03.md`.
+- El detalle queda en `reports/semana03.md` y
+  `reports/taxonomia-logistica.md`.
 
 ## 5. Conclusiones y limitaciones
 
 La línea base ofrece trazabilidad y un comportamiento determinista apropiado
 para validar la taxonomía, pero no comprende contexto ni sinónimos no
-declarados. La coincidencia del 100% solo describe el pequeño conjunto actual y
-no demuestra generalización. Los empates requieren revisión porque dependen de
-una prioridad declarada.
+declarados. La coincidencia del 100% solo describe los conjuntos controlados
+actuales y no demuestra generalización. Los empates requieren revisión porque
+dependen de una prioridad declarada.
 
 El siguiente bloque funcional debe definir primero el grafo, las variables del
 dataset y la tarea predictiva. Después se podrán comparar A* con una búsqueda no

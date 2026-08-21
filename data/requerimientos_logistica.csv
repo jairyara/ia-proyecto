@@ -11,4 +11,11 @@ REQ-009,Un agente autónomo debe percibir una vía cerrada y replanificar durant
 REQ-010,Recomendar alternativas de ruta según la preferencia del operador.,Sistemas de recomendación
 REQ-011,Generar una explicación textual en lenguaje natural para el operador.,Procesamiento de lenguaje natural
 REQ-012,Calcular una ruta A* y validar sus ventanas horarias con reglas auditables.,Búsqueda y optimización
-
+REQ-013,Predecir retrasos de los pedidos mediante un pronóstico operativo.,Aprendizaje automático predictivo
+REQ-014,Validar una política operativa de cadena de frío antes del despacho.,Sistemas expertos
+REQ-015,Reconocer la etiqueta de un paquete a partir de una fotografía.,Visión por computador
+REQ-016,Encontrar el camino de menor distancia entre la bodega y una entrega.,Búsqueda y optimización
+REQ-017,Replanificar cuando aparece un pedido nuevo durante el ciclo de control.,Robótica y sistemas autónomos
+REQ-018,Presentar recomendaciones y alternativas de ruta al operador.,Sistemas de recomendación
+REQ-019,Interpretar mensajes de texto con novedades de la jornada.,Procesamiento de lenguaje natural
+REQ-020,Comparar rutas de la flota y restricciones de capacidad de los vehículos.,Búsqueda y optimización

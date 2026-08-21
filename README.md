@@ -23,7 +23,12 @@ El proyecto aborda el problema como un sistema de IA completo y trazable:
 
 Este enfoque permite evaluar por separado la calidad de las rutas, las métricas
 predictivas y las reglas activadas, en lugar de tratar la solución como una
-caja negra.
+caja negra. Su valor práctico consiste en reducir costos y tiempos de entrega,
+garantizar de manera auditable las restricciones operativas y responder a
+imprevistos mediante replanificación automática.
+
+La descripción completa se encuentra en la
+[`justificación oficial del proyecto`](docs/justificacion-proyecto-08.pdf).
 
 ## Objetivos
 
@@ -44,6 +49,18 @@ de la operación.
   de parada.
 - Documentar resultados, supuestos, limitaciones y métricas en cada corte.
 
+## Casos de uso
+
+1. **Última milla y domicilios urbanos:** minimizar distancia y tiempo total de
+   las rutas diarias.
+2. **Distribución de bodega a puntos de venta:** abastecer múltiples destinos
+   con varios vehículos.
+3. **Courier con recogidas dinámicas:** replanificar cuando entra un pedido o se
+   cierra una vía.
+4. **Flotas con restricciones especiales:** verificar capacidad, ventanas
+   horarias y cadena de frío.
+5. **Logística humanitaria:** priorizar de forma auditable entregas críticas.
+
 ## Taxonomía de IA aplicada
 
 | Área | Papel en el sistema | Validación prevista |
@@ -56,8 +73,9 @@ de la operación.
 | Sistemas de recomendación | Presentación de planes y alternativas al operador | Calidad y factibilidad de las alternativas |
 | Procesamiento de lenguaje natural | Área complementaria para explicaciones o captura de novedades | Alcance sujeto a las necesidades confirmadas del curso |
 
-La línea base actual es un clasificador simbólico de requerimientos logísticos
-disponible en `src/semana03_taxonomia.py`.
+La línea base actual es un clasificador simbólico disponible en
+`src/semana03_taxonomia.py`. Conserva las reglas generales de la práctica y
+agrega cinco grupos de reglas propios del dominio logístico.
 
 ## Estado y alcance
 
@@ -65,9 +83,11 @@ El repositorio se encuentra **nivelado con los contenidos confirmados hasta la
 semana 3**:
 
 - estructura reproducible y convenciones de trabajo;
+- pipeline supervisado de referencia de la semana 2;
 - taxonomía del dominio logístico;
 - reglas simbólicas para clasificar requerimientos;
-- conjunto inicial de casos, validación automática y reporte reproducible.
+- 20 casos base de la guía y 20 requerimientos del dominio;
+- validación automática y dos reportes reproducibles con referencia manual.
 
 Las semanas posteriores se incorporan cuando se confirmen los materiales del
 curso. El alcance de cada corte y las decisiones abiertas están en
@@ -79,6 +99,7 @@ curso. El alcance de cada corte y las decisiones abiertas están en
 .
 ├── artifacts/   # Modelos y artefactos generados
 ├── data/        # Datos de entrada versionados
+├── docs/        # Fuentes específicas del proyecto
 ├── notebooks/   # Exploración reproducible
 ├── reports/     # Evidencia y resultados por semana
 ├── src/         # Código fuente
@@ -87,34 +108,45 @@ curso. El alcance de cada corte y las decisiones abiertas están en
 
 ## Configuración
 
-Se recomienda Python 3.11 o superior.
+La guía del curso requiere **Python 3.13.x**.
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
 ## Uso
 
+Ejecutar el primer modelo supervisado de la semana 2:
+
+```bash
+python -m src.semana02_fundamentos
+```
+
 Ejecutar la línea base de taxonomía desde la raíz del repositorio:
 
 ```bash
-python3 -m src.semana03_taxonomia
+python -m src.semana03_taxonomia --fail-on-mismatch
 ```
 
-La ejecución lee `data/requerimientos_logistica.csv` y actualiza
-`reports/semana03.md`. Para ver las opciones disponibles:
+La ejecución anterior procesa los 20 casos base de `data/casos_ia.csv` y
+actualiza `reports/semana03.md`. La adaptación logística se reproduce con:
 
 ```bash
-python3 -m src.semana03_taxonomia --help
+python -m src.semana03_taxonomia \
+  --input data/requerimientos_logistica.csv \
+  --output reports/taxonomia-logistica.md \
+  --fail-on-mismatch
 ```
+
+Para ver todas las opciones: `python -m src.semana03_taxonomia --help`.
 
 Ejecutar las pruebas:
 
 ```bash
-python3 -m unittest discover -s tests -v
+python -m unittest discover -s tests -v
 ```
 
 ## Documentación relacionada
@@ -123,6 +155,8 @@ python3 -m unittest discover -s tests -v
   abiertas.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — commits, calidad y reportes.
 - [`CHANGELOG.md`](CHANGELOG.md) — historial acumulativo del proyecto.
+- [`docs/justificacion-proyecto-08.pdf`](docs/justificacion-proyecto-08.pdf) —
+  descripción, justificación, alineación y casos de uso oficiales.
 - `../ia-semestre/TEMATICAS.md` — temáticas y prácticas del curso en el
   repositorio académico complementario.
 

@@ -5,6 +5,10 @@
 **Cortes oficiales:** semana 6 (`v1.0.0`), semana 12 (`v2.0.0`) y semana
 18 (`v3.0.0`).
 
+**Fuente primaria:**
+[`docs/justificacion-proyecto-08.pdf`](docs/justificacion-proyecto-08.pdf),
+contrastada con los materiales de las semanas 2 y 3.
+
 ## Visión del sistema
 
 El sistema planifica rutas de reparto sobre un grafo de la zona de entrega
@@ -32,10 +36,12 @@ produjo.
 - [x] Estructura `src/`, `data/`, `notebooks/`, `artifacts/`, `reports/` y
   `tests/`.
 - [x] Configuración reproducible, convenciones de commits y changelog.
+- [x] Pipeline supervisado de referencia de la semana 2.
 - [x] README con problema, justificación, objetivos y arquitectura prevista.
 - [x] Taxonomía del dominio: áreas de IA vinculadas a los componentes.
 - [x] Clasificador simbólico como línea base de requerimientos logísticos.
-- [x] Datos de validación, pruebas automatizadas e informe reproducible.
+- [x] 20 casos base, 20 casos logísticos, cinco reglas propias, pruebas
+  automatizadas e informes reproducibles.
 - [ ] Crear el repositorio remoto y configurar acceso para ambos integrantes.
 - [ ] Confirmar las decisiones de datos y modelado del corte 1.
 
@@ -134,4 +140,3 @@ resolverse antes de implementar los módulos relacionados:
   probar conflictos deliberadamente.
 - **Crecimiento del alcance:** cada corte debe conservar una demostración
   vertical funcional antes de agregar nuevos módulos.
-

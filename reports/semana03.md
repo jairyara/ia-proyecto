@@ -1,11 +1,11 @@
-# Semana 03 — Taxonomía del dominio logístico
+# Semana 03 — Taxonomía de inteligencia artificial
 
 Reporte generado por `python3 -m src.semana03_taxonomia`.
 
 ## Configuración
 
-- Entrada: `requerimientos_logistica.csv`
-- Casos procesados: **12**
+- Entrada: `casos_ia.csv`
+- Casos procesados: **20**
 - Método: reglas deterministas sobre palabras y frases completas.
 - Desempate: orden documentado de las áreas en el código.
 
@@ -13,34 +13,52 @@ Reporte generado por `python3 -m src.semana03_taxonomia`.
 
 | Área | Componente del proyecto |
 |---|---|
-| Búsqueda y optimización | Planificación de rutas con A* sobre el grafo de entregas. |
-| Aprendizaje automático predictivo | Estimación de demanda o clasificación del riesgo de retraso. |
-| Sistemas expertos | Validación trazable de restricciones operativas. |
 | Visión por computador | Verificación de paquetes a partir de imágenes. |
-| Robótica y sistemas autónomos | Ciclo de control y replanificación ante novedades. |
-| Sistemas de recomendación | Presentación de planes y alternativas al operador. |
 | Procesamiento de lenguaje natural | Explicaciones o novedades expresadas en lenguaje natural. |
+| Aprendizaje automático predictivo | Estimación de demanda o clasificación del riesgo de retraso. |
+| Sistemas de recomendación | Presentación de planes y alternativas al operador. |
+| Búsqueda y optimización | Planificación de rutas con A* sobre el grafo de entregas. |
+| Sistemas expertos | Validación trazable de restricciones operativas. |
+| Robótica y sistemas autónomos | Ciclo de control y replanificación ante novedades. |
+
+## Cinco reglas propias del dominio
+
+| Área | Vocabulario logístico agregado |
+|---|---|
+| Búsqueda y optimización | `flota`, `entrega`, `entregas`, `despacho`, `despachos`, `logistica` |
+| Aprendizaje automático predictivo | `retraso`, `retrasos`, `pronostico`, `pronosticar`, `riesgo de retraso`, `tiempo de entrega` |
+| Sistemas expertos | `restriccion`, `restricciones`, `ventana horaria`, `ventanas horarias`, `capacidad del vehiculo`, `capacidad de los vehiculos`, `prioridad`, `cadena de frio`, `politica operativa` |
+| Visión por computador | `paquete`, `paquetes`, `etiqueta`, `etiquetas`, `dano visible`, `verificacion visual` |
+| Sistemas de recomendación | `recomendacion`, `recomendaciones`, `alternativa de ruta`, `alternativas de ruta`, `preferencia del operador` |
 
 ## Clasificación de requerimientos
 
 | ID | Requerimiento | Principal | Áreas detectadas | Evidencia principal | Esperada | Estado |
 |---|---|---|---|---|---|---|
-| REQ-001 | Calcular la ruta de menor distancia sobre el grafo de entregas con A*. | Búsqueda y optimización | Búsqueda y optimización | `a estrella`, `ruta`, `grafo`, `distancia`, `entregas` | Búsqueda y optimización | Coincide |
-| REQ-002 | Optimizar los despachos y las rutas disponibles para toda la flota. | Búsqueda y optimización | Búsqueda y optimización | `rutas`, `optimizar`, `flota`, `despachos` | Búsqueda y optimización | Coincide |
-| REQ-003 | Predecir el riesgo de retraso y el tiempo de entrega con aprendizaje supervisado. | Aprendizaje automático predictivo | Aprendizaje automático predictivo, Búsqueda y optimización | `predecir`, `aprendizaje supervisado`, `riesgo de retraso`, `retraso`, `tiempo de entrega` | Aprendizaje automático predictivo | Coincide |
-| REQ-004 | Pronosticar la demanda diaria con un modelo predictivo antes de asignar vehículos. | Aprendizaje automático predictivo | Aprendizaje automático predictivo | `modelo predictivo`, `pronosticar`, `demanda` | Aprendizaje automático predictivo | Coincide |
-| REQ-005 | Validar las restricciones de capacidad del vehículo y ventana horaria. | Sistemas expertos | Sistemas expertos | `restricciones`, `ventana horaria`, `capacidad del vehiculo` | Sistemas expertos | Coincide |
-| REQ-006 | Aplicar reglas de prioridad y cadena de frío antes de aprobar el plan. | Sistemas expertos | Sistemas expertos | `reglas`, `prioridad`, `cadena de frio` | Sistemas expertos | Coincide |
-| REQ-007 | Inspeccionar una imagen del paquete para detectar daño visible. | Visión por computador | Visión por computador | `imagen`, `paquete`, `dano visible` | Visión por computador | Coincide |
-| REQ-008 | Usar una cámara para la verificación visual de etiquetas en los paquetes. | Visión por computador | Visión por computador | `camara`, `paquetes`, `etiquetas`, `verificacion visual` | Visión por computador | Coincide |
-| REQ-009 | Un agente autónomo debe percibir una vía cerrada y replanificar durante el ciclo de control. | Robótica y sistemas autónomos | Robótica y sistemas autónomos | `agente autonomo`, `ciclo de control`, `percibir`, `replanificar`, `via cerrada` | Robótica y sistemas autónomos | Coincide |
-| REQ-010 | Recomendar alternativas de ruta según la preferencia del operador. | Sistemas de recomendación | Sistemas de recomendación, Búsqueda y optimización | `recomendar`, `alternativas de ruta`, `preferencia del operador` | Sistemas de recomendación | Coincide |
-| REQ-011 | Generar una explicación textual en lenguaje natural para el operador. | Procesamiento de lenguaje natural | Procesamiento de lenguaje natural | `lenguaje natural`, `explicacion textual` | Procesamiento de lenguaje natural | Coincide |
-| REQ-012 | Calcular una ruta A* y validar sus ventanas horarias con reglas auditables. | Búsqueda y optimización | Búsqueda y optimización, Sistemas expertos | `a estrella`, `ruta` | Búsqueda y optimización | Coincide |
+| CASO-001 | Detectar matrículas de vehículos a partir de imágenes capturadas por cámaras de seguridad. | Visión por computador | Visión por computador | `imagenes`, `camaras` | Visión por computador | Coincide |
+| CASO-002 | Analizar comentarios de clientes para identificar si expresan opiniones positivas, negativas o neutrales. | Procesamiento de lenguaje natural | Procesamiento de lenguaje natural | `comentarios` | Procesamiento de lenguaje natural | Coincide |
+| CASO-003 | Predecir qué clientes tienen mayor probabilidad de abandonar un servicio de telefonía móvil. | Aprendizaje automático predictivo | Aprendizaje automático predictivo | `predecir`, `probabilidad` | Aprendizaje automático predictivo | Coincide |
+| CASO-004 | Determinar la ruta de entrega más corta para una flota de vehículos de una empresa de logística. | Búsqueda y optimización | Búsqueda y optimización | `ruta`, `flota`, `entrega`, `logistica` | Búsqueda y optimización | Coincide |
+| CASO-005 | Recomendar películas a un usuario utilizando su historial de visualización y sus preferencias. | Sistemas de recomendación | Sistemas de recomendación | `recomendar`, `preferencias`, `historial de visualizacion` | Sistemas de recomendación | Coincide |
+| CASO-006 | Detectar posibles fraudes analizando automáticamente transacciones bancarias. | Aprendizaje automático predictivo | Aprendizaje automático predictivo | `fraudes` | Aprendizaje automático predictivo | Coincide |
+| CASO-007 | Identificar enfermedades de plantas mediante fotografías de sus hojas. | Visión por computador | Visión por computador | `fotografias` | Visión por computador | Coincide |
+| CASO-008 | Crear un chatbot capaz de responder preguntas frecuentes de los estudiantes de una universidad. | Procesamiento de lenguaje natural | Procesamiento de lenguaje natural | `chatbot` | Procesamiento de lenguaje natural | Coincide |
+| CASO-009 | Predecir la demanda mensual de energía eléctrica utilizando registros históricos de consumo. | Aprendizaje automático predictivo | Aprendizaje automático predictivo | `predecir`, `demanda` | Aprendizaje automático predictivo | Coincide |
+| CASO-010 | Construir un sistema que sugiera posibles diagnósticos médicos a partir de síntomas ingresados por un profesional. | Sistemas expertos | Sistemas expertos | `diagnosticos` | Sistemas expertos | Coincide |
+| CASO-011 | Reconocer rostros para permitir el ingreso autorizado a un laboratorio. | Visión por computador | Visión por computador | `rostros` | Visión por computador | Coincide |
+| CASO-012 | Clasificar automáticamente correos electrónicos como spam o correo legítimo según su contenido. | Procesamiento de lenguaje natural | Procesamiento de lenguaje natural | `correo`, `correos` | Procesamiento de lenguaje natural | Coincide |
+| CASO-013 | Programar un robot móvil para desplazarse dentro de una bodega evitando obstáculos. | Robótica y sistemas autónomos | Robótica y sistemas autónomos | `robot`, `obstaculos` | Robótica y sistemas autónomos | Coincide |
+| CASO-014 | Asignar automáticamente horarios de clase evitando conflictos entre profesores, salones y grupos. | Búsqueda y optimización | Búsqueda y optimización | `horarios` | Búsqueda y optimización | Coincide |
+| CASO-015 | Detectar fallas futuras en maquinaria industrial utilizando información histórica de sensores. | Aprendizaje automático predictivo | Aprendizaje automático predictivo | `sensores` | Aprendizaje automático predictivo | Coincide |
+| CASO-016 | Extraer nombres, fechas y organizaciones mencionadas dentro de contratos escritos. | Procesamiento de lenguaje natural | Procesamiento de lenguaje natural | `contratos`, `nombres` | Procesamiento de lenguaje natural | Coincide |
+| CASO-017 | Identificar peatones y señales de tránsito en las imágenes capturadas por un vehículo autónomo. | Visión por computador | Visión por computador, Robótica y sistemas autónomos | `imagenes`, `peatones`, `senales` | Visión por computador | Coincide |
+| CASO-018 | Construir un sistema basado en reglas que determine si una solicitud de crédito cumple las políticas de una organización. | Sistemas expertos | Sistemas expertos | `reglas`, `politicas`, `solicitud de credito` | Sistemas expertos | Coincide |
+| CASO-019 | Diseñar un dron capaz de ajustar automáticamente su trayectoria para llegar a un destino. | Robótica y sistemas autónomos | Robótica y sistemas autónomos | `dron`, `trayectoria` | Robótica y sistemas autónomos | Coincide |
+| CASO-020 | Seleccionar la combinación óptima de productos que puede transportar un vehículo respetando su capacidad máxima. | Búsqueda y optimización | Búsqueda y optimización | `combinacion optima`, `capacidad maxima` | Búsqueda y optimización | Coincide |
 
 ## Resultado frente a la referencia
 
-Coincidencia: **100.00%** (12/12).
+Coincidencia: **100.00%** (20/20).
 
 ## Limitaciones
 

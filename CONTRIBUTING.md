@@ -3,6 +3,10 @@
 Convenciones de trabajo para mantener evidencia clara, cambios revisables y
 ejecuciones reproducibles durante el semestre.
 
+El entorno de referencia del curso es Python 3.13.x. Después de activar
+`.venv`, todos los comandos se ejecutan mediante `python` para asegurar que no
+se use por accidente el intérprete global.
+
 ## Flujo recomendado
 
 1. Crear una rama corta a partir de `main`.
@@ -56,7 +60,7 @@ Tarea: comparar A* con una búsqueda no informada sobre el mismo escenario.
 
 - Registra costo total y nodos expandidos.
 - Conserva el mismo criterio de desempate en ambos algoritmos.
-- Pruebas: python3 -m unittest discover -s tests -v
+- Pruebas: python -m unittest discover -s tests -v
 ```
 
 ## Entregas y versiones
@@ -78,8 +82,8 @@ anotado. El resto de los cambios se acumula en `[En curso]` dentro de
 Antes de integrar un cambio debe comprobarse:
 
 ```bash
-python3 -m unittest discover -s tests -v
-python3 -m src.semana03_taxonomia
+python -m unittest discover -s tests -v
+python -m src.semana03_taxonomia --fail-on-mismatch
 ```
 
 - **Realizado:** existen el código, los datos y el informe requeridos.

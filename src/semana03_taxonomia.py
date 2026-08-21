@@ -17,8 +17,10 @@ import unicodedata
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
+DEFAULT_INPUT = ROOT / "data" / "casos_ia.csv"
+DEFAULT_DOMAIN_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
 DEFAULT_REPORT = ROOT / "reports" / "semana03.md"
+MINIMUM_CASES = 20
 UNCLASSIFIED = "Requiere análisis"
 
 
@@ -52,6 +54,66 @@ class Classification:
 
 CATEGORIES: tuple[Category, ...] = (
     Category(
+        "Visión por computador",
+        "Verificación de paquetes a partir de imágenes.",
+        (
+            "imagen",
+            "imagenes",
+            "foto",
+            "fotografia",
+            "fotografias",
+            "camara",
+            "camaras",
+            "rostro",
+            "rostros",
+            "peaton",
+            "peatones",
+            "senal",
+            "senales",
+        ),
+    ),
+    Category(
+        "Procesamiento de lenguaje natural",
+        "Explicaciones o novedades expresadas en lenguaje natural.",
+        (
+            "texto",
+            "comentario",
+            "comentarios",
+            "correo",
+            "correos",
+            "chatbot",
+            "contrato",
+            "contratos",
+            "nombres",
+            "lenguaje",
+        ),
+    ),
+    Category(
+        "Aprendizaje automático predictivo",
+        "Estimación de demanda o clasificación del riesgo de retraso.",
+        (
+            "predecir",
+            "prediccion",
+            "probabilidad",
+            "demanda",
+            "fraude",
+            "fraudes",
+            "sensores",
+            "modelo predictivo",
+            "aprendizaje supervisado",
+        ),
+    ),
+    Category(
+        "Sistemas de recomendación",
+        "Presentación de planes y alternativas al operador.",
+        (
+            "recomendar",
+            "preferencias",
+            "historial de visualizacion",
+            "sugerir",
+        ),
+    ),
+    Category(
         "Búsqueda y optimización",
         "Planificación de rutas con A* sobre el grafo de entregas.",
         (
@@ -61,70 +123,40 @@ CATEGORIES: tuple[Category, ...] = (
             "grafo",
             "camino",
             "distancia",
+            "horario",
+            "horarios",
+            "combinacion optima",
             "optimizar",
             "optimizacion",
-            "flota",
-            "entrega",
-            "entregas",
-            "despacho",
-            "despachos",
-            "logistica",
-        ),
-    ),
-    Category(
-        "Aprendizaje automático predictivo",
-        "Estimación de demanda o clasificación del riesgo de retraso.",
-        (
-            "predecir",
-            "prediccion",
-            "modelo predictivo",
-            "aprendizaje supervisado",
-            "riesgo de retraso",
-            "retraso",
-            "retrasos",
-            "pronostico",
-            "pronosticar",
-            "demanda",
-            "tiempo de entrega",
+            "capacidad maxima",
         ),
     ),
     Category(
         "Sistemas expertos",
         "Validación trazable de restricciones operativas.",
         (
+            "diagnostico",
+            "diagnosticos",
             "regla",
             "reglas",
-            "restriccion",
-            "restricciones",
-            "ventana horaria",
-            "ventanas horarias",
-            "capacidad del vehiculo",
-            "capacidad de los vehiculos",
-            "prioridad",
-            "cadena de frio",
-            "politica operativa",
-        ),
-    ),
-    Category(
-        "Visión por computador",
-        "Verificación de paquetes a partir de imágenes.",
-        (
-            "imagen",
-            "imagenes",
-            "camara",
-            "fotografia",
-            "paquete",
-            "paquetes",
-            "etiqueta",
-            "etiquetas",
-            "dano visible",
-            "verificacion visual",
+            "politica",
+            "politicas",
+            "solicitud de credito",
         ),
     ),
     Category(
         "Robótica y sistemas autónomos",
         "Ciclo de control y replanificación ante novedades.",
         (
+            "robot",
+            "robots",
+            "dron",
+            "drones",
+            "vehiculo autonomo",
+            "obstaculo",
+            "obstaculos",
+            "trayectoria",
+            "trayectorias",
             "agente autonomo",
             "sistema autonomo",
             "ciclo de control",
@@ -132,38 +164,72 @@ CATEGORIES: tuple[Category, ...] = (
             "actuar",
             "replanificar",
             "replanificacion",
-            "via cerrada",
-            "pedido nuevo",
-            "novedad",
-        ),
-    ),
-    Category(
-        "Sistemas de recomendación",
-        "Presentación de planes y alternativas al operador.",
-        (
-            "recomendar",
-            "recomendacion",
-            "recomendaciones",
-            "alternativa de ruta",
-            "alternativas de ruta",
-            "preferencia del operador",
-        ),
-    ),
-    Category(
-        "Procesamiento de lenguaje natural",
-        "Explicaciones o novedades expresadas en lenguaje natural.",
-        (
-            "lenguaje natural",
-            "texto",
-            "mensaje",
-            "mensajes",
-            "explicacion textual",
-            "instruccion escrita",
         ),
     ),
 )
 
 CATEGORY_NAMES = frozenset(category.name for category in CATEGORIES)
+
+# Cinco reglas propias exigidas por la práctica, aplicadas al dominio logístico.
+# Se mantienen separadas de la taxonomía general para distinguir con claridad
+# el material base del curso de la adaptación realizada para este proyecto.
+CUSTOM_RULES: dict[str, tuple[str, ...]] = {
+    "Búsqueda y optimización": (
+        "flota",
+        "entrega",
+        "entregas",
+        "despacho",
+        "despachos",
+        "logistica",
+    ),
+    "Aprendizaje automático predictivo": (
+        "retraso",
+        "retrasos",
+        "pronostico",
+        "pronosticar",
+        "riesgo de retraso",
+        "tiempo de entrega",
+    ),
+    "Sistemas expertos": (
+        "restriccion",
+        "restricciones",
+        "ventana horaria",
+        "ventanas horarias",
+        "capacidad del vehiculo",
+        "capacidad de los vehiculos",
+        "prioridad",
+        "cadena de frio",
+        "politica operativa",
+    ),
+    "Visión por computador": (
+        "paquete",
+        "paquetes",
+        "etiqueta",
+        "etiquetas",
+        "dano visible",
+        "verificacion visual",
+    ),
+    "Sistemas de recomendación": (
+        "recomendacion",
+        "recomendaciones",
+        "alternativa de ruta",
+        "alternativas de ruta",
+        "preferencia del operador",
+    ),
+}
+
+
+def build_categories() -> tuple[Category, ...]:
+    """Combina la taxonomía general con las cinco reglas del proyecto."""
+
+    return tuple(
+        Category(
+            category.name,
+            category.component,
+            category.keywords + CUSTOM_RULES.get(category.name, ()),
+        )
+        for category in CATEGORIES
+    )
 
 
 def normalize_text(text: str) -> str:
@@ -197,7 +263,8 @@ def classify_requirement(description: str) -> Classification:
     scores: dict[str, int] = {}
     matched_keywords: dict[str, tuple[str, ...]] = {}
 
-    for category in CATEGORIES:
+    categories = build_categories()
+    for category in categories:
         matches = tuple(
             keyword
             for keyword in category.keywords
@@ -209,7 +276,7 @@ def classify_requirement(description: str) -> Classification:
     ranked = sorted(
         (
             (scores[category.name], index, category.name)
-            for index, category in enumerate(CATEGORIES)
+            for index, category in enumerate(categories)
             if scores[category.name] > 0
         ),
         key=lambda item: (-item[0], item[1]),
@@ -227,7 +294,9 @@ def _normalized_header(header: str) -> str:
     return normalize_text(header).replace(" ", "")
 
 
-def load_requirements(path: Path) -> list[Requirement]:
+def load_requirements(
+    path: Path, minimum_cases: int = MINIMUM_CASES
+) -> list[Requirement]:
     """Carga y valida casos desde un CSV UTF-8, incluido UTF-8 con BOM."""
 
     if not path.exists():
@@ -240,7 +309,7 @@ def load_requirements(path: Path) -> list[Requirement]:
 
         original_headers = list(reader.fieldnames)
         reader.fieldnames = [_normalized_header(header) for header in reader.fieldnames]
-        required_headers = {"id", "descripcion"}
+        required_headers = {"descripcion"}
         missing = required_headers.difference(reader.fieldnames)
         if missing:
             raise ValueError(
@@ -251,13 +320,13 @@ def load_requirements(path: Path) -> list[Requirement]:
         requirements: list[Requirement] = []
         seen_identifiers: set[str] = set()
         for row_number, row in enumerate(reader, start=2):
-            identifier = (row.get("id") or "").strip()
+            identifier = (row.get("id") or "").strip() or f"CASO-{row_number - 1:03d}"
             description = (row.get("descripcion") or "").strip()
             expected = (row.get("areaesperada") or "").strip() or None
 
-            if not identifier or not description:
+            if not description:
                 raise ValueError(
-                    f"Fila {row_number}: 'id' y 'descripcion' no pueden estar vacíos."
+                    f"Fila {row_number}: 'descripcion' no puede estar vacía."
                 )
             if identifier in seen_identifiers:
                 raise ValueError(f"Fila {row_number}: id duplicado '{identifier}'.")
@@ -269,8 +338,11 @@ def load_requirements(path: Path) -> list[Requirement]:
             seen_identifiers.add(identifier)
             requirements.append(Requirement(identifier, description, expected))
 
-    if not requirements:
-        raise ValueError("El CSV no contiene requerimientos.")
+    if len(requirements) < minimum_cases:
+        raise ValueError(
+            f"La práctica requiere al menos {minimum_cases} casos y el archivo "
+            f"contiene {len(requirements)}."
+        )
     return requirements
 
 
@@ -292,7 +364,7 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
     )
 
     lines = [
-        "# Semana 03 — Taxonomía del dominio logístico",
+        "# Semana 03 — Taxonomía de inteligencia artificial",
         "",
         "Reporte generado por `python3 -m src.semana03_taxonomia`.",
         "",
@@ -310,6 +382,19 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
     ]
     lines.extend(
         f"| {category.name} | {category.component} |" for category in CATEGORIES
+    )
+    lines.extend(
+        [
+            "",
+            "## Cinco reglas propias del dominio",
+            "",
+            "| Área | Vocabulario logístico agregado |",
+            "|---|---|",
+        ]
+    )
+    lines.extend(
+        f"| {area} | {', '.join(f'`{keyword}`' for keyword in keywords)} |"
+        for area, keywords in CUSTOM_RULES.items()
     )
     lines.extend(
         [
@@ -397,13 +482,21 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Finaliza con código 1 si una clasificación difiere de la referencia.",
     )
+    parser.add_argument(
+        "--minimum-cases",
+        type=int,
+        default=MINIMUM_CASES,
+        help=f"Cantidad mínima exigida (predeterminado: {MINIMUM_CASES})",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
-        requirements = load_requirements(args.input)
+        if args.minimum_cases < 1:
+            raise ValueError("--minimum-cases debe ser mayor o igual a 1.")
+        requirements = load_requirements(args.input, args.minimum_cases)
         report = render_report(requirements, args.input.name)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(report, encoding="utf-8")
