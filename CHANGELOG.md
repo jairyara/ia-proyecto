@@ -11,6 +11,12 @@ aplica a las entregas de los cortes 1, 2 y 3.
 - **Sesión 2** (2026-08-20):
   - `chore` Inicialización del repositorio, estructura base, dependencias,
     reglas de contribución y documentación de entrada.
+  - `feat` Taxonomía logística y clasificador simbólico reproducible en
+    `src/semana03_taxonomia.py`, con 12 requerimientos de referencia y evidencia
+    de las reglas activadas.
+  - `test` Pruebas de normalización, clasificación multiárea, validación de CSV,
+    consistencia de datos y generación del reporte.
+  - `docs` Plan de fases, mapeo de áreas de IA y reporte de la semana 3.
 
 <!-- Plantilla de entrega:
 ## [v1.0.0] - Corte 1 - AAAA-MM-DD

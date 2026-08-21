@@ -1,0 +1,14 @@
+id,descripcion,area_esperada
+REQ-001,Calcular la ruta de menor distancia sobre el grafo de entregas con A*.,Búsqueda y optimización
+REQ-002,Optimizar los despachos y las rutas disponibles para toda la flota.,Búsqueda y optimización
+REQ-003,Predecir el riesgo de retraso y el tiempo de entrega con aprendizaje supervisado.,Aprendizaje automático predictivo
+REQ-004,Pronosticar la demanda diaria con un modelo predictivo antes de asignar vehículos.,Aprendizaje automático predictivo
+REQ-005,Validar las restricciones de capacidad del vehículo y ventana horaria.,Sistemas expertos
+REQ-006,Aplicar reglas de prioridad y cadena de frío antes de aprobar el plan.,Sistemas expertos
+REQ-007,Inspeccionar una imagen del paquete para detectar daño visible.,Visión por computador
+REQ-008,Usar una cámara para la verificación visual de etiquetas en los paquetes.,Visión por computador
+REQ-009,Un agente autónomo debe percibir una vía cerrada y replanificar durante el ciclo de control.,Robótica y sistemas autónomos
+REQ-010,Recomendar alternativas de ruta según la preferencia del operador.,Sistemas de recomendación
+REQ-011,Generar una explicación textual en lenguaje natural para el operador.,Procesamiento de lenguaje natural
+REQ-012,Calcular una ruta A* y validar sus ventanas horarias con reglas auditables.,Búsqueda y optimización
+
