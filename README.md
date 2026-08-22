@@ -53,13 +53,6 @@ de la operación.
 
 1. **Última milla y domicilios urbanos:** minimizar distancia y tiempo total de
    las rutas diarias.
-2. **Distribución de bodega a puntos de venta:** abastecer múltiples destinos
-   con varios vehículos.
-3. **Courier con recogidas dinámicas:** replanificar cuando entra un pedido o se
-   cierra una vía.
-4. **Flotas con restricciones especiales:** verificar capacidad, ventanas
-   horarias y cadena de frío.
-5. **Logística humanitaria:** priorizar de forma auditable entregas críticas.
 
 ## Taxonomía de IA aplicada
 
