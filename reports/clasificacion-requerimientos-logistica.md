@@ -21,15 +21,17 @@ Reporte generado por `python -m src.clasificador_requerimientos`.
 | Sistemas expertos | Validación trazable de restricciones operativas. |
 | Robótica y sistemas autónomos | Ciclo de control y replanificación ante novedades. |
 
-## Cinco reglas propias del dominio
+## Reglas propias del dominio
 
 | Área | Vocabulario logístico agregado |
 |---|---|
-| Búsqueda y optimización | `flota`, `entrega`, `entregas`, `despacho`, `despachos`, `logistica` |
-| Aprendizaje automático predictivo | `retraso`, `retrasos`, `pronostico`, `pronosticar`, `riesgo de retraso`, `tiempo de entrega` |
+| Búsqueda y optimización | `flota`, `entrega`, `entregas`, `despacho`, `despachos`, `logistica`, `reparto`, `repartos`, `mensajeria`, `ultima milla` |
+| Aprendizaje automático predictivo | `retraso`, `retrasos`, `pronostico`, `pronosticar`, `riesgo de retraso`, `tiempo de entrega`, `tiempos de entrega`, `volumen de envios`, `demanda de envios` |
 | Sistemas expertos | `restriccion`, `restricciones`, `ventana horaria`, `ventanas horarias`, `capacidad del vehiculo`, `capacidad de los vehiculos`, `prioridad`, `cadena de frio`, `politica operativa` |
-| Visión por computador | `paquete`, `paquetes`, `etiqueta`, `etiquetas`, `dano visible`, `verificacion visual` |
+| Visión por computador | `paquete`, `paquetes`, `etiqueta`, `etiquetas`, `dano visible`, `verificacion visual`, `codigo de barras` |
 | Sistemas de recomendación | `recomendacion`, `recomendaciones`, `alternativa de ruta`, `alternativas de ruta`, `preferencia del operador` |
+| Procesamiento de lenguaje natural | `seguimiento`, `estado del envio`, `reclamos` |
+| Robótica y sistemas autónomos | `dron de reparto`, `reparto autonomo`, `repartidor autonomo` |
 
 ## Clasificación de requerimientos
 

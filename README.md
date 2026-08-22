@@ -68,7 +68,9 @@ de la operación.
 
 La línea base actual es un clasificador simbólico disponible en
 `src/clasificador_requerimientos.py`. Conserva las reglas generales de la
-práctica y agrega cinco grupos de reglas propios del dominio logístico.
+práctica y agrega grupos de reglas propios del dominio logístico, incluido
+vocabulario de mensajería, última milla, seguimiento de envíos y reparto
+autónomo.
 
 ## Estado y alcance
 

@@ -25,6 +25,12 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Taxonomía y línea base simbólica
 
+- **Ampliación de vocabulario** (2026-08-22):
+  - `update` Reglas propias ampliadas a siete grupos con vocabulario de
+    mensajería y última milla: reparto, volumen y demanda de envíos, tiempos
+    de entrega, código de barras, seguimiento y estado del envío, reclamos, y
+    reparto autónomo con drones; 40/40 casos siguen coincidiendo con la
+    referencia y las 13 pruebas pasan.
 - **Sesión 2** (2026-08-20):
   - `chore` Inicialización del repositorio, estructura base, dependencias,
     reglas de contribución y documentación de entrada.

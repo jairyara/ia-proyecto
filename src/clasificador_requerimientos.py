@@ -170,7 +170,8 @@ CATEGORIES: tuple[Category, ...] = (
 
 CATEGORY_NAMES = frozenset(category.name for category in CATEGORIES)
 
-# Cinco reglas propias exigidas por la práctica, aplicadas al dominio logístico.
+# Reglas propias del dominio logístico. Las cinco exigidas por la práctica se
+# ampliaron con vocabulario de mensajería, última milla y seguimiento de envíos.
 # Se mantienen separadas de la taxonomía general para distinguir con claridad
 # el material base del curso de la adaptación realizada para este proyecto.
 CUSTOM_RULES: dict[str, tuple[str, ...]] = {
@@ -181,6 +182,10 @@ CUSTOM_RULES: dict[str, tuple[str, ...]] = {
         "despacho",
         "despachos",
         "logistica",
+        "reparto",
+        "repartos",
+        "mensajeria",
+        "ultima milla",
     ),
     "Aprendizaje automático predictivo": (
         "retraso",
@@ -189,6 +194,9 @@ CUSTOM_RULES: dict[str, tuple[str, ...]] = {
         "pronosticar",
         "riesgo de retraso",
         "tiempo de entrega",
+        "tiempos de entrega",
+        "volumen de envios",
+        "demanda de envios",
     ),
     "Sistemas expertos": (
         "restriccion",
@@ -208,6 +216,7 @@ CUSTOM_RULES: dict[str, tuple[str, ...]] = {
         "etiquetas",
         "dano visible",
         "verificacion visual",
+        "codigo de barras",
     ),
     "Sistemas de recomendación": (
         "recomendacion",
@@ -215,6 +224,16 @@ CUSTOM_RULES: dict[str, tuple[str, ...]] = {
         "alternativa de ruta",
         "alternativas de ruta",
         "preferencia del operador",
+    ),
+    "Procesamiento de lenguaje natural": (
+        "seguimiento",
+        "estado del envio",
+        "reclamos",
+    ),
+    "Robótica y sistemas autónomos": (
+        "dron de reparto",
+        "reparto autonomo",
+        "repartidor autonomo",
     ),
 }
 
@@ -386,7 +405,7 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
     lines.extend(
         [
             "",
-            "## Cinco reglas propias del dominio",
+            "## Reglas propias del dominio",
             "",
             "| Área | Vocabulario logístico agregado |",
             "|---|---|",
