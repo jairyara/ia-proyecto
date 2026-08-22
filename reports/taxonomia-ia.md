@@ -25,34 +25,27 @@ taxonomía.
 
 ## 3. Datos y validación
 
-`data/casos_ia.csv` conserva los 20 casos exigidos por la guía y
-`data/requerimientos_logistica.csv` contiene 20 casos aplicados al proyecto.
-Ambos incluyen clasificación manual de referencia, cubren las siete áreas y
-contienen casos híbridos.
+`data/requerimientos_logistica.csv` contiene 20 requerimientos aplicados al
+proyecto. Incluye clasificación manual de referencia, cubre las siete áreas y
+contiene casos híbridos.
 
 La ejecución utilizada fue:
 
 ```bash
 python -m unittest discover -s tests -v
 python -m src.clasificador_requerimientos --fail-on-mismatch
-python -m src.clasificador_requerimientos \
-  --input data/requerimientos_logistica.csv \
-  --output reports/clasificacion-requerimientos-logistica.md \
-  --fail-on-mismatch
 ```
 
 ## 4. Resultados
 
-- 20 casos generales y 20 requerimientos logísticos procesados.
-- 20/20 categorías principales coinciden con cada referencia manual (100% en
-  ambos conjuntos).
-- Cinco grupos de reglas propias del dominio se mantienen separados de las
-  reglas generales para que su procedencia sea auditable.
+- 20 requerimientos logísticos procesados.
+- 20/20 categorías principales coinciden con la referencia manual (100%).
+- El vocabulario por área es propio del dominio logístico y queda documentado
+  en el reporte de clasificación.
 - Las pruebas verifican normalización, coincidencia de palabras completas,
   clasificación multiárea, consistencia del dataset, validación del CSV y
   contenido básico del reporte.
-- El detalle queda en `reports/clasificacion-casos-base.md` y
-  `reports/clasificacion-requerimientos-logistica.md`.
+- El detalle queda en `reports/clasificacion-requerimientos-logistica.md`.
 
 ## 5. Conclusiones y limitaciones
 

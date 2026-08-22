@@ -3,7 +3,6 @@ import tempfile
 import unittest
 
 from src.clasificador_requerimientos import (
-    DEFAULT_DOMAIN_INPUT,
     DEFAULT_INPUT,
     UNCLASSIFIED,
     classify_requirement,
@@ -36,18 +35,21 @@ class ClassificationTests(unittest.TestCase):
         self.assertIn("Sistemas expertos", result.detected)
         self.assertIn("a estrella", result.matched_keywords[result.primary])
 
-    def test_reference_dataset_matches_expected_areas(self) -> None:
-        requirements = load_requirements(DEFAULT_INPUT)
-        mismatches = [
-            requirement.identifier
-            for requirement in requirements
-            if classify_requirement(requirement.description).primary
-            != requirement.expected_area
-        ]
-        self.assertEqual(mismatches, [])
+    def test_classifies_last_mile_vocabulary(self) -> None:
+        result = classify_requirement(
+            "Planificar el reparto de mensajería en la última milla"
+        )
+        self.assertEqual(result.primary, "Búsqueda y optimización")
+        self.assertIn("reparto", result.matched_keywords[result.primary])
 
-    def test_domain_dataset_matches_expected_areas(self) -> None:
-        requirements = load_requirements(DEFAULT_DOMAIN_INPUT)
+    def test_classifies_tracking_and_claims_as_nlp(self) -> None:
+        result = classify_requirement(
+            "Responder reclamos y consultar el estado del envío"
+        )
+        self.assertEqual(result.primary, "Procesamiento de lenguaje natural")
+
+    def test_dataset_matches_expected_areas(self) -> None:
+        requirements = load_requirements(DEFAULT_INPUT)
         mismatches = [
             requirement.identifier
             for requirement in requirements
@@ -79,7 +81,7 @@ class CsvValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "área esperada desconocida"):
             load_requirements(path)
 
-    def test_accepts_the_course_csv_with_only_description(self) -> None:
+    def test_accepts_csv_with_only_description(self) -> None:
         path = self._write_csv("descripcion\nCalcular una ruta\n")
         requirements = load_requirements(path, minimum_cases=1)
 
@@ -93,7 +95,6 @@ class CsvValidationTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "al menos 20 casos"):
             load_requirements(path)
-
     def test_allows_an_explicit_smaller_minimum_for_auxiliary_inputs(self) -> None:
         path = self._write_csv(
             "id,descripcion,area_esperada\n"

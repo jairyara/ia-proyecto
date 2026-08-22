@@ -21,17 +21,17 @@ Reporte generado por `python -m src.clasificador_requerimientos`.
 | Sistemas expertos | Validación trazable de restricciones operativas. |
 | Robótica y sistemas autónomos | Ciclo de control y replanificación ante novedades. |
 
-## Reglas propias del dominio
+## Vocabulario por área
 
-| Área | Vocabulario logístico agregado |
+| Área | Vocabulario del dominio logístico |
 |---|---|
-| Búsqueda y optimización | `flota`, `entrega`, `entregas`, `despacho`, `despachos`, `logistica`, `reparto`, `repartos`, `mensajeria`, `ultima milla` |
-| Aprendizaje automático predictivo | `retraso`, `retrasos`, `pronostico`, `pronosticar`, `riesgo de retraso`, `tiempo de entrega`, `tiempos de entrega`, `volumen de envios`, `demanda de envios` |
-| Sistemas expertos | `restriccion`, `restricciones`, `ventana horaria`, `ventanas horarias`, `capacidad del vehiculo`, `capacidad de los vehiculos`, `prioridad`, `cadena de frio`, `politica operativa` |
-| Visión por computador | `paquete`, `paquetes`, `etiqueta`, `etiquetas`, `dano visible`, `verificacion visual`, `codigo de barras` |
-| Sistemas de recomendación | `recomendacion`, `recomendaciones`, `alternativa de ruta`, `alternativas de ruta`, `preferencia del operador` |
-| Procesamiento de lenguaje natural | `seguimiento`, `estado del envio`, `reclamos` |
-| Robótica y sistemas autónomos | `dron de reparto`, `reparto autonomo`, `repartidor autonomo` |
+| Visión por computador | `imagen`, `imagenes`, `foto`, `fotografia`, `fotografias`, `camara`, `camaras`, `paquete`, `paquetes`, `etiqueta`, `etiquetas`, `dano visible`, `verificacion visual`, `codigo de barras` |
+| Procesamiento de lenguaje natural | `texto`, `lenguaje`, `seguimiento`, `estado del envio`, `reclamos` |
+| Aprendizaje automático predictivo | `predecir`, `prediccion`, `probabilidad`, `demanda`, `sensores`, `modelo predictivo`, `aprendizaje supervisado`, `retraso`, `retrasos`, `pronostico`, `pronosticar`, `riesgo de retraso`, `tiempo de entrega`, `tiempos de entrega`, `volumen de envios`, `demanda de envios` |
+| Sistemas de recomendación | `recomendar`, `preferencias`, `sugerir`, `recomendacion`, `recomendaciones`, `alternativa de ruta`, `alternativas de ruta`, `preferencia del operador` |
+| Búsqueda y optimización | `a estrella`, `ruta`, `rutas`, `grafo`, `camino`, `distancia`, `horario`, `horarios`, `combinacion optima`, `optimizar`, `optimizacion`, `capacidad maxima`, `flota`, `entrega`, `entregas`, `despacho`, `despachos`, `logistica`, `reparto`, `repartos`, `mensajeria`, `ultima milla` |
+| Sistemas expertos | `regla`, `reglas`, `politica`, `politicas`, `restriccion`, `restricciones`, `ventana horaria`, `ventanas horarias`, `capacidad del vehiculo`, `capacidad de los vehiculos`, `prioridad`, `cadena de frio`, `politica operativa` |
+| Robótica y sistemas autónomos | `dron`, `drones`, `vehiculo autonomo`, `trayectoria`, `trayectorias`, `agente autonomo`, `sistema autonomo`, `ciclo de control`, `percibir`, `actuar`, `replanificar`, `replanificacion`, `dron de reparto`, `reparto autonomo`, `repartidor autonomo` |
 
 ## Clasificación de requerimientos
 

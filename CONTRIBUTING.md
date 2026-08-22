@@ -29,9 +29,8 @@ tema afectado:
 <instrucciones, contexto y resultados relevantes>
 ```
 
-Scopes habituales: `pipeline-iris`, `clasificador`, `datos`, `reportes`,
-`docs`. Para las entregas de corte se usa `corte<N>` y para cambios
-transversales, `repo`.
+Scopes habituales: `clasificador`, `datos`, `reportes`, `docs`. Para las
+entregas de corte se usa `corte<N>` y para cambios transversales, `repo`.
 
 ### Reglas
 
@@ -95,7 +94,8 @@ python -m src.clasificador_requerimientos --fail-on-mismatch
 ## Reportes
 
 Cada práctica o componente deja un reporte en `reports/` nombrado por tema
-(`<tema>.md`, por ejemplo `pipeline-iris.md` o `taxonomia-ia.md`) con:
+(`<tema>.md`, por ejemplo `taxonomia-ia.md` o
+`clasificacion-requerimientos-logistica.md`) con:
 
 1. objetivo y alcance;
 2. cambios o commits analizados;

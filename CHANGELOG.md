@@ -6,31 +6,26 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
-### Nomenclatura por temas
+### Enfoque en el dominio logístico
 
-- **Sesión 3** (2026-08-21):
-  - `refactor` Módulos, pruebas y reportes renombrados por tema
-    (`pipeline_iris`, `clasificador_requerimientos`,
-    `clasificacion-casos-base`, `clasificacion-requerimientos-logistica`);
-    las semanas quedan solo como roadmap en `PLAN-PROYECTO.md`.
-  - `docs` Convención de commits por módulo y README reencuadrado por temas.
-
-### Pipeline supervisado de referencia
-
-- **Nivelación** (2026-08-20):
-  - `feat` Pipeline reproducible Iris con partición estratificada, escalado y
-    regresión logística; accuracy 0.921 y matriz de confusión verificadas.
-  - `test` Prueba de tamaños, accuracy y matriz esperada.
-  - `docs` Reporte técnico de la práctica en `reports/pipeline-iris.md`.
+- **Limpieza** (2026-08-22):
+  - `update` El repositorio se enfoca exclusivamente en el dominio de
+    logística y distribución: se retiran el pipeline de nivelación Iris, los
+    20 casos base genéricos de la guía y su reporte. El historial de git
+    conserva la evidencia de esas prácticas.
+  - `refactor` El clasificador usa un único vocabulario del dominio (rutas y
+    última milla, demanda y retrasos, restricciones operativas, verificación
+    de paquetes, seguimiento de envíos, reparto autónomo); `data/requerimientos_logistica.csv`
+    es la entrada por defecto. 20/20 requerimientos coinciden con la
+    referencia y las pruebas pasan.
 
 ### Taxonomía y línea base simbólica
 
 - **Ampliación de vocabulario** (2026-08-22):
-  - `update` Reglas propias ampliadas a siete grupos con vocabulario de
-    mensajería y última milla: reparto, volumen y demanda de envíos, tiempos
-    de entrega, código de barras, seguimiento y estado del envío, reclamos, y
-    reparto autónomo con drones; 40/40 casos siguen coincidiendo con la
-    referencia y las 13 pruebas pasan.
+  - `update` Reglas propias ampliadas con vocabulario de mensajería y última
+    milla: reparto, volumen y demanda de envíos, tiempos de entrega, código
+    de barras, seguimiento y estado del envío, reclamos, y reparto autónomo
+    con drones.
 - **Sesión 2** (2026-08-20):
   - `chore` Inicialización del repositorio, estructura base, dependencias,
     reglas de contribución y documentación de entrada.
@@ -40,9 +35,6 @@ aplica a las entregas de los cortes 1, 2 y 3.
   - `test` Pruebas de normalización, clasificación multiárea, validación de CSV,
     consistencia de datos y generación del reporte.
   - `docs` Plan de fases, mapeo de áreas de IA y reporte de la taxonomía.
-  - `fix` Alineación con las fuentes originales: Python 3.13.x, 20 casos base
-    obligatorios, 20 casos logísticos, cinco reglas propias diferenciadas y
-    justificación oficial preservada en `docs/`.
   - `chore` Publicación del repositorio privado en GitHub e invitación de
     colaboración con permiso de escritura enviada a `CatherinneG`.
 

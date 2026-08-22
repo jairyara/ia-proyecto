@@ -67,9 +67,9 @@ de la operación.
 | Procesamiento de lenguaje natural | Área complementaria para explicaciones o captura de novedades | Alcance sujeto a las necesidades confirmadas del curso |
 
 La línea base actual es un clasificador simbólico disponible en
-`src/clasificador_requerimientos.py`. Conserva las reglas generales de la
-práctica y agrega grupos de reglas propios del dominio logístico, incluido
-vocabulario de mensajería, última milla, seguimiento de envíos y reparto
+`src/clasificador_requerimientos.py`. Usa vocabulario propio del dominio
+logístico: rutas y última milla, demanda y riesgo de retraso, restricciones
+operativas, verificación de paquetes, seguimiento de envíos y reparto
 autónomo.
 
 ## Estado y alcance
@@ -77,11 +77,10 @@ autónomo.
 El sistema cuenta hoy con una base verificable:
 
 - estructura reproducible y convenciones de trabajo;
-- pipeline supervisado de referencia (`src/pipeline_iris.py`);
 - taxonomía del dominio logístico;
 - clasificador simbólico de requerimientos;
-- 20 casos base de la guía y 20 requerimientos del dominio;
-- validación automática y reportes reproducibles con referencia manual.
+- 20 requerimientos del dominio con referencia manual;
+- validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
 decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
@@ -112,28 +111,15 @@ python -m pip install -r requirements.txt
 
 ## Uso
 
-Ejecutar el pipeline supervisado de referencia:
-
-```bash
-python -m src.pipeline_iris
-```
-
 Ejecutar la línea base de clasificación desde la raíz del repositorio:
 
 ```bash
 python -m src.clasificador_requerimientos --fail-on-mismatch
 ```
 
-La ejecución anterior procesa los 20 casos base de `data/casos_ia.csv` y
-actualiza `reports/clasificacion-casos-base.md`. La adaptación logística se
-reproduce con:
-
-```bash
-python -m src.clasificador_requerimientos \
-  --input data/requerimientos_logistica.csv \
-  --output reports/clasificacion-requerimientos-logistica.md \
-  --fail-on-mismatch
-```
+La ejecución anterior procesa los 20 requerimientos de
+`data/requerimientos_logistica.csv` y actualiza
+`reports/clasificacion-requerimientos-logistica.md`.
 
 Para ver todas las opciones: `python -m src.clasificador_requerimientos --help`.
 

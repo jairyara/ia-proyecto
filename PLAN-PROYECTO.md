@@ -36,11 +36,10 @@ produjo.
 - [x] Estructura `src/`, `data/`, `notebooks/`, `artifacts/`, `reports/` y
   `tests/`.
 - [x] Configuración reproducible, convenciones de commits y changelog.
-- [x] Pipeline supervisado de referencia (`src/pipeline_iris.py`).
 - [x] README con problema, justificación, objetivos y arquitectura prevista.
 - [x] Taxonomía del dominio: áreas de IA vinculadas a los componentes.
 - [x] Clasificador simbólico como línea base de requerimientos logísticos.
-- [x] 20 casos base, 20 casos logísticos, cinco reglas propias, pruebas
+- [x] 20 casos logísticos, vocabulario propio del dominio, pruebas
   automatizadas e informes reproducibles.
 - [x] Repositorio privado creado en GitHub e invitación de escritura enviada a
   `CatherinneG`.

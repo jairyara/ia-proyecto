@@ -17,9 +17,8 @@ import unicodedata
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_INPUT = ROOT / "data" / "casos_ia.csv"
-DEFAULT_DOMAIN_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
-DEFAULT_REPORT = ROOT / "reports" / "clasificacion-casos-base.md"
+DEFAULT_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
+DEFAULT_REPORT = ROOT / "reports" / "clasificacion-requerimientos-logistica.md"
 MINIMUM_CASES = 20
 UNCLASSIFIED = "Requiere análisis"
 
@@ -64,12 +63,13 @@ CATEGORIES: tuple[Category, ...] = (
             "fotografias",
             "camara",
             "camaras",
-            "rostro",
-            "rostros",
-            "peaton",
-            "peatones",
-            "senal",
-            "senales",
+            "paquete",
+            "paquetes",
+            "etiqueta",
+            "etiquetas",
+            "dano visible",
+            "verificacion visual",
+            "codigo de barras",
         ),
     ),
     Category(
@@ -77,15 +77,10 @@ CATEGORIES: tuple[Category, ...] = (
         "Explicaciones o novedades expresadas en lenguaje natural.",
         (
             "texto",
-            "comentario",
-            "comentarios",
-            "correo",
-            "correos",
-            "chatbot",
-            "contrato",
-            "contratos",
-            "nombres",
             "lenguaje",
+            "seguimiento",
+            "estado del envio",
+            "reclamos",
         ),
     ),
     Category(
@@ -96,11 +91,18 @@ CATEGORIES: tuple[Category, ...] = (
             "prediccion",
             "probabilidad",
             "demanda",
-            "fraude",
-            "fraudes",
             "sensores",
             "modelo predictivo",
             "aprendizaje supervisado",
+            "retraso",
+            "retrasos",
+            "pronostico",
+            "pronosticar",
+            "riesgo de retraso",
+            "tiempo de entrega",
+            "tiempos de entrega",
+            "volumen de envios",
+            "demanda de envios",
         ),
     ),
     Category(
@@ -109,8 +111,12 @@ CATEGORIES: tuple[Category, ...] = (
         (
             "recomendar",
             "preferencias",
-            "historial de visualizacion",
             "sugerir",
+            "recomendacion",
+            "recomendaciones",
+            "alternativa de ruta",
+            "alternativas de ruta",
+            "preferencia del operador",
         ),
     ),
     Category(
@@ -129,32 +135,44 @@ CATEGORIES: tuple[Category, ...] = (
             "optimizar",
             "optimizacion",
             "capacidad maxima",
+            "flota",
+            "entrega",
+            "entregas",
+            "despacho",
+            "despachos",
+            "logistica",
+            "reparto",
+            "repartos",
+            "mensajeria",
+            "ultima milla",
         ),
     ),
     Category(
         "Sistemas expertos",
         "Validación trazable de restricciones operativas.",
         (
-            "diagnostico",
-            "diagnosticos",
             "regla",
             "reglas",
             "politica",
             "politicas",
-            "solicitud de credito",
+            "restriccion",
+            "restricciones",
+            "ventana horaria",
+            "ventanas horarias",
+            "capacidad del vehiculo",
+            "capacidad de los vehiculos",
+            "prioridad",
+            "cadena de frio",
+            "politica operativa",
         ),
     ),
     Category(
         "Robótica y sistemas autónomos",
         "Ciclo de control y replanificación ante novedades.",
         (
-            "robot",
-            "robots",
             "dron",
             "drones",
             "vehiculo autonomo",
-            "obstaculo",
-            "obstaculos",
             "trayectoria",
             "trayectorias",
             "agente autonomo",
@@ -164,91 +182,14 @@ CATEGORIES: tuple[Category, ...] = (
             "actuar",
             "replanificar",
             "replanificacion",
+            "dron de reparto",
+            "reparto autonomo",
+            "repartidor autonomo",
         ),
     ),
 )
 
 CATEGORY_NAMES = frozenset(category.name for category in CATEGORIES)
-
-# Reglas propias del dominio logístico. Las cinco exigidas por la práctica se
-# ampliaron con vocabulario de mensajería, última milla y seguimiento de envíos.
-# Se mantienen separadas de la taxonomía general para distinguir con claridad
-# el material base del curso de la adaptación realizada para este proyecto.
-CUSTOM_RULES: dict[str, tuple[str, ...]] = {
-    "Búsqueda y optimización": (
-        "flota",
-        "entrega",
-        "entregas",
-        "despacho",
-        "despachos",
-        "logistica",
-        "reparto",
-        "repartos",
-        "mensajeria",
-        "ultima milla",
-    ),
-    "Aprendizaje automático predictivo": (
-        "retraso",
-        "retrasos",
-        "pronostico",
-        "pronosticar",
-        "riesgo de retraso",
-        "tiempo de entrega",
-        "tiempos de entrega",
-        "volumen de envios",
-        "demanda de envios",
-    ),
-    "Sistemas expertos": (
-        "restriccion",
-        "restricciones",
-        "ventana horaria",
-        "ventanas horarias",
-        "capacidad del vehiculo",
-        "capacidad de los vehiculos",
-        "prioridad",
-        "cadena de frio",
-        "politica operativa",
-    ),
-    "Visión por computador": (
-        "paquete",
-        "paquetes",
-        "etiqueta",
-        "etiquetas",
-        "dano visible",
-        "verificacion visual",
-        "codigo de barras",
-    ),
-    "Sistemas de recomendación": (
-        "recomendacion",
-        "recomendaciones",
-        "alternativa de ruta",
-        "alternativas de ruta",
-        "preferencia del operador",
-    ),
-    "Procesamiento de lenguaje natural": (
-        "seguimiento",
-        "estado del envio",
-        "reclamos",
-    ),
-    "Robótica y sistemas autónomos": (
-        "dron de reparto",
-        "reparto autonomo",
-        "repartidor autonomo",
-    ),
-}
-
-
-def build_categories() -> tuple[Category, ...]:
-    """Combina la taxonomía general con las cinco reglas del proyecto."""
-
-    return tuple(
-        Category(
-            category.name,
-            category.component,
-            category.keywords + CUSTOM_RULES.get(category.name, ()),
-        )
-        for category in CATEGORIES
-    )
 
 
 def normalize_text(text: str) -> str:
@@ -282,7 +223,7 @@ def classify_requirement(description: str) -> Classification:
     scores: dict[str, int] = {}
     matched_keywords: dict[str, tuple[str, ...]] = {}
 
-    categories = build_categories()
+    categories = CATEGORIES
     for category in categories:
         matches = tuple(
             keyword
@@ -359,7 +300,7 @@ def load_requirements(
 
     if len(requirements) < minimum_cases:
         raise ValueError(
-            f"La práctica requiere al menos {minimum_cases} casos y el archivo "
+            f"Se requieren al menos {minimum_cases} casos y el archivo "
             f"contiene {len(requirements)}."
         )
     return requirements
@@ -405,15 +346,15 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
     lines.extend(
         [
             "",
-            "## Reglas propias del dominio",
+            "## Vocabulario por área",
             "",
-            "| Área | Vocabulario logístico agregado |",
+            "| Área | Vocabulario del dominio logístico |",
             "|---|---|",
         ]
     )
     lines.extend(
-        f"| {area} | {', '.join(f'`{keyword}`' for keyword in keywords)} |"
-        for area, keywords in CUSTOM_RULES.items()
+        f"| {category.name} | {', '.join(f'`{keyword}`' for keyword in category.keywords)} |"
+        for category in CATEGORIES
     )
     lines.extend(
         [
