@@ -4,7 +4,15 @@ Registro de cambios inspirado en
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). El versionado
 aplica a las entregas de los cortes 1, 2 y 3.
 
-## [En curso]
+### Búsqueda heurística A*, líneas base y replanificación (`src/busqueda/`)
+
+- **feat** (2026-08-28): implementación completa del módulo de búsqueda para el Corte 1.
+  - `feat` Se implementa `GrafoEntregas` (`src/busqueda/grafo.py`) con soporte para matrices $N \times N$ de Amazon Last Mile, cuadrículas sintéticas y bloqueo dinámico de vías.
+  - `feat` Se implementa búsqueda $A^*$ (`src/busqueda/a_estrella.py`) con heurística geodésica admisible $h(n) = \text{Haversine}/v_{\max}$ y Manhattan.
+  - `feat` Se implementan líneas base no informadas Dijkstra y BFS (`src/busqueda/no_informada.py`).
+  - `feat` Se implementa ciclo dinámico de replanificación ante vías bloqueadas (`src/busqueda/replanificacion.py`).
+  - `feat` Script de benchmarking `src/busqueda_rutas.py` y reporte técnico `reports/busqueda-rutas.md` (reducción de hasta 67.3% de exploración con 100% de optimalidad).
+  - `test` Se agrega suite `tests/test_busqueda.py`; 45/45 pruebas unitarias pasando.
 
 ### Plan de proyecto — Especificación técnica de Semana 4 (Búsqueda y A*)
 

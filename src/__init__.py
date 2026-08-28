@@ -5,6 +5,7 @@ Arquitectura modular del sistema:
 - `src.datos`: Generación sintética y extracción curada de datasets públicos (Amazon Last Mile ALMRRC 2021).
 - `src.modelado`: Modelos predictivos supervisados y evaluación de riesgo de retraso.
 - `src.clasificacion`: Clasificador simbólico y mapeo de taxonomía de IA para requerimientos logísticos.
+- `src.busqueda`: Búsqueda heurística A*, líneas base no informadas (Dijkstra/BFS) y replanificación dinámica de rutas.
 """
 
 from __future__ import annotations
@@ -12,6 +13,27 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from src.busqueda import (
+        GrafoEntregas,
+        Parada,
+        ResultadoBusqueda,
+        ResultadoReplanificacion,
+        a_estrella,
+        bfs,
+        dijkstra,
+        heuristica_haversine_km,
+        heuristica_haversine_segundos,
+        heuristica_manhattan,
+        replanificar_ruta,
+    )
+    from src.clasificacion import (
+        CATEGORIES,
+        Category,
+        Classification,
+        Requirement,
+        classify_requirement,
+        load_requirements,
+    )
     from src.comun import descargar_json, haversine_km
     from src.datos import (
         construir_grafos_muestra,
@@ -25,14 +47,6 @@ if TYPE_CHECKING:
         construir_pipelines,
         entrenar_y_evaluar,
         guardar_artefactos,
-    )
-    from src.clasificacion import (
-        CATEGORIES,
-        Category,
-        Classification,
-        Requirement,
-        classify_requirement,
-        load_requirements,
     )
 
 __all__ = [
@@ -53,6 +67,17 @@ __all__ = [
     "Requirement",
     "classify_requirement",
     "load_requirements",
+    "GrafoEntregas",
+    "Parada",
+    "ResultadoBusqueda",
+    "ResultadoReplanificacion",
+    "a_estrella",
+    "heuristica_haversine_km",
+    "heuristica_haversine_segundos",
+    "heuristica_manhattan",
+    "dijkstra",
+    "bfs",
+    "replanificar_ruta",
 ]
 
 
@@ -87,4 +112,19 @@ def __getattr__(name: str):
     }:
         import src.clasificacion as clasificacion
         return getattr(clasificacion, name)
+    if name in {
+        "GrafoEntregas",
+        "Parada",
+        "ResultadoBusqueda",
+        "ResultadoReplanificacion",
+        "a_estrella",
+        "heuristica_haversine_km",
+        "heuristica_haversine_segundos",
+        "heuristica_manhattan",
+        "dijkstra",
+        "bfs",
+        "replanificar_ruta",
+    }:
+        import src.busqueda as busqueda
+        return getattr(busqueda, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

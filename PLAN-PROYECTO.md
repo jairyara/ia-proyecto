@@ -52,8 +52,9 @@ produjo.
   curado (`src/extraer_datos_amazon.py`, `data/amazon_pedidos.csv`,
   `data/amazon_rutas_muestra.json`, `reports/datos-amazon-last-mile.md`) para
   transición / contraste con datos reales cuando se requiera.
-- [ ] Grafo de entregas, A* y línea base no informada pendientes para el
-  corte 1.
+- [x] Grafo de entregas, A* con heurística Haversine admisible, línea base no
+  informada (Dijkstra/BFS) y replanificación dinámica implementados y validados
+  (`src/busqueda/`, `reports/busqueda-rutas.md`).
 
 ## Arquitectura incremental
 
@@ -87,7 +88,7 @@ Material confirmado del curso hasta la **Semana 4** (fuentes: `Guia_Explicativa_
 |---:|---|---|---|
 | **2** | Fundamentos y entorno | Repositorio reproducible y baseline predictivo (`src.modelado.riesgo_retraso`) | **Completado** |
 | **3** | Taxonomía de IA | Mapeo de 7 áreas y clasificador simbólico (`src.clasificacion.requerimientos`) | **Completado** |
-| **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **En implementación** |
+| **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **Completado** |
 | 5–6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | Pendiente |
 | **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** | **Meta hito** |
 | 7–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |

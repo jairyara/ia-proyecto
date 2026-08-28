@@ -108,7 +108,8 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 │   ├── comun/          # Utilidades comunes (cálculo geodésico Haversine, cliente HTTP)
 │   ├── datos/          # Ingesta, extracción (Amazon Last Mile) y generación sintética
 │   ├── modelado/       # Modelos predictivos supervisados y evaluación de métricas
-│   └── clasificacion/  # Clasificador simbólico y reglas de taxonomía
+│   ├── clasificacion/  # Clasificador simbólico y reglas de taxonomía
+│   └── busqueda/       # Búsqueda heurística A*, líneas base no informadas y replanificación
 └── tests/              # Pruebas automatizadas unitarias y de integración
 ```
 
@@ -140,13 +141,18 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    # o: python -m src.generador_pedidos && python -m src.modelo_riesgo
    ```
 
-3. **Extracción y curaduría del dataset real Amazon Last Mile (AWS Open Data):**
+3. **Curaduría y extracción de Amazon Last Mile (ALMRRC 2021):**
    ```bash
    python -m src.datos.amazon
    # o: python -m src.extraer_datos_amazon
    ```
 
-4. **Ejecución de pruebas automatizadas:**
+4. **Búsqueda heurística A*, comparación con Dijkstra y replanificación:**
+   ```bash
+   python -m src.busqueda_rutas
+   ```
+
+5. **Pruebas automatizadas:**
    ```bash
    python -m unittest discover -s tests -v
    ```
