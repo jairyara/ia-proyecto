@@ -48,9 +48,10 @@ produjo.
   (`src/modelo_riesgo.py`, `reports/riesgo-retraso.md`).
 - [ ] Repositorio privado en GitHub e invitación de escritura enviada a
   `CatherinneG`.
-- [ ] Evaluar en el seguimiento post-Corte 1 si se sustituye/amplía el
-  generador por el dataset público **Amazon Last Mile Routing Challenge**
-  (https://registry.amazon.science/routing).
+- [x] Dataset público **Amazon Last Mile Routing Challenge** preparado y
+  curado (`src/extraer_datos_amazon.py`, `data/amazon_pedidos.csv`,
+  `data/amazon_rutas_muestra.json`, `reports/datos-amazon-last-mile.md`) para
+  transición / contraste con datos reales cuando se requiera.
 - [ ] Grafo de entregas, A* y línea base no informada pendientes para el
   corte 1.
 

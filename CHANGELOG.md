@@ -6,6 +6,32 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
+### Arquitectura modular de paquetes y librerías (`src/`)
+
+- **refactor** (2026-08-28): estructuración modular de la base de código.
+  - `refactor` Se modulariza `src/` en subpaquetes cohesivos:
+    - `src/comun/`: utilidades geodésicas (`geo.py`) y cliente de red con reintentos (`red.py`).
+    - `src/datos/`: curaduría de Amazon Last Mile (`amazon.py`) y generador sintético (`sintetico.py`).
+    - `src/modelado/`: pipeline de clasificación y evaluación de riesgo de retraso (`riesgo_retraso.py`).
+    - `src/clasificacion/`: clasificador determinista y taxonomía de requerimientos (`requerimientos.py`).
+  - `feat` Se implementa carga diferida (`__getattr__`) en `__init__.py` de los paquetes para evitar advertencias de `runpy` al ejecutar con `-m`.
+  - `refactor` Se conservan accesos directos en la raíz de `src/` (`extraer_datos_amazon.py`, `generador_pedidos.py`, `modelo_riesgo.py`, `clasificador_requerimientos.py`) para 100% retrocompatibilidad.
+  - `test` Se agrega `tests/test_comun.py`; 35/35 pruebas unitarias pasan.
+
+### Datos de dominio real — Amazon Last Mile Routing Challenge
+
+- **feat** (2026-08-28): extracción y curaduría de datos reales de Amazon Last Mile.
+  - `feat` `src/extraer_datos_amazon.py` descarga vía HTTPS directo desde AWS Open
+    Data (`s3://amazon-last-mile-challenges/almrrc2021/`), limpia inconsistencias,
+    calcula volúmenes $m^3$, distancias geodésicas Haversine, ventanas horarias,
+    secuencias reales y riesgo de retraso, produciendo `data/amazon_pedidos.csv`
+    (14,411 paradas/pedidos limpios de 100 rutas estratificadas) y
+    `data/amazon_rutas_muestra.json` (13 grafos de rutas con matrices NxN de tiempos).
+  - `test` `tests/test_extraer_datos_amazon.py` valida Haversine, estratificación
+    por estación, integridad de columnas, normalización de nulos y construcción de grafos (32/32 tests pasan).
+  - `docs` `reports/datos-amazon-last-mile.md` documenta la procedencia, resumen
+    estadístico por estación y diccionario de variables.
+
 ### Baseline supervisado de riesgo de retraso (Corte 1, decisiones cerradas)
 
 - **feat** (2026-08-29): pipeline supervisado reproducible.

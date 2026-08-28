@@ -1,6 +1,6 @@
 # Clasificación de requerimientos por área de IA
 
-Reporte generado por `python -m src.clasificador_requerimientos`.
+Reporte generado por `python -m src.clasificacion.requerimientos`.
 
 ## Configuración
 

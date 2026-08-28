@@ -1,13 +1,13 @@
 # Baseline supervisado — riesgo de retraso
 
-Reporte generado por `python -m src.modelo_riesgo`.
+Reporte generado por `python -m src.modelado.riesgo_retraso`.
 
 ## Datos
 
 - Entrada: `pedidos.csv`
 - Casos: 800
 - Partición: 75% entrenamiento / 25% evaluación (estratificada, seed=20260828)
-- Generador: distribuciones documentadas de `src/generador_pedidos.py` (triangular para distancia/volumen, uniforme para ventanas e índice de tráfico, elección ponderada para prioridad y binomial para indicadores).
+- Generador: distribuciones documentadas de `src/datos/sintetico.py` (triangular para distancia/volumen, uniforme para ventanas e índice de tráfico, elección ponderada para prioridad y binomial para indicadores).
 - Tasa positiva en evaluación: 0.280
 
 ## Modelos comparados
@@ -34,4 +34,4 @@ Reporte generado por `python -m src.modelo_riesgo`.
 
 ## Siguiente paso
 
-- Evaluar en el seguimiento post-Corte 1 si se integra el dataset público *Amazon Last Mile Routing Challenge* para contrastar el generador con datos reales.
+- Evaluar en el seguimiento post-Corte 1 si se integra el dataset público *Amazon Last Mile Routing Challenge* (`data/amazon_pedidos.csv`) para contrastar el generador con datos reales.

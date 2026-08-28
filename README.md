@@ -99,13 +99,17 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 
 ```text
 .
-├── artifacts/   # Modelos y artefactos generados
-├── data/        # Datos de entrada versionados
-├── docs/        # Fuentes específicas del proyecto
-├── notebooks/   # Exploración reproducible
-├── reports/     # Evidencia y resultados por tema
-├── src/         # Código fuente
-└── tests/       # Pruebas automatizadas
+├── artifacts/          # Modelos y artefactos serializados
+├── data/               # Datos versionados (sintéticos y Amazon Last Mile)
+├── docs/               # Fuentes y justificaciones oficiales del curso
+├── notebooks/          # Exploración y análisis reproducible
+├── reports/            # Evidencia, reportes y métricas por tema
+├── src/                # Código fuente modular
+│   ├── comun/          # Utilidades comunes (cálculo geodésico Haversine, cliente HTTP)
+│   ├── datos/          # Ingesta, extracción (Amazon Last Mile) y generación sintética
+│   ├── modelado/       # Modelos predictivos supervisados y evaluación de métricas
+│   └── clasificacion/  # Clasificador simbólico y reglas de taxonomía
+└── tests/              # Pruebas automatizadas unitarias y de integración
 ```
 
 ## Configuración
@@ -121,33 +125,31 @@ python -m pip install -r requirements.txt
 
 ## Uso
 
-Ejecutar la línea base de clasificación desde la raíz del repositorio:
+Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos directos en `src/`:
 
-```bash
-python -m src.clasificador_requerimientos --fail-on-mismatch
-```
+1. **Clasificación simbólica de requerimientos:**
+   ```bash
+   python -m src.clasificacion.requerimientos --fail-on-mismatch
+   # o: python -m src.clasificador_requerimientos --fail-on-mismatch
+   ```
 
-La ejecución anterior procesa los 20 requerimientos de
-`data/requerimientos_logistica.csv` y actualiza
-`reports/clasificacion-requerimientos-logistica.md`.
+2. **Pipeline predictivo supervisado (datos sintéticos):**
+   ```bash
+   python -m src.datos.sintetico
+   python -m src.modelado.riesgo_retraso
+   # o: python -m src.generador_pedidos && python -m src.modelo_riesgo
+   ```
 
-Para ver todas las opciones: `python -m src.clasificador_requerimientos --help`.
+3. **Extracción y curaduría del dataset real Amazon Last Mile (AWS Open Data):**
+   ```bash
+   python -m src.datos.amazon
+   # o: python -m src.extraer_datos_amazon
+   ```
 
-Pipeline supervisado (genera datos, entrena y reporta):
-
-```bash
-python -m src.generador_pedidos
-python -m src.modelo_riesgo
-```
-
-Los artefactos se guardan en `artifacts/` (excluidos del versionado) y el
-reporte queda en `reports/riesgo-retraso.md`.
-
-Ejecutar las pruebas:
-
-```bash
-python -m unittest discover -s tests -v
-```
+4. **Ejecución de pruebas automatizadas:**
+   ```bash
+   python -m unittest discover -s tests -v
+   ```
 
 ## Documentación relacionada
 
