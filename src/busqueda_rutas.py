@@ -41,7 +41,7 @@ def ejecutar_benchmarks(
     if rutas_amazon_path is None:
         rutas_amazon_path = Path(__file__).resolve().parent.parent / "data" / "amazon_rutas_muestra.json"
     if reporte_path is None:
-        reporte_path = Path(__file__).resolve().parent.parent / "reports" / "busqueda-rutas.md"
+        reporte_path = Path(__file__).resolve().parent.parent / "reports" / "sem-04-busqueda-rutas.md"
 
     resultados = {
         "cuadricula_base": {},

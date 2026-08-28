@@ -33,7 +33,7 @@ Se reproduce y valida el escenario de control de la guía de la Semana 4:
 
 | Algoritmo | Heurística | Ruta encontrada | Costo total ($g$) | Nodos expandidos | Tiempo (ms) |
 |---|---|---|---|---|---|
-| **A\*** | Manhattan | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.028 |
+| **A\*** | Manhattan | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.029 |
 | **Dijkstra** | $h=0$ (No informada) | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.011 |
 | **BFS** | No informada | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.010 |
 
@@ -67,7 +67,7 @@ Comparación cuantitativa entre búsqueda heurística $A^*$ (con Haversine) y b�
 - **Plan inicial A\*:** `['HJ', 'WH', 'ZX']` (Costo: **1833.2 s**)
 - **Evento imprevisto:** Bloqueo de la vía `HJ` $\rightarrow$ `WH`.
 - **Ruta replanificada:** `['HJ', 'ZX']`
-- **Costo replanificado:** **1833.3 s** (Tiempo de replanificación: **1.615 ms**)
+- **Costo replanificado:** **1833.3 s** (Tiempo de replanificación: **1.627 ms**)
 - **Estado de la contingencia:** **EXITOSA**
 
 ---

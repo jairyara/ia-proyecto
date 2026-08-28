@@ -4,6 +4,18 @@ Registro de cambios inspirado en
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). El versionado
 aplica a las entregas de los cortes 1, 2 y 3.
 
+### Renombrado de reportes con consecutivo por semana (`reports/`)
+
+- **docs** (2026-08-28): los reportes pasan de `<tema>.md` a `sem-XX-<tema>.md`
+  (`sem-02-riesgo-retraso.md`, `sem-02-datos-amazon-last-mile.md`,
+  `sem-03-taxonomia-ia.md`, `sem-03-clasificacion-requerimientos.md` y
+  `sem-04-busqueda-rutas.md`) para identificar la semana de cada tema.
+  Se actualizan las rutas por defecto de los generadores (`src/datos/amazon.py`,
+  `src/modelado/riesgo_retraso.py`, `src/clasificacion/requerimientos.py`,
+  `src/busqueda_rutas.py`) y las referencias en `PLAN-PROYECTO.md` y
+  `CONTRIBUTING.md`. Se elimina `src/busqueda/replanificar_script.py`, duplicado
+  sin uso de `src/busqueda_rutas.py`.
+
 ### Búsqueda heurística A*, líneas base y replanificación (`src/busqueda/`)
 
 - **feat** (2026-08-28): implementación completa del módulo de búsqueda para el Corte 1.
@@ -11,7 +23,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
   - `feat` Se implementa búsqueda $A^*$ (`src/busqueda/a_estrella.py`) con heurística geodésica admisible $h(n) = \text{Haversine}/v_{\max}$ y Manhattan.
   - `feat` Se implementan líneas base no informadas Dijkstra y BFS (`src/busqueda/no_informada.py`).
   - `feat` Se implementa ciclo dinámico de replanificación ante vías bloqueadas (`src/busqueda/replanificacion.py`).
-  - `feat` Script de benchmarking `src/busqueda_rutas.py` y reporte técnico `reports/busqueda-rutas.md` (reducción de hasta 67.3% de exploración con 100% de optimalidad).
+  - `feat` Script de benchmarking `src/busqueda_rutas.py` y reporte técnico `reports/sem-04-busqueda-rutas.md` (reducción de hasta 67.3% de exploración con 100% de optimalidad).
   - `test` Se agrega suite `tests/test_busqueda.py`; 45/45 pruebas unitarias pasando.
 
 ### Plan de proyecto — Especificación técnica de Semana 4 (Búsqueda y A*)
@@ -47,7 +59,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
     `data/amazon_rutas_muestra.json` (13 grafos de rutas con matrices NxN de tiempos).
   - `test` `tests/test_extraer_datos_amazon.py` valida Haversine, estratificación
     por estación, integridad de columnas, normalización de nulos y construcción de grafos (32/32 tests pasan).
-  - `docs` `reports/datos-amazon-last-mile.md` documenta la procedencia, resumen
+  - `docs` `reports/sem-02-datos-amazon-last-mile.md` documenta la procedencia, resumen
     estadístico por estación y diccionario de variables.
 
 ### Baseline supervisado de riesgo de retraso (Corte 1, decisiones cerradas)

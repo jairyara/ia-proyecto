@@ -45,7 +45,7 @@ python -m src.clasificador_requerimientos --fail-on-mismatch
 - Las pruebas verifican normalización, coincidencia de palabras completas,
   clasificación multiárea, consistencia del dataset, validación del CSV y
   contenido básico del reporte.
-- El detalle queda en `reports/clasificacion-requerimientos-logistica.md`.
+- El detalle queda en `reports/sem-03-clasificacion-requerimientos.md`.
 
 ## 5. Conclusiones y limitaciones
 

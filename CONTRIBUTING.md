@@ -93,9 +93,9 @@ python -m src.clasificador_requerimientos --fail-on-mismatch
 
 ## Reportes
 
-Cada práctica o componente deja un reporte en `reports/` nombrado por tema
-(`<tema>.md`, por ejemplo `taxonomia-ia.md` o
-`clasificacion-requerimientos-logistica.md`) con:
+Cada práctica o componente deja un reporte en `reports/` nombrado por tema y
+semana (`sem-XX-<tema>.md`, por ejemplo `sem-03-taxonomia-ia.md` o
+`sem-04-busqueda-rutas.md`) con:
 
 1. objetivo y alcance;
 2. cambios o commits analizados;

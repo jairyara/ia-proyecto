@@ -13,7 +13,7 @@ import unicodedata
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_INPUT = ROOT / "data" / "requerimientos_logistica.csv"
-DEFAULT_REPORT = ROOT / "reports" / "clasificacion-requerimientos-logistica.md"
+DEFAULT_REPORT = ROOT / "reports" / "sem-03-clasificacion-requerimientos.md"
 MINIMUM_CASES = 20
 UNCLASSIFIED = "Requiere análisis"
 

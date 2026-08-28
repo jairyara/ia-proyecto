@@ -45,16 +45,16 @@ produjo.
   reproducible (`src/generador_pedidos.py`, 800 casos etiquetados,
   seed 20260828) y pipeline con LogisticRegression y RandomForest
   comparados por F1 y validados con accuracy y matriz de confusión
-  (`src/modelo_riesgo.py`, `reports/riesgo-retraso.md`).
+  (`src/modelo_riesgo.py`, `reports/sem-02-riesgo-retraso.md`).
 - [ ] Repositorio privado en GitHub e invitación de escritura enviada a
   `CatherinneG`.
 - [x] Dataset público **Amazon Last Mile Routing Challenge** preparado y
   curado (`src/extraer_datos_amazon.py`, `data/amazon_pedidos.csv`,
-  `data/amazon_rutas_muestra.json`, `reports/datos-amazon-last-mile.md`) para
+  `data/amazon_rutas_muestra.json`, `reports/sem-02-datos-amazon-last-mile.md`) para
   transición / contraste con datos reales cuando se requiera.
 - [x] Grafo de entregas, A* con heurística Haversine admisible, línea base no
   informada (Dijkstra/BFS) y replanificación dinámica implementados y validados
-  (`src/busqueda/`, `reports/busqueda-rutas.md`).
+  (`src/busqueda/`, `reports/sem-04-busqueda-rutas.md`).
 
 ## Arquitectura incremental
 
@@ -131,7 +131,7 @@ Para cada escenario de prueba se registrarán y contrastarán en tabla Markdown:
 
 ### 4. Criterios de validación del curso (Las 3 condiciones)
 
-1. **REALIZADO:** Módulo `src/busqueda/`, pruebas `tests/test_busqueda.py` y reporte `reports/busqueda-rutas.md`.
+1. **REALIZADO:** Módulo `src/busqueda/`, pruebas `tests/test_busqueda.py` y reporte `reports/sem-04-busqueda-rutas.md`.
 2. **FUNCIONA:** Ejecución reproducible en Python 3.13.x sin dependencias externas fuera de `requirements.txt`.
 3. **COINCIDE:** Identificación formal de los 5 elementos (Estado, Acción, Transición, Meta, Costo) y comprobación de optimalidad y admisibilidad.
 

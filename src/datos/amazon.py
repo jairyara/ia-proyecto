@@ -23,7 +23,7 @@ from src.comun.red import descargar_json
 ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_CSV_OUTPUT = ROOT / "data" / "amazon_pedidos.csv"
 DEFAULT_GRAPH_OUTPUT = ROOT / "data" / "amazon_rutas_muestra.json"
-DEFAULT_REPORT_OUTPUT = ROOT / "reports" / "datos-amazon-last-mile.md"
+DEFAULT_REPORT_OUTPUT = ROOT / "reports" / "sem-02-datos-amazon-last-mile.md"
 
 BASE_URL = "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-training/"
 ROUTE_DATA_URL = BASE_URL + "model_build_inputs/route_data.json"

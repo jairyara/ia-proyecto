@@ -26,7 +26,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_INPUT = ROOT / "data" / "pedidos.csv"
-DEFAULT_REPORT = ROOT / "reports" / "riesgo-retraso.md"
+DEFAULT_REPORT = ROOT / "reports" / "sem-02-riesgo-retraso.md"
 DEFAULT_METRICS = ROOT / "artifacts" / "riesgo-retraso-metrics.json"
 DEFAULT_MODEL = ROOT / "artifacts" / "riesgo-retraso-model.pkl"
 SEED = 20260828
