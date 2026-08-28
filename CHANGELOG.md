@@ -6,7 +6,28 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
-### Enfoque en el dominio logístico
+### Baseline supervisado de riesgo de retraso (Corte 1, decisiones cerradas)
+
+- **feat** (2026-08-29): pipeline supervisado reproducible.
+  - `feat` `src/generador_pedidos.py` genera `data/pedidos.csv` (800 casos,
+    seed 20260828) con distribuciones documentadas: triangular para distancia/volumen,
+    uniforme para ventana e índice de tráfico, elección ponderada para prioridad y
+    binomial para indicadores; la etiqueta de retraso sigue una regla logística
+    con ruido controlado del 10%.
+  - `feat` `src/modelo_riesgo.py` compara LogisticRegression y RandomForest con
+    partición estratificada 75/25, selecciona por F1 y guarda el artifact en
+    `artifacts/`. Métricas del reporte: accuracy 0.8650 y F1 0.7327
+    (LogisticRegression) que superan a RandomForest (0.8350 / 0.6374).
+  - `test` Cobertura nueva de reproducibilidad, rangos plausible,
+    pipeline completo y contenido del reporte.
+  - `docs` `PLAN-PROYECTO.md` registra las decisiones cerradas (tarea y variables)
+    y queda el seguimiento post-Corte 1 para evaluar el dataset público
+    **Amazon Last Mile Routing Challenge**.
+- **Feedback recibido** (2026-08-28):
+  - `docs` El profesor valora la lógica de dominio (rutas, restricciones,
+    última milla, capacidad y replanificación) pero solicita el componente de
+    aprendizaje supervisado de la Semana 2 y recuerda el Control IA sobre
+    evidencia de agente generador de código en los commits.
 
 - **Limpieza** (2026-08-22):
   - `update` El repositorio se enfoca exclusivamente en el dominio de

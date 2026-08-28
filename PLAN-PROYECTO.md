@@ -41,11 +41,18 @@ produjo.
 - [x] Clasificador simbólico como línea base de requerimientos logísticos.
 - [x] 20 casos logísticos, vocabulario propio del dominio, pruebas
   automatizadas e informes reproducibles.
-- [x] Repositorio privado creado en GitHub e invitación de escritura enviada a
+- [x] Baseline supervisado de riesgo de retraso: generador sintético
+  reproducible (`src/generador_pedidos.py`, 800 casos etiquetados,
+  seed 20260828) y pipeline con LogisticRegression y RandomForest
+  comparados por F1 y validados con accuracy y matriz de confusión
+  (`src/modelo_riesgo.py`, `reports/riesgo-retraso.md`).
+- [ ] Repositorio privado en GitHub e invitación de escritura enviada a
   `CatherinneG`.
-- [ ] Aceptar la invitación pendiente de GitHub para completar el acceso de
-  ambos integrantes.
-- [ ] Confirmar las decisiones de datos y modelado del corte 1.
+- [ ] Evaluar en el seguimiento post-Corte 1 si se sustituye/amplía el
+  generador por el dataset público **Amazon Last Mile Routing Challenge**
+  (https://registry.amazon.science/routing).
+- [ ] Grafo de entregas, A* y línea base no informada pendientes para el
+  corte 1.
 
 ## Arquitectura incremental
 
@@ -125,8 +132,9 @@ resolverse antes de implementar los módulos relacionados:
 |---|---|---|
 | Zona de entrega | Grafo sintético o zona real simplificada | Fuente reproducible, tamaño manejable y coordenadas disponibles |
 | Pedidos por jornada | Tamaño y distribución por definir | Suficientes casos para entrenamiento, validación y escenarios extremos |
-| Variables de pedidos | Volumen, ventana, prioridad, frío y otras | Relación justificable con la variable objetivo y sin fuga de datos |
-| Tarea predictiva | Demanda o riesgo de retraso | Disponibilidad de datos, métrica interpretable e integración con rutas |
+| Tarea predictiva (cerrada) | Riesgo de retraso | Métrica interpretable (accuracy, F1) e integración con rutas |
+| Variables de pedidos (cerrada) | Distancia, volumen, prioridad, ventana, frío, hora pico, zona, tráfico | Relación justificada con la etiqueta y sin fuga de datos |
+| Fuente del dataset | Generador sintético con distribuciones citadas (seguimiento: Amazon Last Mile post-Corte 1) | Reproducibilidad y documentación de distribuciones |
 | Verificación visual | Conteo, estado o lectura de etiqueta | Correspondencia con el material del curso y datos obtenibles |
 | Reporte de avance | Frecuencia y formato por corte | Evidencia clara sin duplicar los reportes por tema |
 

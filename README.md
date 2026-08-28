@@ -66,11 +66,20 @@ de la operación.
 | Sistemas de recomendación | Presentación de planes y alternativas al operador | Calidad y factibilidad de las alternativas |
 | Procesamiento de lenguaje natural | Área complementaria para explicaciones o captura de novedades | Alcance sujeto a las necesidades confirmadas del curso |
 
-La línea base actual es un clasificador simbólico disponible en
-`src/clasificador_requerimientos.py`. Usa vocabulario propio del dominio
-logístico: rutas y última milla, demanda y riesgo de retraso, restricciones
-operativas, verificación de paquetes, seguimiento de envíos y reparto
-autónomo.
+La línea base actual incluye un clasificador simbólico
+(`src/clasificador_requerimientos.py`), un generador sintético reproducible de
+pedidos (`src/generador_pedidos.py`) y un baseline supervisado de riesgo de
+retraso (`src/modelo_riesgo.py`).
+
+- El clasificador usa vocabulario propio del dominio logístico (rutas y última
+  milla, demanda y riesgo de retraso, restricciones operativas, verificación de
+  paquetes, seguimiento de envíos y reparto autónomo) y reporta evidencia de
+  reglas activadas.
+- El generador crea `data/pedidos.csv` con seed fija y distribuciones
+  documentadas; la etiqueta de retraso sigue una regla logística con ruido
+  controlado.
+- El baseline supervisado compara LogisticRegression y RandomForest, elige por
+  F1 y guarda métricas y el modelo en `artifacts/`.
 
 ## Estado y alcance
 
@@ -80,6 +89,7 @@ El sistema cuenta hoy con una base verificable:
 - taxonomía del dominio logístico;
 - clasificador simbólico de requerimientos;
 - 20 requerimientos del dominio con referencia manual;
+- baseline supervisado de riesgo de retraso (accuracy, F1, matriz de confusión);
 - validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
@@ -122,6 +132,16 @@ La ejecución anterior procesa los 20 requerimientos de
 `reports/clasificacion-requerimientos-logistica.md`.
 
 Para ver todas las opciones: `python -m src.clasificador_requerimientos --help`.
+
+Pipeline supervisado (genera datos, entrena y reporta):
+
+```bash
+python -m src.generador_pedidos
+python -m src.modelo_riesgo
+```
+
+Los artefactos se guardan en `artifacts/` (excluidos del versionado) y el
+reporte queda en `reports/riesgo-retraso.md`.
 
 Ejecutar las pruebas:
 
