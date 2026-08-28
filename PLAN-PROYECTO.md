@@ -81,19 +81,58 @@ conservar su versión y métricas para poder auditar el plan resultante.
 
 ## Roadmap
 
-Las semanas 4 en adelante son provisionales hasta que el profesor publique el
-material correspondiente.
+Material confirmado del curso hasta la **Semana 4** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx` y `../ia-semestre/TEMATICAS.md`). Las semanas 5 en adelante se actualizan según se publique el material.
 
-| Semana | Contenido | Aplicación |
-|---:|---|---|
-| 2 | Fundamentos y entorno | Repositorio y ejecución reproducible |
-| 3 | Taxonomía de IA | Mapeo del dominio y línea base simbólica |
-| 4–6 | Búsqueda y aprendizaje supervisado | Grafo, A*, línea base no informada, dataset y modelo predictivo |
-| **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** |
-| 7–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento |
-| **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** |
-| 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación |
-| **18** | **Corte 3** | **Sistema integrado — `v3.0.0`** |
+| Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
+|---:|---|---|---|
+| **2** | Fundamentos y entorno | Repositorio reproducible y baseline predictivo (`src.modelado.riesgo_retraso`) | **Completado** |
+| **3** | Taxonomía de IA | Mapeo de 7 áreas y clasificador simbólico (`src.clasificacion.requerimientos`) | **Completado** |
+| **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **En implementación** |
+| 5–6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | Pendiente |
+| **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** | **Meta hito** |
+| 7–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
+| **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |
+| 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación (`src.vision`, `src.agentes`) | Pendiente |
+| **18** | **Corte 3** | **Sistema integrado — `v3.0.0`** | **Meta hito** |
+
+## Especificación técnica — Semana 4: Búsqueda y Planificación de Rutas
+
+Basada en los lineamientos oficiales de la guía de Semana 4 (*Espacios de estados, A\*, Heurísticas y Decisiones*):
+
+### 1. Formulación formal del espacio de estados
+
+| Componente | Definición formal | Implementación en logística |
+|---|---|---|
+| **Estado ($s$)** | $s = (\text{nodo\_actual}, t_{\text{acum}}, \text{paradas\_visitadas})$ | Posición geográfica actual del repartidor en el grafo y estado de entrega. |
+| **Acciones ($A(s)$)** | $a \in \text{vecinos}(s.\text{nodo})$ accesibles por la red vial | Desplazarse a una parada/intersección vecina no bloqueada. |
+| **Transición ($T(s, a)$)** | $s' = (a, s.t_{\text{acum}} + \text{costo}(s, a), s.\text{visitadas} \cup \{a\})$ | Actualización de la posición del vehículo y acumulación del costo de viaje. |
+| **Meta ($Goal$)** | $\text{nodo\_actual} = \text{nodo\_destino}$ | Parada objetivo alcanzada (o depósito final completando el circuito). |
+| **Costo real ($g(n)$)** | $g(n) = \sum \text{tiempo\_viaje}(u, v)$ en segundos (o distancia en km) | Tiempo real medido en la matriz de adyacencia de la red vial. |
+| **Heurística ($h(n)$)** | $h(n) = \frac{\text{haversine\_km}(n, \text{meta})}{v_{\max}}$ | Estimación en línea recta en segundos hacia la meta dividida por la velocidad máxima de la flota ($v_{\max} \approx 80\text{ km/h}$). |
+
+> [!NOTE]
+> **Garantía de admisibilidad:** Como la distancia geodésica en línea recta es la distancia mínima absoluta entre dos puntos ($\text{Haversine} \le \text{distancia\_vial}$), y dividida por la velocidad máxima estimada nunca sobreestima el tiempo real de viaje ($h(n) \le h^*(n)$), la heurística es **admisible** y **consistente**, garantizando que $A^*$ encontrará el camino óptimo.
+
+### 2. Módulos de software a implementar (`src/busqueda/`)
+
+- **`src/busqueda/grafo.py`:** Clase `GrafoEntregas` que modela nodos (paradas/estaciones con `lat`, `lng`), aristas ponderadas con matrices de tiempo (usando las topologías de `data/amazon_rutas_muestra.json`), y método para simular bloqueos de vías.
+- **`src/busqueda/a_estrella.py`:** Algoritmo $A^*$ con cola de prioridad (`heapq`), función de costo $f(n) = g(n) + h(n)$, registro de nodos expandidos y reconstrucción de ruta explicable con auditoría paso a paso.
+- **`src/busqueda/no_informada.py`:** Búsqueda no informada de referencia (Costo Uniforme / Dijkstra / BFS) para comparar de forma objetiva la reducción en el espacio de exploración.
+- **`src/busqueda/replanificacion.py`:** Simulación del ciclo dinámico de replanificación ante eventos imprevistos (vía cerrada o congestión repentina), recalculando la ruta óptima desde el estado actual.
+
+### 3. Métricas y comparación a registrar
+
+Para cada escenario de prueba se registrarán y contrastarán en tabla Markdown:
+1. **Costo total de la solución ($g(\text{meta})$):** Verificación de optimalidad (ambos algoritmos deben encontrar el mismo costo mínimo).
+2. **Nodos expandidos / explorados:** Evidencia cuantitativa de la reducción del espacio de búsqueda por la heurística.
+3. **Tiempo de ejecución ($\mu s$ / $ms$):** Medición del trade-off de cómputo frente a la búsqueda no informada.
+4. **Comportamiento ante bloqueo (Replanificación):** Verificación de que el sistema encuentra la ruta alternativa óptima cuando se bloquea una vía del trayecto.
+
+### 4. Criterios de validación del curso (Las 3 condiciones)
+
+1. **REALIZADO:** Módulo `src/busqueda/`, pruebas `tests/test_busqueda.py` y reporte `reports/busqueda-rutas.md`.
+2. **FUNCIONA:** Ejecución reproducible en Python 3.13.x sin dependencias externas fuera de `requirements.txt`.
+3. **COINCIDE:** Identificación formal de los 5 elementos (Estado, Acción, Transición, Meta, Costo) y comprobación de optimalidad y admisibilidad.
 
 ## Alcance por corte
 
@@ -131,11 +170,11 @@ resolverse antes de implementar los módulos relacionados:
 
 | Decisión | Opciones iniciales | Criterio de cierre |
 |---|---|---|
-| Zona de entrega | Grafo sintético o zona real simplificada | Fuente reproducible, tamaño manejable y coordenadas disponibles |
+| Zona de entrega (cerrada) | Topologías reales de Amazon Last Mile (`data/amazon_rutas_muestra.json`) y cuadrícula sintética | Coordenadas reales (`lat`, `lng`), matrices de tiempo $N \times N$ y soporte de simulación de vías bloqueadas |
 | Pedidos por jornada | Tamaño y distribución por definir | Suficientes casos para entrenamiento, validación y escenarios extremos |
 | Tarea predictiva (cerrada) | Riesgo de retraso | Métrica interpretable (accuracy, F1) e integración con rutas |
 | Variables de pedidos (cerrada) | Distancia, volumen, prioridad, ventana, frío, hora pico, zona, tráfico | Relación justificada con la etiqueta y sin fuga de datos |
-| Fuente del dataset | Generador sintético con distribuciones citadas (seguimiento: Amazon Last Mile post-Corte 1) | Reproducibilidad y documentación de distribuciones |
+| Fuente del dataset (cerrada) | Generador sintético (`data/pedidos.csv`) y dataset curado Amazon Last Mile (`data/amazon_pedidos.csv`) | Reproducibilidad, distribuciones documentadas y datos reales para búsqueda $A^*$ |
 | Verificación visual | Conteo, estado o lectura de etiqueta | Correspondencia con el material del curso y datos obtenibles |
 | Reporte de avance | Frecuencia y formato por corte | Evidencia clara sin duplicar los reportes por tema |
 

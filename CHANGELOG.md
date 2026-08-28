@@ -6,6 +6,16 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
+### Plan de proyecto — Especificación técnica de Semana 4 (Búsqueda y A*)
+
+- **docs** (2026-08-28): integración de temáticas oficiales de la Semana 4.
+  - `docs` Se actualiza `PLAN-PROYECTO.md` con los materiales oficiales de Downloads
+    (`Guia_Explicativa_Semana_04_IA_Estudiantes.pdf` y `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`).
+  - `docs` Se formalizan los 5 elementos de búsqueda (Estado, Acción, Transición,
+    Meta, Costo) y la heurística geodésica admisible $h(n)$ sobre el grafo de
+    rutas de Amazon Last Mile.
+  - `docs` Se cierran las decisiones de topología de entrega y fuentes de datos.
+
 ### Arquitectura modular de paquetes y librerías (`src/`)
 
 - **refactor** (2026-08-28): estructuración modular de la base de código.
