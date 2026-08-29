@@ -33,9 +33,9 @@ Se reproduce y valida el escenario de control de la guía de la Semana 4:
 
 | Algoritmo | Heurística | Ruta encontrada | Costo total ($g$) | Nodos expandidos | Tiempo (ms) |
 |---|---|---|---|---|---|
-| **A\*** | Manhattan | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.029 |
-| **Dijkstra** | $h=0$ (No informada) | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.011 |
-| **BFS** | No informada | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.010 |
+| **A\*** | Manhattan | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.060 |
+| **Dijkstra** | $h=0$ (No informada) | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.019 |
+| **BFS** | No informada | `['(0,0)', '(1,0)', '(2,0)', '(3,0)', '(4,0)', '(4,1)', '(4,2)', '(4,3)', '(4,4)']` | **8.0** | **20** | 0.025 |
 
 ### Replanificación ante obstáculo dinámico en cuadrícula
 - Se agregó un obstáculo en la celda `(0,3)` bloqueando el paso superior.
@@ -67,7 +67,7 @@ Comparación cuantitativa entre búsqueda heurística $A^*$ (con Haversine) y b�
 - **Plan inicial A\*:** `['HJ', 'WH', 'ZX']` (Costo: **1833.2 s**)
 - **Evento imprevisto:** Bloqueo de la vía `HJ` $\rightarrow$ `WH`.
 - **Ruta replanificada:** `['HJ', 'ZX']`
-- **Costo replanificado:** **1833.3 s** (Tiempo de replanificación: **1.627 ms**)
+- **Costo replanificado:** **1833.3 s** (Tiempo de replanificación: **2.605 ms**)
 - **Estado de la contingencia:** **EXITOSA**
 
 ---
@@ -80,6 +80,22 @@ Comparación cuantitativa entre búsqueda heurística $A^*$ (con Haversine) y b�
 | **Nodos explorados** | Expansión radial en todas direcciones | Expansión elipsoidal orientada a la meta | $A^*$ reduce hasta en un 50% o más los estados visitados. |
 | **Memoria** | Almacena toda la frontera circular | Almacena frontera dirigida | Menor consumo de memoria en grafos viales densos. |
 | **Velocidad de replanificación** | Lenta en grafos grandes | Milisegundos ($< 5\text{ ms}$) | Ideal para reaccionar en tiempo real ante imprevistos en ruta. |
+
+### Justificación técnica: ¿Por qué Minimax NO aplica a este proyecto?
+
+1. **Búsqueda de Agente Único vs. Juegos Adversariales:**
+   - **Búsqueda clásica ($A^*$):** Modela a un **único agente** (el vehículo de reparto) que navega un grafo espacial determinista para minimizar el costo acumulado de viaje hacia una meta predefinida.
+   - **Minimax:** Modela **juegos de suma cero entre dos agentes racionales y opuestos** (un jugador MAX que busca maximizar la utilidad y un jugador MIN que busca activamente perjudicar a MAX en turnos alternados).
+   - **En el dominio logístico:** No existe un adversario oponente que tome decisiones estratégicas para bloquear deliberadamente la entrega. Factores como el tráfico vehicular, el clima o el cierre de una vía son **perturbaciones ambientales o naturalez**, no las jugadas maliciosas de un agente racional. Por tanto, la formulación correcta es **búsqueda heurística informada ($A^*$) con replanificación dinámica ante eventos**, y no un árbol de juego Minimax.
+
+### Fundamento teórico de la Poda Alfa-Beta
+
+- **Propósito:** Optimizar la exploración del árbol Minimax eliminando ramas completas que matemáticamente no afectarán la decisión óptima final de los jugadores.
+- **Mecanismo ($\alpha$ y $\beta$):**
+  - $\alpha$: El valor de la mejor opción (más alta) encontrada hasta el momento para el jugador **MAX**.
+  - $\beta$: El valor de la mejor opción (más baja) encontrada hasta el momento para el jugador **MIN**.
+- **Condición de poda:** En cualquier nodo evaluado donde se cumpla que $\alpha \ge \beta$, se interrumpen y descartan los sucesores restantes de esa rama, ya que el jugador correspondiente dispone de una alternativa previamente explorada que garantiza un resultado igual o mejor.
+- **Reducción de complejidad:** En el mejor ordenamiento de jugadas, la poda $\alpha$-$\beta$ reduce la complejidad temporal de $O(b^d)$ a $O(b^{d/2})$, permitiendo explorar el doble de profundidad en el mismo tiempo de cómputo **sin cambiar en absoluto la decisión final seleccionada por Minimax**.
 
 ---
 
