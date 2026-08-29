@@ -86,7 +86,7 @@ Comparación cuantitativa entre búsqueda heurística $A^*$ (con Haversine) y b�
 1. **Búsqueda de Agente Único vs. Juegos Adversariales:**
    - **Búsqueda clásica ($A^*$):** Modela a un **único agente** (el vehículo de reparto) que navega un grafo espacial determinista para minimizar el costo acumulado de viaje hacia una meta predefinida.
    - **Minimax:** Modela **juegos de suma cero entre dos agentes racionales y opuestos** (un jugador MAX que busca maximizar la utilidad y un jugador MIN que busca activamente perjudicar a MAX en turnos alternados).
-   - **En el dominio logístico:** No existe un adversario oponente que tome decisiones estratégicas para bloquear deliberadamente la entrega. Factores como el tráfico vehicular, el clima o el cierre de una vía son **perturbaciones ambientales o naturalez**, no las jugadas maliciosas de un agente racional. Por tanto, la formulación correcta es **búsqueda heurística informada ($A^*$) con replanificación dinámica ante eventos**, y no un árbol de juego Minimax.
+   - **En el dominio logístico:** No existe un adversario oponente que tome decisiones estratégicas para bloquear deliberadamente la entrega. Factores como el tráfico vehicular, el clima o el cierre de una vía son **perturbaciones ambientales o naturales**, no las jugadas maliciosas por parte de un agente racional. Por tanto, la formulación correcta es **búsqueda heurística informada ($A^*$) con replanificación dinámica ante eventos**, y no un árbol de juego Minimax.
 
 ### Fundamento teórico de la Poda Alfa-Beta
 
