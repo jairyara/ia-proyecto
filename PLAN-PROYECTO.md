@@ -1,7 +1,7 @@
 # Plan de fases — Sistema inteligente para logística
 
-**Proyecto 8 · Inteligencia Artificial · 10.º semestre · 18 semanas**  
-**Equipo:** Jair Yara y Catherinne Gutierrez  
+**Proyecto 8 · Inteligencia Artificial · 10.º semestre · 18 semanas**
+**Equipo:** Jair Yara y Catherinne Gutierrez
 **Cortes oficiales:** semana 6 (`v1.0.0`), semana 12 (`v2.0.0`) y semana
 18 (`v3.0.0`).
 
@@ -55,6 +55,14 @@ produjo.
 - [x] Grafo de entregas, A* con heurística Haversine admisible, línea base no
   informada (Dijkstra/BFS) y replanificación dinámica implementados y validados
   (`src/busqueda/`, `reports/sem-04-busqueda-rutas.md`).
+- [x] Dashboard didáctico **Órbita** para sustentar los componentes de Semanas
+  2–4: API FastAPI desacoplada (`api/`), SPA React (`dashboard/`), trazas de
+  búsqueda, simulación predictiva, reglas explicables y ejecución reproducible
+  con Docker. El core académico en `src/` conserva sus contratos.
+- [x] Workspace didáctico común por semana con navegación ascendente, pestañas
+  **Laboratorio / Código explicado / Informe**, lectura segura del código real
+  con explicación línea a línea y visualización de reportes Markdown. El
+  frontend se gestiona exclusivamente con `pnpm@11.25.0` y lockfile congelado.
 
 ## Arquitectura incremental
 
@@ -79,6 +87,13 @@ pedidos + red vial + eventos
 Los módulos intercambiarán estructuras de datos explícitas. La capa de reglas
 no debe quedar acoplada al algoritmo de búsqueda, y las predicciones deben
 conservar su versión y métricas para poder auditar el plan resultante.
+
+La capa de presentación sigue la misma separación: `api/services/` transforma
+los resultados del core en DTO y trazas didácticas; `api/services/contenido.py`
+solo expone archivos e informes registrados en un catálogo seguro; y
+`dashboard/` consume esos contratos. Si el artefacto supervisado no existe en
+un clon limpio, la API lo reconstruye con la semilla y partición documentadas
+antes de inferir.
 
 ## Roadmap
 

@@ -81,6 +81,22 @@ retraso (`src/modelo_riesgo.py`).
 - El baseline supervisado compara LogisticRegression y RandomForest, elige por
   F1 y guarda métricas y el modelo en `artifacts/`.
 
+## Dashboard interactivo
+
+El repositorio incluye **Órbita**, un laboratorio web para sustentar los tres
+componentes ya implementados sin reemplazar su ejecución académica:
+
+- reproduce paso a paso A*, Dijkstra y BFS sobre una cuadrícula o rutas reales
+  de Amazon Last Mile, mostrando frontera, cerrados, costos y línea activa;
+- permite bloquear un tramo y observar la replanificación;
+- predice riesgo de retraso con el pipeline supervisado y muestra aportes locales;
+- clasifica texto logístico con la evidencia exacta de las reglas simbólicas.
+
+FastAPI actúa como adaptador de `src/`; el resultado canónico de cada algoritmo
+sigue proviniendo de los módulos Python. Si el modelo ignorado en `artifacts/`
+no existe en un clon limpio, la API lo reconstruye de forma determinista desde
+`data/pedidos.csv`.
+
 ## Estado y alcance
 
 El sistema cuenta hoy con una base verificable:
@@ -100,7 +116,9 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 ```text
 .
 ├── artifacts/          # Modelos y artefactos serializados
+├── api/                # API FastAPI y servicios de trazabilidad/inferencia
 ├── data/               # Datos versionados (sintéticos y Amazon Last Mile)
+├── dashboard/          # SPA React + Vite + Tailwind del laboratorio Órbita
 ├── docs/               # Fuentes y justificaciones oficiales del curso
 ├── notebooks/          # Exploración y análisis reproducible
 ├── reports/            # Evidencia, reportes y métricas por tema
@@ -123,6 +141,10 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
+
+Para ejecutar el frontend sin Docker se requiere **Node.js 22.13 o superior**;
+Corepack selecciona automáticamente la versión fijada `pnpm@11.25.0` desde
+`dashboard/package.json`.
 
 ## Uso
 
@@ -156,6 +178,41 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    ```bash
    python -m unittest discover -s tests -v
    ```
+
+6. **Dashboard web, ejecución local con recarga automática:**
+   ```bash
+   # Terminal 1, desde la raíz y con .venv activo
+   uvicorn api.main:app --reload --port 8000
+
+   # Terminal 2
+   cd dashboard
+   corepack enable
+   pnpm install --frozen-lockfile
+   pnpm dev
+   ```
+   Abre `http://localhost:5173`. Vite redirige `/api` a FastAPI.
+   El dashboard recorre las semanas en orden ascendente y cada una ofrece las
+   vistas **Laboratorio**, **Código explicado** e **Informe**. La segunda lee
+   los módulos Python reales y explica cada línea; la tercera renderiza los
+   reportes Markdown con tabla de contenido, búsqueda, tablas y fórmulas.
+
+7. **Dashboard completo con Docker:**
+   ```bash
+   docker compose up --build
+   ```
+   Abre `http://localhost:8000`. La imagen multi-stage compila la SPA y FastAPI
+   la sirve junto con los endpoints. La documentación OpenAPI queda en
+   `http://localhost:8000/docs`.
+
+Para una comprobación de producción del frontend sin Docker:
+
+```bash
+cd dashboard
+corepack enable
+pnpm install --frozen-lockfile
+pnpm test
+pnpm build
+```
 
 ## Documentación relacionada
 

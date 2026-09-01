@@ -4,6 +4,34 @@ Registro de cambios inspirado en
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). El versionado
 aplica a las entregas de los cortes 1, 2 y 3.
 
+### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
+
+- **feat** (2026-09-01): workspace semanal de aprendizaje y migración a pnpm.
+  - `feat` Navegación lateral ascendente (Semana 2, 3, 4) y pestañas compartidas
+    **Laboratorio**, **Código explicado** e **Informe** para cada semana.
+  - `feat` Catálogo backend con allowlist, lectura del código Python real,
+    estructura AST y explicación interactiva de todas sus líneas; las trazas de
+    A*, Dijkstra y BFS usan ahora los números de línea originales.
+  - `feat` Visualizador de reportes Markdown con tabla de contenido, búsqueda,
+    fuente cruda, GFM y fórmulas KaTeX.
+  - `config` Sustitución completa de npm por `pnpm@11.25.0`, lockfile congelado,
+    Corepack en Docker y comandos pnpm documentados.
+  - `test` Pruebas de catálogo seguro, trazas por rango AST, interacción del
+    explorador y renderizado Markdown; 55 pruebas Python y 2 frontend pasan.
+- **feat** (2026-09-01): implementación de **Órbita**, dashboard de sustentación.
+  - `feat` API FastAPI con contratos Pydantic para trazas compactas de A*,
+    Dijkstra y BFS, replanificación, inferencia supervisada y clasificación
+    simbólica.
+  - `feat` SPA React/Vite/Tailwind accesible y responsiva con reproductor paso a
+    paso, cuadrícula SVG interactiva, grafo Amazon, panel de código sincronizado,
+    métricas comparativas, simulador de pedidos y árbol de reglas.
+  - `architecture` La trazabilidad vive en `api/services/` como proyección
+    didáctica; los resultados canónicos continúan en `src/` sin cambios de API.
+  - `chore` Empaquetado multi-stage y ejecución unificada mediante
+    `docker compose up --build`.
+  - `test` Se agregan pruebas de integración de servicios; 50/50 pruebas Python
+    pasan y el frontend compila para producción.
+
 ### Renombrado de reportes con consecutivo por semana (`reports/`)
 
 - **docs** (2026-08-28): los reportes pasan de `<tema>.md` a `sem-XX-<tema>.md`

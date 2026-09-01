@@ -27,3 +27,6 @@ artifacts/*
 !artifacts/.gitkeep
 reports/*.png
 
+# Frontend del dashboard
+dashboard/node_modules/
+dashboard/dist/
