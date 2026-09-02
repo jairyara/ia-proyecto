@@ -2,6 +2,25 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
 import LearningHeader from './LearningHeader.jsx'
 import { api } from '../services/api.js'
+import { buildEditorUri, EDITORS } from '../services/editor.js'
+
+const EDITOR_STORAGE_KEY = 'orbita.editor'
+
+function storedEditor() {
+  try {
+    return window.localStorage?.getItem(EDITOR_STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
+
+function storeEditor(editor) {
+  try {
+    window.localStorage?.setItem(EDITOR_STORAGE_KEY, editor)
+  } catch {
+    // El enlace sigue funcionando si el navegador bloquea almacenamiento local.
+  }
+}
 
 export default function CodeExplorer({ week }) {
   const [exerciseId, setExerciseId] = useState(week.ejercicios[0]?.id || '')
@@ -100,6 +119,29 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
   const selected = document.lineas.find((line) => line.numero === selectedLine) || document.lineas[0]
   const progress = document.total_lineas ? (selectedLine / document.total_lineas) * 100 : 0
   const sourceRef = useRef(null)
+  const [editor, setEditor] = useState(() => {
+    const saved = storedEditor()
+    return EDITORS[saved] ? saved : 'pycharm'
+  })
+
+  const editorUri = useMemo(() => {
+    try {
+      return buildEditorUri({
+        editor,
+        workspaceRoot: document.workspace_editor,
+        relativePath: document.ruta,
+        line: selectedLine,
+      })
+    } catch {
+      return ''
+    }
+  }, [document.ruta, document.workspace_editor, editor, selectedLine])
+
+  const selectEditor = (event) => {
+    const value = event.target.value
+    setEditor(value)
+    storeEditor(value)
+  }
 
   useEffect(() => {
     const active = sourceRef.current?.querySelector(`[data-line="${selectedLine}"]`)
@@ -124,7 +166,25 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
       <div className="source-panel panel">
         <div className="source-toolbar">
           <span><i />{document.ruta}</span>
-          <small>{document.total_lineas} líneas · {document.hash}</small>
+          <div className="source-actions">
+            <small>{document.total_lineas} líneas · {document.hash}</small>
+            <label>
+              <span className="sr-only">IDE para edición</span>
+              <select value={editor} onChange={selectEditor} aria-label="IDE para edición">
+                {Object.entries(EDITORS).map(([id, item]) => <option value={id} key={id}>{item.label}</option>)}
+              </select>
+            </label>
+            <a
+              className={!editorUri ? 'disabled' : ''}
+              href={editorUri || undefined}
+              aria-disabled={!editorUri}
+              aria-label={`Abrir ${document.ruta}, línea ${selectedLine}, en ${EDITORS[editor].label}`}
+              title="El navegador puede pedir autorización la primera vez"
+            >
+              <Icon name="external" size={13} />
+              Abrir L{selectedLine}
+            </a>
+          </div>
         </div>
         <div className="source-code" ref={sourceRef} role="listbox" aria-label={`Código de ${document.titulo}`}>
           {document.lineas.map((line) => (

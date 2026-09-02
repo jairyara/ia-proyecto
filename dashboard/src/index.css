@@ -351,6 +351,10 @@ td:first-child { color: #344139; font-weight: 700; }
 .source-toolbar { min-height: 49px; padding: 0 15px; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: #9caaa0; background: #151e19; border-bottom: 1px solid rgba(255,255,255,.07); }
 .source-toolbar > span { min-width: 0; display: flex; align-items: center; gap: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 9px ui-monospace, monospace; }
 .source-toolbar i { width: 7px; height: 7px; flex: 0 0 auto; background: var(--mint); border-radius: 50%; }.source-toolbar small { flex: 0 0 auto; color: #58665d; font: 7px ui-monospace, monospace; }
+.source-actions { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; }
+.source-actions select { min-height: 28px; padding: 0 24px 0 8px; color: #9caaa0; background-color: #101713; border: 1px solid rgba(255,255,255,.1); border-radius: 5px; font: 700 8px ui-monospace, monospace; }
+.source-actions > a { min-height: 28px; padding: 0 9px; display: inline-flex; align-items: center; gap: 5px; color: #092116; background: var(--mint); border: 1px solid var(--mint); border-radius: 5px; font: 800 8px ui-monospace, monospace; text-decoration: none; white-space: nowrap; }
+.source-actions > a:hover { background: #70edb1; }.source-actions > a.disabled { pointer-events: none; opacity: .4; }
 .source-code { max-height: 537px; padding: 9px 0 16px; overflow: auto; scrollbar-color: #344039 #151e19; }
 .source-code > button { width: 100%; min-height: 23px; padding: 2px 14px 2px 0; display: grid; grid-template-columns: 47px minmax(max-content, 1fr); color: #bbc6be; background: transparent; border: 0; border-left: 2px solid transparent; text-align: left; white-space: pre; }
 .source-code > button:hover { background: rgba(255,255,255,.035); }.source-code > button.active { color: #e9fff2; background: rgba(62,231,155,.09); border-left-color: var(--mint); }

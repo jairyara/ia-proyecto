@@ -10,12 +10,24 @@ from __future__ import annotations
 import ast
 from dataclasses import dataclass
 import hashlib
+import os
 from pathlib import Path
 import re
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+
+
+def _workspace_editor() -> str:
+    """Ruta del repositorio vista por el IDE que se ejecuta en el host.
+
+    En desarrollo local coincide con ``ROOT``. Cuando la API corre dentro de
+    Docker, Compose inyecta la ruta del host porque ``/app`` no existe para el
+    IDE del usuario.
+    """
+    configurada = os.getenv("DASHBOARD_EDITOR_WORKSPACE", "").strip()
+    return configurada.rstrip("/\\") or str(ROOT)
 
 
 SEMANAS: dict[str, dict[str, Any]] = {
@@ -306,6 +318,7 @@ def obtener_codigo(archivo_id: str) -> dict[str, Any]:
         )
     return {
         **metadata,
+        "workspace_editor": _workspace_editor(),
         "lenguaje": "python",
         "hash": hashlib.sha256(source.encode("utf-8")).hexdigest()[:16],
         "total_lineas": len(lineas),

@@ -193,8 +193,18 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    Abre `http://localhost:5173`. Vite redirige `/api` a FastAPI.
    El dashboard recorre las semanas en orden ascendente y cada una ofrece las
    vistas **Laboratorio**, **Código explicado** e **Informe**. La segunda lee
-   los módulos Python reales y explica cada línea; la tercera renderiza los
-   reportes Markdown con tabla de contenido, búsqueda, tablas y fórmulas.
+   los módulos Python reales, explica cada línea y permite abrir la línea
+   seleccionada directamente en **PyCharm** o **VS Code**; la tercera renderiza
+   los reportes Markdown con tabla de contenido, búsqueda, tablas y fórmulas.
+
+   El navegador solicitará autorización para abrir el IDE la primera vez. Con
+   Docker, Compose transmite automáticamente la ruta actual del repositorio al
+   contenedor. Si se ejecuta desde otro directorio, se puede indicar de forma
+   explícita:
+
+   ```bash
+   DASHBOARD_EDITOR_WORKSPACE=/ruta/absoluta/ia-proyecto docker compose up --build
+   ```
 
 7. **Dashboard completo con Docker:**
    ```bash

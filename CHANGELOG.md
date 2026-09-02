@@ -6,6 +6,14 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 
+- **feat** (2026-09-01): apertura del IDE desde el modo de lectura.
+  - `feat` El explorador permite elegir PyCharm o VS Code y abrir el archivo
+    real directamente en la línea seleccionada mediante enlaces locales
+    `pycharm://` y `vscode://`.
+  - `config` Docker Compose comunica al frontend la ruta del repositorio en el
+    host para evitar que el IDE intente abrir la ruta interna `/app`.
+  - `test` Se validan la construcción segura de enlaces, la línea activa y el
+    rechazo de rutas que intenten salir del repositorio.
 - **feat** (2026-09-01): workspace semanal de aprendizaje y migración a pnpm.
   - `feat` Navegación lateral ascendente (Semana 2, 3, 4) y pestañas compartidas
     **Laboratorio**, **Código explicado** e **Informe** para cada semana.

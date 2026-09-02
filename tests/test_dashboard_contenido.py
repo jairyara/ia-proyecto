@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 import unittest
 
 from api.services.contenido import (
@@ -28,6 +29,7 @@ class CatalogoContenidoTests(unittest.TestCase):
                         self.assertEqual(documento["total_lineas"], len(documento["lineas"]))
                         self.assertTrue(all(linea["explicacion"] for linea in documento["lineas"]))
                         self.assertTrue(documento["hash"])
+                        self.assertTrue(Path(documento["workspace_editor"]).is_absolute())
 
     def test_cada_informe_registrado_se_puede_navegar(self):
         for semana in catalogo_semanas()["semanas"]:

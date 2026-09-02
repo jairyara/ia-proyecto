@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     environment:
       DASHBOARD_CORS_ORIGINS: "http://localhost:8000,http://127.0.0.1:8000"
+      # El navegador abre el archivo en el IDE del host, no en /app del contenedor.
+      DASHBOARD_EDITOR_WORKSPACE: "${DASHBOARD_EDITOR_WORKSPACE:-${PWD}}"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
       interval: 10s
