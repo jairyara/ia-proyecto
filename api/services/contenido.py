@@ -98,6 +98,24 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("sem04-busqueda", "Búsqueda de rutas", "reports/sem-04-busqueda-rutas.md"),
         ],
     },
+    "semana05": {
+        "numero": 5,
+        "titulo": "Sistema híbrido trazable",
+        "ejercicios": [
+            {
+                "id": "sistema-hibrido",
+                "titulo": "Reglas + TF-IDF + clasificación",
+                "descripcion": "Triple señal auditada: reglas expertas, recuperación documental y clase predicha.",
+                "archivos": [
+                    ("motor-hibrido", "Motor híbrido", "src/hibrido/sistema.py"),
+                    ("experimento-hibrido", "Experimento reproducible", "src/sistema_hibrido.py"),
+                ],
+            },
+        ],
+        "informes": [
+            ("sem05-hibrido", "Sistema híbrido de trazabilidad", "reports/sem-05-sistema-hibrido.md"),
+        ],
+    },
 }
 
 
@@ -113,6 +131,13 @@ FUNCTION_DESCRIPTIONS = {
     "dijkstra": "Encuentra el costo mínimo usando únicamente el costo acumulado g(n).",
     "bfs": "Explora el grafo por niveles mediante una cola FIFO.",
     "replanificar_ruta": "Bloquea un tramo y calcula una ruta alternativa desde el estado actual.",
+    "evaluar_reglas": "Evalúa las reglas expertas y reporta qué palabra de la consulta disparó cada una.",
+    "recuperar_evidencia": "Recupera el protocolo operativo más afín con TF-IDF y similitud coseno.",
+    "clasificar": "Predice la categoría operativa y su distribución de probabilidad.",
+    "answer": "Responde la consulta combinando reglas, evidencia documental y clase predicha.",
+    "load_documents": "Carga la base de conocimiento y siembra los protocolos por defecto si falta el archivo.",
+    "responder_consulta": "Adapta la respuesta del motor híbrido al contrato de la API.",
+    "obtener_contexto": "Expone reglas, clases y ejemplos para documentar la interfaz.",
     "desde_cuadricula": "Transforma una cuadrícula transitable en un grafo dirigido ponderado.",
     "desde_amazon_ruta": "Transforma una ruta curada de Amazon en nodos y aristas ponderadas.",
     "main": "Orquesta la ejecución reproducible desde la línea de comandos.",
@@ -146,6 +171,16 @@ DOMAIN_EXPLANATIONS: tuple[tuple[str, str], ...] = (
     ("grafo.bloquear_arista", "Marca el tramo como no transitable para la siguiente planificación."),
     ("GrafoEntregas.desde", "Construye la representación de estados que consumen los algoritmos."),
     ("registrar_explicacion", "Activa evidencia adicional sin cambiar la solución calculada."),
+    ("TfidfVectorizer", "Convierte texto en vectores ponderados: más peso a términos informativos y menos a los comunes."),
+    ("fit_transform", "Aprende el vocabulario de la base documental y construye su matriz TF-IDF."),
+    ("cosine_similarity", "Mide el parecido angular entre la consulta y cada protocolo de la base."),
+    ("similarities.argmax", "Selecciona la posición del documento con mayor similitud coseno."),
+    ("make_pipeline", "Encadena vectorización y clasificador en un único flujo sin fuga de datos."),
+    ("LogisticRegression", "Modelo supervisado que aprende a separar las categorías operativas del dominio."),
+    ("predict_proba", "Obtiene la probabilidad estimada de pertenecer a cada clase."),
+    ("detonantes =", "Registra las palabras exactas de la consulta que activaron la regla experta."),
+    ("classifier.fit", "Entrena el clasificador con los ejemplos etiquetados del dominio logístico."),
+    ("unicodedata.category", "Filtra las marcas diacríticas para normalizar el texto de entrada."),
 )
 
 

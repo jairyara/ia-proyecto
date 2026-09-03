@@ -4,6 +4,7 @@ const sections = [
   { id: 'semana02', week: '02', title: 'Riesgo de retraso', subtitle: 'Aprendizaje supervisado', icon: 'brain' },
   { id: 'semana03', week: '03', title: 'Reglas simbólicas', subtitle: 'Clasificación explicable', icon: 'rules' },
   { id: 'semana04', week: '04', title: 'Búsqueda heurística', subtitle: 'A* · Dijkstra · BFS', icon: 'route' },
+  { id: 'semana05', week: '05', title: 'Sistema híbrido', subtitle: 'Reglas · TF-IDF · LogReg', icon: 'spark' },
 ].sort((left, right) => Number(left.week) - Number(right.week))
 
 export default function Navbar({ active, onChange, apiOnline, mobileOpen, onToggle }) {

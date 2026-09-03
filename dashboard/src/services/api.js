@@ -55,6 +55,12 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ descripcion }),
     }),
+  contextoHibrido: () => request('/api/hibrido/contexto'),
+  responderHibrido: (consulta) =>
+    request('/api/hibrido/responder', {
+      method: 'POST',
+      body: JSON.stringify({ consulta }),
+    }),
   contenidoSemanas: () => request('/api/contenido/semanas'),
   codigo: (archivoId) => request(`/api/contenido/codigo/${encodeURIComponent(archivoId)}`),
   informe: (informeId) => request(`/api/contenido/informes/${encodeURIComponent(informeId)}`),

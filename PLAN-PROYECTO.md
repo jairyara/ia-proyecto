@@ -63,6 +63,12 @@ produjo.
   **Laboratorio / Código explicado / Informe**, lectura segura del código real
   con explicación línea a línea y visualización de reportes Markdown. El
   frontend se gestiona exclusivamente con `pnpm@11.25.0` y lockfile congelado.
+- [x] Sistema híbrido trazable de la Semana 5 integrado al dashboard:
+  5 reglas expertas del dominio logístico con palabra detonante visible,
+  recuperación documental TF-IDF + coseno sobre 10 protocolos SOP
+  (`data/base_conocimiento.txt`) y clasificación supervisada con distribución
+  de probabilidad (`src/hibrido/`, `api/hibrido`,
+  `reports/sem-05-sistema-hibrido.md`).
 
 ## Arquitectura incremental
 
@@ -97,14 +103,15 @@ antes de inferir.
 
 ## Roadmap
 
-Material confirmado del curso hasta la **Semana 4** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx` y `../ia-semestre/TEMATICAS.md`). Las semanas 5 en adelante se actualizan según se publique el material.
+Material confirmado del curso hasta la **Semana 5** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`, `Semana_05_IA_Marco_Tecnologico_Clase_final.pptx` y `../ia-semestre/TEMATICAS.md`). Las semanas 6 en adelante se actualizan según se publique el material.
 
 | Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
 |---:|---|---|---|
 | **2** | Fundamentos y entorno | Repositorio reproducible y baseline predictivo (`src.modelado.riesgo_retraso`) | **Completado** |
 | **3** | Taxonomía de IA | Mapeo de 7 áreas y clasificador simbólico (`src.clasificacion.requerimientos`) | **Completado** |
 | **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **Completado** |
-| 5–6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | Pendiente |
+| **5** | Marco tecnológico: sistemas híbridos | Reglas expertas + TF-IDF/coseno + regresión logística con trazabilidad, demostrable en el dashboard (`src.hibrido`) | **Completado** |
+| 6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | Pendiente |
 | **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** | **Meta hito** |
 | 7–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
 | **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |

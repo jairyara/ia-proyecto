@@ -6,6 +6,29 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 
+- **feat** (2026-09-03): Semana 5 — sistema híbrido trazable demostrable en el dashboard.
+  - `feat` Motor híbrido en `src/hibrido/sistema.py`: 5 reglas expertas del
+    dominio logístico declaradas como datos (`Regla(accion, palabras,
+    descripcion)`) que reportan la palabra detonante de cada disparo,
+    recuperación documental con `TfidfVectorizer` + similitud coseno sobre
+    `data/base_conocimiento.txt` (10 protocolos SOP) y clasificación
+    supervisada `LogisticRegression` (16 ejemplos, 4 clases operativas) con
+    distribución de probabilidad completa.
+  - `feat` Script reproducible `python -m src.sistema_hibrido` que ejecuta las
+    3 consultas de la guía y genera `reports/sem-05-sistema-hibrido-evidencia.md`.
+  - `feat` API `/api/hibrido/responder` (trazabilidad: reglas + detonantes,
+    evidencia + similitud, clase + probabilidades) y `/api/hibrido/contexto`
+    (reglas, clases, consultas de ejemplo y base documental).
+  - `feat` Laboratorio Semana 5 en el dashboard: consulta en lenguaje natural
+    con presets de la guía, clase predicha con barras de probabilidad,
+    trazabilidad en tres nodos (regla + detonante → protocolo + similitud →
+    clase) y catálogo visual de las 5 reglas expertas; pestañas **Código
+    explicado** e **Informe** habilitadas con el catálogo actualizado.
+  - `docs` Reporte técnico `reports/sem-05-sistema-hibrido.md` con arquitectura,
+    base de conocimiento, reglas, evidencia de ejecución, limitaciones y
+    conexión con el Corte 2.
+  - `test` 12 pruebas nuevas del motor y 2 de integración de servicios; 67/67
+    pruebas Python pasan.
 - **feat** (2026-09-01): apertura del IDE desde el modo de lectura.
   - `feat` El explorador permite elegir PyCharm o VS Code y abrir el archivo
     real directamente en la línea seleccionada mediante enlaces locales

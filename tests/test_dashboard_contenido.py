@@ -17,7 +17,7 @@ class CatalogoContenidoTests(unittest.TestCase):
     def test_semanas_se_exponen_en_orden_ascendente(self):
         catalogo = catalogo_semanas()["semanas"]
 
-        self.assertEqual([semana["numero"] for semana in catalogo], [2, 3, 4])
+        self.assertEqual([semana["numero"] for semana in catalogo], [2, 3, 4, 5])
 
     def test_cada_archivo_registrado_tiene_explicacion_por_linea(self):
         for semana in catalogo_semanas()["semanas"]:

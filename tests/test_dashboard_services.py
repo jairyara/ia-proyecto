@@ -6,9 +6,11 @@ import unittest
 
 from api.schemas.busqueda_dto import ReplanificacionRequest, SimulacionBusquedaRequest
 from api.schemas.clasificacion_dto import RequerimientoRequest
+from api.schemas.hibrido_dto import ConsultaHibridaRequest
 from api.schemas.modelado_dto import PedidoRequest
 from api.services.busqueda import replanificar_busqueda, simular_busqueda
 from api.services.clasificacion import evaluar_requerimiento
+from api.services.hibrido import obtener_contexto, responder_consulta
 from api.services.modelado import obtener_metricas, predecir_riesgo
 
 
@@ -75,6 +77,35 @@ class DashboardClasificacionTests(unittest.TestCase):
         self.assertEqual(respuesta["principal"], "Búsqueda y optimización")
         self.assertGreaterEqual(len(respuesta["detectadas"]), 2)
         self.assertIn("a estrella", respuesta["evidencia"][0]["palabras"])
+
+
+class DashboardHibridoTests(unittest.TestCase):
+    def test_respuesta_hibrida_expone_triple_senal_trazable(self):
+        respuesta = responder_consulta(
+            ConsultaHibridaRequest(
+                consulta="El furgón refrigerado perdió temperatura en ruta"
+            )
+        )
+
+        self.assertEqual(respuesta["reglas"][0]["accion"], "activar_protocolo_cadena_frio")
+        self.assertIn("temperatura", respuesta["reglas"][0]["detonantes"])
+        self.assertIn("Protocolo 1", respuesta["evidencia"]["documento"])
+        self.assertGreater(respuesta["evidencia"]["similitud"], 0.0)
+        self.assertEqual(respuesta["clasificacion"]["clase"], "cadena_frio")
+        self.assertAlmostEqual(
+            sum(item["probabilidad"] for item in respuesta["clasificacion"]["probabilidades"]),
+            1.0,
+            places=5,
+        )
+
+    def test_contexto_documenta_reglas_clases_y_ejemplos(self):
+        contexto = obtener_contexto()
+
+        self.assertEqual(len(contexto["reglas"]), 5)
+        self.assertEqual(len(contexto["clases"]), 4)
+        self.assertEqual(len(contexto["consultas_ejemplo"]), 3)
+        self.assertGreaterEqual(contexto["base_conocimiento"]["total_documentos"], 8)
+        self.assertEqual(contexto["entrenamiento"]["total_ejemplos"], 16)
 
 
 if __name__ == "__main__":

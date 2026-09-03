@@ -317,6 +317,30 @@ td:first-child { color: #344139; font-weight: 700; }
 .explainability-strip > div { display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid #d5cdeb; }.explainability-strip > div:last-child { border-right: 0; }
 .explainability-strip span { display: grid; gap: 2px; }.explainability-strip strong { color: #594d7d; font-size: 9px; }.explainability-strip small { color: #877ca9; font-size: 7px; }
 
+/* Semana 05 — sistema híbrido (variante menta) */
+.model-badge--mint { color: #0d7d4c; background: #e1f6eb; border-color: #c7e8d7; }
+.model-badge--mint small { color: #6e8c7c; }
+.model-badge--mint strong { color: #27513b; }
+.classification-result--mint { color: #e2f4ea; background: #0e1f16; border-color: #0e1f16; }
+.classification-result--mint .eyebrow { color: #6e9382; }
+.classification-result--mint > p { color: #8aa294; }
+.classification-result--mint .result-icon { color: #d2f5e2; background: #128055; box-shadow: 0 0 30px rgba(35,190,120,.28); }
+.prob-bars { width: 100%; margin-top: 20px; display: grid; gap: 8px; text-align: left; }
+.prob-bar__label { display: flex; justify-content: space-between; color: #9fb5a8; font-size: 8px; }
+.prob-bar__label strong { color: #d8f3e4; font-size: 8px; }
+.prob-bar__track { height: 5px; margin-top: 3px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+.prob-bar__track i { display: block; height: 100%; background: linear-gradient(90deg, #1c9e68, #3ee79b); border-radius: 3px; transition: width .35s ease; }
+.rule-hit { margin-top: 11px; padding-top: 10px; border-top: 1px dashed #dfe5de; }
+.rule-hit > code { color: #0d7d4c; background: #dcf4e7; padding: 4px 7px; border-radius: 4px; font-size: 8px; font-weight: 700; }
+.rule-hit .keyword-list code { color: #22603f; background: #e7f5ed; }
+.sim-meter { height: 6px; margin-top: 12px; background: #e6ebe5; border-radius: 3px; overflow: hidden; }
+.sim-meter i { display: block; height: 100%; background: linear-gradient(90deg, #1c9e68, #3ee79b); border-radius: 3px; transition: width .35s ease; }
+.sim-value { margin-top: 7px !important; color: #5d6a61 !important; font-size: 8px !important; }
+.explainability-strip--mint { color: #1c6c48; background: #e4f5ec; border-color: #cde9db; }
+.explainability-strip--mint > div { border-right-color: #cde4d6; }
+.explainability-strip--mint strong { color: #14573a; }
+.explainability-strip--mint small { color: #5f8a74; }
+
 /* Espacio didáctico compartido */
 .workspace-bar { position: sticky; top: 0; z-index: 20; min-height: 56px; padding: 8px clamp(28px, 4vw, 68px); display: flex; align-items: center; justify-content: space-between; gap: 18px; background: rgba(238,241,236,.92); border-bottom: 1px solid rgba(205,214,206,.85); backdrop-filter: blur(14px); }
 .workspace-tabs { padding: 4px; display: flex; gap: 4px; background: #e4e9e3; border-radius: 9px; }

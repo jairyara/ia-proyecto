@@ -106,6 +106,9 @@ El sistema cuenta hoy con una base verificable:
 - clasificador simbólico de requerimientos;
 - 20 requerimientos del dominio con referencia manual;
 - baseline supervisado de riesgo de retraso (accuracy, F1, matriz de confusión);
+- búsqueda heurística A* con líneas base y replanificación dinámica;
+- sistema híbrido trazable (reglas expertas + TF-IDF + clasificación) con
+  base de conocimiento de 10 protocolos operativos;
 - validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
@@ -127,7 +130,8 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 │   ├── datos/          # Ingesta, extracción (Amazon Last Mile) y generación sintética
 │   ├── modelado/       # Modelos predictivos supervisados y evaluación de métricas
 │   ├── clasificacion/  # Clasificador simbólico y reglas de taxonomía
-│   └── busqueda/       # Búsqueda heurística A*, líneas base no informadas y replanificación
+│   ├── busqueda/       # Búsqueda heurística A*, líneas base no informadas y replanificación
+│   └── hibrido/        # Sistema híbrido: reglas expertas + TF-IDF/coseno + clasificación
 └── tests/              # Pruebas automatizadas unitarias y de integración
 ```
 
@@ -174,12 +178,17 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    python -m src.busqueda_rutas
    ```
 
-5. **Pruebas automatizadas:**
+5. **Sistema híbrido trazable (reglas + TF-IDF + clasificación):**
+   ```bash
+   python -m src.sistema_hibrido
+   ```
+
+6. **Pruebas automatizadas:**
    ```bash
    python -m unittest discover -s tests -v
    ```
 
-6. **Dashboard web, ejecución local con recarga automática:**
+7. **Dashboard web, ejecución local con recarga automática:**
    ```bash
    # Terminal 1, desde la raíz y con .venv activo
    uvicorn api.main:app --reload --port 8000

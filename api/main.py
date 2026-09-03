@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
-from api.routers import busqueda, clasificacion, contenido, modelado
+from api.routers import busqueda, clasificacion, contenido, hibrido, modelado
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -40,6 +40,7 @@ app.add_middleware(
 app.include_router(busqueda.router)
 app.include_router(modelado.router)
 app.include_router(clasificacion.router)
+app.include_router(hibrido.router)
 app.include_router(contenido.router)
 
 

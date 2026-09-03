@@ -1,0 +1,10 @@
+Protocolo 1: Control de temperatura y cadena de frío en transporte de perecederos y farmacéuticos; si la temperatura supera los límites o falla el termógrafo, se debe activar refrigeración de emergencia o derivar a centro de acopio cercano.
+Protocolo 2: Gestión de congestión y bloqueos viales; ante cierres viales, obras o accidentes de tránsito que excedan 20 minutos de espera, el sistema debe replanificar la ruta con vías alternas evitando cuellos de botella.
+Protocolo 3: Control de capacidad volumétrica y peso máximo de la flota; ante exceso de kilos o sobrecupo vehicular, se debe reasignar la carga a vehículos de mayor tonelaje o programar un segundo viaje.
+Protocolo 4: Cumplimiento de ventanas horarias de entrega; si el retraso en ruta supera el margen de tolerancia del cliente comercial, el despachador debe notificar y renegociar la ventana de recepción.
+Protocolo 5: Gestión de envíos prioritarios y pedidos urgentes; los paquetes clasificados como express o de alta prioridad tienen preferencia en la asignación de flota directa y orden de despacho.
+Protocolo 6: Novedad por destinatario ausente o dirección inaccesible; se activa protocolo de reintento de entrega al final de la jornada y custodia temporal en bodega satélite.
+Protocolo 7: Transporte de mercancías frágiles y manejo delicado; embalaje especial con sujeción reforzada, velocidad restringida y restricción de estiba máxima para evitar averías.
+Protocolo 8: Restricciones de circulación urbana y pico y placa ambiental; asignación inteligente de vehículos eléctricos o híbridos para zonas céntricas de bajas emisiones y horarios restringidos.
+Protocolo 9: Gestión de fallas mecánicas en ruta; reporte telemático inmediato para envío de grúa de auxilio y transferencia de pedidos a un móvil de respaldo en el sector.
+Protocolo 10: Validación documental y recepción de mercancía; verificación digital de remisión, firma electrónica y captura de comprobante de entrega en dispositivo móvil.

@@ -4,12 +4,14 @@ import WeekWorkspace from './components/WeekWorkspace.jsx'
 import Semana02View from './views/Semana02View.jsx'
 import Semana03View from './views/Semana03View.jsx'
 import Semana04View from './views/Semana04View.jsx'
+import Semana05View from './views/Semana05View.jsx'
 import { api } from './services/api.js'
 
 const views = {
   semana02: Semana02View,
   semana03: Semana03View,
   semana04: Semana04View,
+  semana05: Semana05View,
 }
 
 export default function App() {

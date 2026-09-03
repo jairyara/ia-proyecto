@@ -36,6 +36,7 @@
 │  • Endpoint /api/busqueda/replanificar                                      │
 │  • Endpoint /api/modelado/predecir-riesgo                                   │
 │  • Endpoint /api/clasificacion/evaluar-requerimiento                        │
+│  • Endpoints /api/hibrido/responder y /api/hibrido/contexto                 │
 │  • Endpoints /api/contenido/* (catálogo seguro, código e informes)           │
 │  • Servicios de trazabilidad que proyectan el core sin modificarlo           │
 └──────────────────────────────────────┬──────────────────────────────────────┘
@@ -46,6 +47,7 @@
 │  • src.busqueda (GrafoEntregas, a_estrella, dijkstra, replanificacion)     │
 │  • src.modelado (Pipeline de riesgo de retraso, LogisticRegression, RF)     │
 │  • src.clasificacion (Motor de reglas simbólicas de taxonomía)              │
+│  • src.hibrido (Reglas expertas + TF-IDF/coseno + LogisticRegression)       │
 │  • src.comun & src.datos (Haversine geodésico, datasets Amazon y sintético) │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -88,7 +90,20 @@
   - Campo de texto donde el usuario escribe o selecciona casos de prueba logísticos.
   - Desglose visual del árbol de reglas: palabras clave detectadas, reglas activadas y asignación justificada del área de IA según la taxonomía oficial.
 
-### Vistas Futuras (Semanas 5 a 18 — Escalabilidad)
+### Vista Semana 5: Sistema Híbrido Trazable
+* **Consulta Operativa en Lenguaje Natural:**
+  - Campo de texto con las tres consultas de la guía como presets seleccionables.
+  - La entrada se normaliza (minúsculas, sin tildes) antes de alimentar las tres técnicas.
+* **Panel de Categoría Operativa:**
+  - Clase predicha por `LogisticRegression` con barras de probabilidad por categoría (`predict_proba`).
+* **Trazabilidad de la Decisión en Tres Nodos:**
+  - **Reglas expertas:** acción disparada junto con la palabra exacta de la consulta que la activó (las reglas son datos estructurados `Regla(accion, palabras, descripcion)`, no lambdas anónimas).
+  - **Evidencia documental:** protocolo SOP recuperado con medidor de similitud coseno TF-IDF.
+  - **Clasificación supervisada:** categoría operativa y descripción del entrenamiento.
+* **Catálogo de Ingeniería del Conocimiento:**
+  - Visualización de las 5 reglas expertas del dominio logístico con sus palabras clave y acción operativa, alimentado por `/api/hibrido/contexto`.
+
+### Vistas Futuras (Semanas 6 a 18 — Escalabilidad)
 * **Semanas 7–12 (Corte 2):** Motor de restricciones operativas (capacidad de carga, ventanas de tiempo duras) y visualizador de ontología del dominio.
 * **Semanas 13–18 (Corte 3):** Visor de Visión por Computador (inspección visual de paquetes con Canvas) y consola del ciclo de agentes (percibir $\rightarrow$ planificar $\rightarrow$ actuar $\rightarrow$ replanificar).
 
@@ -110,15 +125,18 @@ ia-proyecto/
 │   │   ├── busqueda.py         # Endpoints de trazas paso a paso de A* y replanificación
 │   │   ├── modelado.py         # Inferencia de riesgo de retraso
 │   │   ├── clasificacion.py    # Evaluación de requerimientos simbólicos
+│   │   ├── hibrido.py          # Respuesta trazable del sistema híbrido (Semana 5)
 │   │   └── contenido.py        # Catálogo seguro de código e informes
 │   ├── schemas/
 │   │   ├── busqueda_dto.py     # Contratos Pydantic de búsqueda
 │   │   ├── modelado_dto.py     # Contratos de inferencia supervisada
-│   │   └── clasificacion_dto.py
+│   │   ├── clasificacion_dto.py
+│   │   └── hibrido_dto.py      # Contrato de consulta del sistema híbrido
 │   └── services/
 │       ├── busqueda.py         # Proyección de trazas del core
 │       ├── modelado.py         # Carga e inferencia del modelo
 │       ├── clasificacion.py    # Adaptador del motor simbólico
+│       ├── hibrido.py          # Adaptador del sistema híbrido (Semana 5)
 │       └── contenido.py        # Allowlist, AST y lectura de Markdown
 │
 └── dashboard/                  # Frontend moderno en React
@@ -144,7 +162,8 @@ ia-proyecto/
         ├── views/
         │   ├── Semana02View.jsx     # Vista interactiva de ML Supervisado
         │   ├── Semana03View.jsx     # Vista interactiva de Clasificador Simbólico
-        │   └── Semana04View.jsx     # Vista del Simulador A*, Heurísticas y Replanificación
+        │   ├── Semana04View.jsx     # Vista del Simulador A*, Heurísticas y Replanificación
+        │   └── Semana05View.jsx     # Vista del Sistema Híbrido Trazable
         └── services/
             └── api.js               # Cliente HTTP fetch hacia la API
 ```
@@ -195,6 +214,14 @@ ia-proyecto/
 - [x] Renderizar cada informe Markdown con GFM, fórmulas KaTeX, tabla de contenido, búsqueda y vista de fuente.
 - [x] Cargar bajo demanda el explorador y el visualizador para conservar un bundle inicial liviano.
 - [x] Validar 55 pruebas Python, 2 pruebas frontend y el build de producción con pnpm.
+
+### Fase 7: Semana 5 — Sistema Híbrido Trazable
+- [x] Implementar `src/hibrido/sistema.py` con reglas expertas declarativas (datos, no lambdas), recuperación TF-IDF + coseno y clasificación con `predict_proba`.
+- [x] Crear `data/base_conocimiento.txt` con 10 protocolos SOP y script reproducible `python -m src.sistema_hibrido`.
+- [x] Exponer `/api/hibrido/responder` y `/api/hibrido/contexto` con contratos Pydantic.
+- [x] Construir `Semana05View.jsx` con presets de la guía, barras de probabilidad, trazabilidad en tres nodos y catálogo de reglas.
+- [x] Registrar la Semana 5 en el catálogo de contenido y crear `reports/sem-05-sistema-hibrido.md`.
+- [x] Validar 67 pruebas Python y el build de producción con pnpm.
 
 ---
 
