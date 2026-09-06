@@ -30,14 +30,23 @@ function Grid({ graph, step, start, goal, obstacles, onToggle }) {
           start === id && 'cell--start',
           goal === id && 'cell--goal',
         ].filter(Boolean).join(' ')
+        const cellLabel = start === id ? 'DEP' : goal === id ? 'CLI' : `${row},${col}`
+        const cellTitle = start === id
+          ? 'Depósito Central / Almacén (Origen S)'
+          : goal === id
+            ? 'Cliente / Punto de Entrega (Meta G)'
+            : blocked
+              ? `Vía cerrada por obras o congestión (${row},${col})`
+              : `Intersección vial transitable (${row},${col})`
         return (
           <g key={id} className={`grid-cell ${states}`} role="button" tabIndex="0"
             aria-label={`Celda ${row}, ${col}${blocked ? ', bloqueada' : ''}`}
             onClick={() => onToggle(row, col)}
             onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onToggle(row, col) } }}>
+            <title>{cellTitle}</title>
             <rect x={27 + col * 70} y={27 + row * 70} width="58" height="58" rx="10" />
             {blocked && <text x={56 + col * 70} y={64 + row * 70}>×</text>}
-            {!blocked && <text x={56 + col * 70} y={63 + row * 70}>{start === id ? 'S' : goal === id ? 'G' : `${row},${col}`}</text>}
+            {!blocked && <text x={56 + col * 70} y={63 + row * 70}>{cellLabel}</text>}
           </g>
         )
       })}

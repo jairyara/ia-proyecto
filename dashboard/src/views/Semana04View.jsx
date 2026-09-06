@@ -155,9 +155,9 @@ export default function Semana04View() {
     <div className="view-shell">
       <header className="view-header">
         <div>
-          <div className="week-kicker"><span>SEMANA 04</span><i /> BÚSQUEDA INFORMADA</div>
-          <h1>Encontrar la mejor ruta,<br /><em>paso a paso.</em></h1>
-          <p>Observa cómo A* equilibra el costo recorrido con una estimación admisible, y contrástalo con búsquedas no informadas.</p>
+          <div className="week-kicker"><span>SEMANA 04</span><i /> BÚSQUEDA INFORMADA LOGÍSTICA</div>
+          <h1>Ruta óptima de entrega,<br /><em>paso a paso.</em></h1>
+          <p>Observa cómo A* equilibra el tiempo real recorrido g(n) con una estimación heurística admisible h(n), y contrástalo con Dijkstra y BFS.</p>
         </div>
         <div className="header-stat">
           <span>ESTADO DEL EXPERIMENTO</span>
@@ -168,22 +168,22 @@ export default function Semana04View() {
 
       <section className="control-deck" aria-label="Configuración del experimento">
         <div className="segmented-control">
-          <button className={environment === 'cuadricula' ? 'active' : ''} onClick={() => changeEnvironment('cuadricula')}>Cuadrícula 5×5</button>
+          <button className={environment === 'cuadricula' ? 'active' : ''} onClick={() => changeEnvironment('cuadricula')}>Cuadrícula 5×5 (Clase)</button>
           <button className={environment === 'amazon' ? 'active' : ''} onClick={() => changeEnvironment('amazon')}>Amazon Last Mile</button>
         </div>
         <label className="field compact-field">
           <span>ALGORITMO</span>
           <select value={algorithm} onChange={(event) => { setAlgorithm(event.target.value); setDirty(true) }}>
-            <option value="a_estrella">A* — informada</option>
-            <option value="dijkstra">Dijkstra — costo uniforme</option>
-            <option value="bfs">BFS — por niveles</option>
+            <option value="a_estrella">A* — informada (f = g + h)</option>
+            <option value="dijkstra">Dijkstra — costo uniforme (h = 0)</option>
+            <option value="bfs">BFS — por niveles (cola FIFO)</option>
           </select>
         </label>
         <label className="field compact-field">
           <span>HEURÍSTICA</span>
           <select value={environment === 'amazon' ? 'haversine' : heuristic} disabled={algorithm !== 'a_estrella' || environment === 'amazon'} onChange={(event) => { setHeuristic(event.target.value); setDirty(true) }}>
-            <option value="manhattan">Manhattan</option>
-            <option value="euclidiana">Euclidiana</option>
+            <option value="manhattan">Manhattan (|Δx| + |Δy|)</option>
+            <option value="euclidiana">Euclidiana (√(Δx² + Δy²))</option>
             {environment === 'amazon' && <option value="haversine">Haversine / v máx.</option>}
           </select>
         </label>
@@ -202,9 +202,9 @@ export default function Semana04View() {
 
       {environment === 'amazon' && selectedRoute && (
         <section className="node-selectors">
-          <label className="field"><span>ORIGEN</span><select value={start} onChange={(event) => { setStart(event.target.value); setDirty(true) }}>{selectedRoute.paradas.map((item) => <option key={item.id} value={item.id}>{item.id}{item.id === selectedRoute.deposito ? ' · depósito' : ''}</option>)}</select></label>
+          <label className="field"><span>ORIGEN (DEPÓSITO)</span><select value={start} onChange={(event) => { setStart(event.target.value); setDirty(true) }}>{selectedRoute.paradas.map((item) => <option key={item.id} value={item.id}>{item.id}{item.id === selectedRoute.deposito ? ' · depósito' : ''}</option>)}</select></label>
           <span className="node-arrow">→</span>
-          <label className="field"><span>DESTINO</span><select value={goal} onChange={(event) => { setGoal(event.target.value); setDirty(true) }}>{selectedRoute.paradas.filter((item) => item.id !== start).map((item) => <option key={item.id} value={item.id}>{item.id}</option>)}</select></label>
+          <label className="field"><span>DESTINO (CLIENTE)</span><select value={goal} onChange={(event) => { setGoal(event.target.value); setDirty(true) }}>{selectedRoute.paradas.filter((item) => item.id !== start).map((item) => <option key={item.id} value={item.id}>{item.id}</option>)}</select></label>
           <p>Ruta {selectedRoute.fecha} · estación {selectedRoute.estacion}</p>
         </section>
       )}
@@ -215,32 +215,32 @@ export default function Semana04View() {
       <div className="lab-grid">
         <section className="panel canvas-panel">
           <div className="panel-heading">
-            <div><span className="eyebrow">ESPACIO DE ESTADOS</span><h2>{environment === 'cuadricula' ? 'Red urbana sintética' : 'Paradas geográficas reales'}</h2></div>
-            <div className="legend"><span><i className="legend-start" />Origen</span><span><i className="legend-frontier" />Frontera</span><span><i className="legend-closed" />Explorado</span><span><i className="legend-route" />Ruta</span></div>
+            <div><span className="eyebrow">ESPACIO DE ESTADOS</span><h2>{environment === 'cuadricula' ? 'Red urbana sintética (Cuadrícula 5×5)' : 'Paradas geográficas Amazon Last Mile'}</h2></div>
+            <div className="legend"><span><i className="legend-start" />Depósito (S)</span><span><i className="legend-frontier" />Frontera (Heap)</span><span><i className="legend-closed" />Exploradas</span><span><i className="legend-route" />Ruta</span></div>
           </div>
           <div className={`canvas-wrap ${loading ? 'canvas-wrap--loading' : ''}`}>
             <GridCanvas environment={environment} graph={simulation?.grafo} step={step} start={simulation?.inicio || start} goal={simulation?.meta || goal} obstacles={obstacles} onToggle={toggleObstacle} />
             {loading && <div className="loading-overlay"><span className="loader" />Calculando estados…</div>}
           </div>
-          {environment === 'cuadricula' && <p className="canvas-hint">Haz clic o presiona Enter sobre una celda para bloquearla. Luego aplica los cambios.</p>}
+          {environment === 'cuadricula' && <p className="canvas-hint">Haz clic sobre una celda para simular una vía cerrada por obras o congestión vial. Luego haz clic en "Aplicar cambios".</p>}
           <StepPlayer index={index} total={simulation?.pasos?.length || 0} playing={playing} speed={speed} onPlaying={setPlaying} onStep={(delta) => { setPlaying(false); setIndex((current) => Math.max(0, Math.min(current + delta, (simulation?.pasos?.length || 1) - 1))) }} onReset={() => { setPlaying(false); setIndex(0) }} onSpeed={setSpeed} />
         </section>
-        <CodeExplainer code={simulation?.codigo} step={step} fileName={simulation?.archivo_codigo} />
+        <CodeExplainer code={simulation?.codigo} step={step} fileName={simulation?.archivo_codigo} workspaceRoot={simulation?.workspace_editor} />
       </div>
 
       <MetricsCard simulation={simulation} step={step} />
 
       <div className="detail-grid">
         <section className="panel data-panel">
-          <div className="panel-heading"><div><span className="eyebrow">COLA DE PRIORIDAD</span><h2>Candidatos en frontera</h2></div><span className="count-pill">{step?.frontera?.length || 0} visibles</span></div>
-          <div className="table-wrap"><table><thead><tr><th>Nodo</th><th>g(n)</th><th>h(n)</th><th>f(n)</th></tr></thead><tbody>
+          <div className="panel-heading"><div><span className="eyebrow">COLA DE PRIORIDAD (MIN-HEAP)</span><h2>Frontera de reparto: g(n) real + h(n) estimado</h2></div><span className="count-pill">{step?.frontera?.length || 0} visibles</span></div>
+          <div className="table-wrap"><table><thead><tr><th>Parada</th><th>g(n) real</th><th>h(n) heurística</th><th>f(n) proyectado</th></tr></thead><tbody>
             {(step?.frontera || []).map((item, itemIndex) => <tr key={`${item.nodo}-${itemIndex}`}><td><i className="node-dot" />{item.nodo}</td><td>{item.g}</td><td>{item.h}</td><td><strong>{item.f}</strong></td></tr>)}
             {!step?.frontera?.length && <tr><td colSpan="4" className="empty-cell">La frontera está vacía en este paso.</td></tr>}
           </tbody></table></div>
         </section>
         <section className="panel replanning-panel">
-          <div><span className="eyebrow eyebrow--warm">EVENTO DINÁMICO</span><h2>¿Y si una vía se cierra?</h2><p>Bloquea un tramo de la ruta óptima y observa cómo el agente vuelve a planificar desde el punto actual.</p></div>
-          <button className="danger-button" onClick={replanify} disabled={loading || dirty || !simulation?.resultado?.encontrado}><Icon name="alert" /> Bloquear siguiente tramo</button>
+          <div><span className="eyebrow eyebrow--warm">LOGÍSTICA DINÁMICA</span><h2>Simular vía cerrada en ruta y replanificar</h2><p>Simula un incidente vial (obra o trancón) en el siguiente tramo del vehículo y observa cómo A* replanifica desde el punto actual hasta el cliente.</p></div>
+          <button className="danger-button" onClick={replanify} disabled={loading || dirty || !simulation?.resultado?.encontrado}><Icon name="alert" /> Simular vía cerrada y replanificar</button>
           <small>El grafo original no se modifica: el bloqueo vive solo en esta simulación.</small>
         </section>
       </div>

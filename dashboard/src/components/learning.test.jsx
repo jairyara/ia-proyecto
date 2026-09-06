@@ -34,14 +34,15 @@ describe('CodeDocument', () => {
     expect(screen.getByText('LÍNEA 2')).toBeTruthy()
   })
 
-  it('abre la línea seleccionada en el IDE elegido', () => {
+  it('abre la línea seleccionada en el IDE elegido (VS Code por defecto)', () => {
     render(
       <CodeDocument document={source} selectedLine={2} onSelect={vi.fn()} playing={false} onPlay={vi.fn()} onMove={vi.fn()} onOutline={vi.fn()} />,
     )
 
-    const link = screen.getByRole('link', { name: /línea 2.*PyCharm/i })
-    expect(link.getAttribute('href')).toBe(
-      'pycharm://open?file=%2FUsers%2Festudiante%2Fia+proyecto%2Fsrc%2Fbusqueda%2Fa_estrella.py&line=2&column=1',
+    const links = screen.getAllByRole('link', { name: /línea 2.*VS Code/i })
+    expect(links.length).toBeGreaterThan(0)
+    expect(links[0].getAttribute('href')).toBe(
+      'vscode://file/Users/estudiante/ia%20proyecto/src/busqueda/a_estrella.py:2:1',
     )
   })
 })

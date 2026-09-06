@@ -1,5 +1,13 @@
 # Taxonomía de IA y línea base simbólica
 
+> [!NOTE]
+> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 01 & 03**
+> - **Tema curricular**: Taxonomía y Áreas de la Inteligencia Artificial · Mapeo de capacidades al problema de ingeniería.
+> - **Problema en última milla**: Descomponer la operación de reparto urbano identificando qué módulos requieren búsqueda, predicción supervisada, reglas o percepción.
+> - **Datos asociados**: Requerimientos iniciales y taxonomía del curso.
+> - **Código ejecutable**: [`src/clasificacion/requerimientos.py`](../src/clasificacion/requerimientos.py).
+> - **En el Dashboard**: Base metodológica transversal visible en la documentación general.
+
 **Fecha:** 2026-08-20  
 **Tema:** taxonomía y áreas de inteligencia artificial aplicadas al proyecto.
 

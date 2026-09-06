@@ -1,5 +1,9 @@
 # Sistema inteligente para logística
 
+> [!TIP]
+> **¿Buscando qué se hizo cada semana y cómo se aplica al camión de reparto?**  
+> Consulta el **[`Mapa Maestro de Semanas y Trazabilidad`](MAPA_SEMANAS.md)** para ver la matriz de correspondencia completa entre temas académicos, datos (`data/`), código (`src/`), reportes (`reports/`) y pestañas del Dashboard.
+
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
 arquitectura híbrida que combina búsqueda heurística, aprendizaje automático

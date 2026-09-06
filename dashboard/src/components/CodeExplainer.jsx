@@ -1,6 +1,43 @@
-export default function CodeExplainer({ code = [], step, fileName = 'a_estrella.py' }) {
+import { useEffect, useMemo, useState } from 'react'
+import Icon from './Icon.jsx'
+import { buildEditorUri, EDITORS, storedEditor, storeEditor } from '../services/editor.js'
+
+export default function CodeExplainer({ code = [], step, fileName = 'a_estrella.py', workspaceRoot }) {
   const active = step?.linea_activa || 'init'
   const explanation = code.find((line) => line.id === active)
+  const relativePath = fileName.includes('no_informada') ? 'src/busqueda/no_informada.py' : 'src/busqueda/a_estrella.py'
+  const lineNum = explanation?.linea || 1
+
+  const [editor, setEditor] = useState(() => storedEditor())
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.detail && EDITORS[e.detail]) {
+        setEditor(e.detail)
+      }
+    }
+    window.addEventListener('editor-change', handler)
+    return () => window.removeEventListener('editor-change', handler)
+  }, [])
+
+  const editorUri = useMemo(() => {
+    try {
+      return buildEditorUri({
+        editor,
+        workspaceRoot: workspaceRoot || '',
+        relativePath,
+        line: lineNum,
+      })
+    } catch {
+      return ''
+    }
+  }, [editor, lineNum, relativePath, workspaceRoot])
+
+  const selectEditor = (event) => {
+    const value = event.target.value
+    setEditor(value)
+    storeEditor(value)
+  }
 
   return (
     <section className="panel code-panel" aria-labelledby="code-title">
@@ -9,7 +46,22 @@ export default function CodeExplainer({ code = [], step, fileName = 'a_estrella.
           <span className="eyebrow eyebrow--mint">TRAZA DE EJECUCIÓN</span>
           <h2 id="code-title">Dentro del algoritmo</h2>
         </div>
-        <span className="file-pill"><i /> {fileName}</span>
+        <div className="code-explainer-toolbar">
+          <label className="ide-picker ide-picker--compact">
+            <span className="sr-only">IDE</span>
+            <select value={editor} onChange={selectEditor} aria-label="IDE para edición">
+              {Object.entries(EDITORS).map(([id, item]) => <option value={id} key={id}>{item.label}</option>)}
+            </select>
+          </label>
+          <a
+            className={`file-pill ${!editorUri ? 'disabled' : ''}`}
+            href={editorUri || undefined}
+            title={`Abrir ${relativePath} en línea ${lineNum} en ${EDITORS[editor]?.label || 'IDE'}`}
+          >
+            <Icon name="external" size={11} />
+            {fileName} · L{lineNum}
+          </a>
+        </div>
       </div>
       <div className="code-window" role="region" aria-live="polite" aria-label="Código con línea activa">
         {code.map((line) => (
@@ -24,6 +76,14 @@ export default function CodeExplainer({ code = [], step, fileName = 'a_estrella.
         <div>
           <strong>{step?.mensaje || explanation?.explicacion}</strong>
           <p>{explanation?.explicacion}</p>
+          <a
+            className={`code-editor-link ${!editorUri ? 'disabled' : ''}`}
+            href={editorUri || undefined}
+            title={`Abrir en ${EDITORS[editor]?.label || 'IDE'} en esta línea exacta`}
+          >
+            <Icon name="external" size={12} />
+            Ver en {EDITORS[editor]?.label || 'IDE'} (L{lineNum})
+          </a>
         </div>
       </div>
       <div className="variable-strip">

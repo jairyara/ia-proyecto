@@ -1,5 +1,13 @@
 # Reporte Técnico — Sistema Híbrido de Trazabilidad (Reglas + TF-IDF + Clasificación)
 
+> [!NOTE]
+> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 05**
+> - **Tema curricular**: Sistemas Híbridos Neuro-Simbólicos · Integración de Sistemas Expertos (reglas duras), Recuperación de Información (TF-IDF + Coseno) y Clasificación Predictiva.
+> - **Problema en última milla**: Gestión auditable de incidentes y novedades no estructuradas del repartidor en campo (cliente ausente, paquete dañado, pérdida de frío).
+> - **Datos asociados**: Base de conocimiento de 10 protocolos SOP en [`data/base_conocimiento.txt`](../data/base_conocimiento.txt).
+> - **Código ejecutable**: [`src/hibrido/sistema.py`](../src/hibrido/sistema.py) (`python -m src.sistema_hibrido`).
+> - **En el Dashboard**: Pestaña *"Semana 05: Sistema híbrido trazable"* -> Consulta de incidentes con triple señal auditada.
+
 **Curso:** Inteligencia Artificial · 10.º semestre · Proyecto 8 (Sistema Inteligente para Logística)  
 **Tema:** Marco tecnológico de la IA · Sistemas expertos · Ingeniería del conocimiento · Recuperación de información · Reconocimiento de formas · PLN  
 **Módulos:** `src/hibrido/sistema.py`, `src/sistema_hibrido.py`  

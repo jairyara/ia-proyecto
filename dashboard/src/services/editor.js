@@ -1,6 +1,28 @@
 export const EDITORS = {
-  pycharm: { label: 'PyCharm', scheme: 'pycharm' },
   vscode: { label: 'VS Code', scheme: 'vscode' },
+  pycharm: { label: 'PyCharm', scheme: 'pycharm' },
+}
+
+const EDITOR_STORAGE_KEY = 'orbita.editor'
+
+export function storedEditor() {
+  try {
+    const saved = window.localStorage?.getItem(EDITOR_STORAGE_KEY)
+    return EDITORS[saved] ? saved : 'vscode'
+  } catch {
+    return 'vscode'
+  }
+}
+
+export function storeEditor(editor) {
+  try {
+    if (EDITORS[editor]) {
+      window.localStorage?.setItem(EDITOR_STORAGE_KEY, editor)
+      window.dispatchEvent(new CustomEvent('editor-change', { detail: editor }))
+    }
+  } catch {
+    // El enlace sigue funcionando si el navegador bloquea almacenamiento local.
+  }
 }
 
 function normalizedLine(value) {

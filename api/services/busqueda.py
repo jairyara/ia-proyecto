@@ -21,7 +21,7 @@ from api.schemas.busqueda_dto import (
     ReplanificacionRequest,
     SimulacionBusquedaRequest,
 )
-from api.services.contenido import fragmento_traza
+from api.services.contenido import _workspace_editor, fragmento_traza
 from src.busqueda.a_estrella import (
     ResultadoBusqueda,
     a_estrella,
@@ -523,6 +523,7 @@ def simular_busqueda(solicitud: SimulacionBusquedaRequest) -> dict[str, Any]:
             "dijkstra": _serializar_resultado(referencia_d),
         },
         "grafo": _serializar_grafo(grafo, solicitud, resultado),
+        "workspace_editor": _workspace_editor(),
         "aristas_bloqueadas": [
             {"origen": origen, "destino": destino}
             for origen, destino in sorted(grafo.aristas_bloqueadas)

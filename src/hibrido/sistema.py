@@ -176,8 +176,15 @@ classifier.fit(TRAIN_X, TRAIN_Y)
 
 
 def evaluar_reglas(query: str) -> list[dict]:
-    """Evalúa las reglas expertas y reporta qué palabra disparó cada una."""
+    """SEÑAL 1: MOTOR DE REGLAS EXPERTAS (ENFOQUE SIMBÓLICO).
 
+    CONCEPTOS DE SUSTENTACIÓN:
+    - Es determinista y auditable: no depende de pesos estadísticos.
+    - Si la consulta contiene palabras clave (ej. 'temperatura', 'frio'), dispara la acción
+      operativa correspondiente y reporta exactamente qué palabra causó la decisión.
+    - SI SE CAMBIA: Si se agregan o quitan palabras de RULES, cambia la sensibilidad
+      del sistema a las alertas de los conductores o despachadores.
+    """
     q = _normalizar(query)
     activadas = []
     for regla in RULES:
@@ -194,9 +201,19 @@ def evaluar_reglas(query: str) -> list[dict]:
 
 
 def recuperar_evidencia(query: str) -> dict:
-    """Recupera el protocolo más afín con TF-IDF + similitud coseno."""
+    """SEÑAL 2: RECUPERACIÓN DOCUMENTAL (TF-IDF + SIMILITUD COSENO).
 
+    CONCEPTOS DE SUSTENTACIÓN:
+    1. TF-IDF (Frecuencia de término - Frecuencia inversa de documento):
+       Convierte el texto en un vector numérico donde los términos raros y distintivos
+       tienen mayor peso que las palabras comunes.
+    2. SIMILITUD COSENO: cos(theta) = (A . B) / (||A|| * ||B||).
+       Mide el ángulo entre el vector de la consulta y cada protocolo SOP en doc_matrix.
+       Valores cercanos a 1.0 indican máxima afinidad de vocabulario técnico.
+    3. argmax(): Obtiene el índice del protocolo con mayor puntaje de coincidencia.
+    """
     q = _normalizar(query)
+    # Proyecta la consulta al espacio vectorial entrenado con TF-IDF y calcula cosenos
     similarities = cosine_similarity(vectorizer.transform([q]), doc_matrix)[0]
     best_index = int(similarities.argmax())
     return {
@@ -207,8 +224,13 @@ def recuperar_evidencia(query: str) -> dict:
 
 
 def clasificar(query: str) -> dict:
-    """Predice la categoría operativa y su distribución de probabilidad."""
+    """SEÑAL 3: CLASIFICADOR SUPERVISADO (REGRESIÓN LOGÍSTICA MULTICLASE).
 
+    CONCEPTOS DE SUSTENTACIÓN:
+    - Transforma el texto con TF-IDF y aplica un clasificador lineal entrenado sobre TRAIN_X.
+    - predict_proba: En lugar de entregar solo la clase ganadora, entrega la distribución
+      completa de probabilidad para evaluar el nivel de certidumbre del modelo.
+    """
     q = _normalizar(query)
     label = str(classifier.predict([q])[0])
     probabilidades = classifier.predict_proba([q])[0]
@@ -226,8 +248,18 @@ def clasificar(query: str) -> dict:
 
 
 def answer(query: str) -> dict:
-    """Responde una consulta con trazabilidad de las tres técnicas."""
+    """INTEGRACIÓN HÍBRIDA: Orquesta las tres técnicas y genera la respuesta consolidada.
 
+    PREGUNTA CLAVE DE SUSTENTACIÓN:
+    "¿Por qué un sistema híbrido es mejor que usar solo reglas o solo Machine Learning?"
+    RESPUESTA:
+    1. Si usamos solo reglas y el usuario usa sinónimos no previstos, el sistema no responde nada.
+    2. Si usamos solo ML en caja negra, no podemos auditar con certeza legal por qué se tomó una acción.
+    3. La combinación híbrida permite:
+       - Acción determinista e inmediata si hay regla aplicable (Simbólico).
+       - Justificación documental del procedimiento estándar SOP (Recuperación TF-IDF).
+       - Clasificación estadística con grado de certidumbre incluso con vocabulario imprevisto (ML).
+    """
     reglas = evaluar_reglas(query)
     evidencia = recuperar_evidencia(query)
     prediccion = clasificar(query)

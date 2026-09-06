@@ -1,5 +1,13 @@
 # Dataset Amazon Last Mile Routing Challenge (ALMRRC 2021)
 
+> [!NOTE]
+> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 02**
+> - **Tema curricular**: Curaduría, Limpieza y Exploración de Datos Masivos de Distribución Urbana.
+> - **Problema en última milla**: Análisis de paradas, ventanas horarias y tiempos de servicio reales de Amazon para contrastar con datos sintéticos.
+> - **Datos asociados**: [`data/amazon_pedidos.csv`](../data/amazon_pedidos.csv) y [`data/amazon_rutas_muestra.json`](../data/amazon_rutas_muestra.json).
+> - **Código ejecutable**: [`src/datos/amazon.py`](../src/datos/amazon.py) (`python -m src.extraer_datos_amazon`).
+> - **En el Dashboard**: Pestaña *"Semana 02: Aprendizaje supervisado"* -> Visualizador de datos y métricas por estación (`DAU1`, `DBO1`, etc.).
+
 Reporte generado automáticamente por `python -m src.extraer_datos_amazon`.
 
 ## Resumen general

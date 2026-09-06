@@ -1,5 +1,13 @@
 # Baseline supervisado — riesgo de retraso
 
+> [!NOTE]
+> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 02**
+> - **Tema curricular**: Aprendizaje Supervisado · Clasificación binaria, partición estratificada y métricas de evaluación ($F_1$-score).
+> - **Problema en última milla**: Predecir si un paquete llegará tarde antes de cargarlo al furgón según distancia, clima y tráfico.
+> - **Datos asociados**: [`data/pedidos.csv`](../data/pedidos.csv) (1.000 pedidos sintéticos controlados).
+> - **Código ejecutable**: [`src/datos/sintetico.py`](../src/datos/sintetico.py), [`src/modelado/riesgo_retraso.py`](../src/modelado/riesgo_retraso.py)
+> - **En el Dashboard**: Pestaña *"Semana 02: Aprendizaje supervisado"* -> Laboratorio interactivo de riesgo.
+
 Reporte generado por `python -m src.modelado.riesgo_retraso`.
 
 ## Datos

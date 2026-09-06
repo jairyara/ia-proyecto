@@ -145,43 +145,126 @@ FUNCTION_DESCRIPTIONS = {
 
 
 DOMAIN_EXPLANATIONS: tuple[tuple[str, str], ...] = (
-    ("heapq.heappop", "Extrae de la cola de prioridad el candidato con menor costo estimado."),
-    ("heapq.heappush", "Inserta un candidato en la cola manteniendo el orden de prioridad."),
-    ("nuevo_g =", "Calcula el costo real acumulado si se avanza hasta este vecino."),
-    ("f_nxt =", "Combina costo real y heurística mediante f(n) = g(n) + h(n)."),
-    ("came_from", "Registra predecesores para reconstruir después la ruta encontrada."),
-    ("train_test_split", "Separa entrenamiento y evaluación con una partición independiente."),
-    ("pipeline.fit", "Ajusta preprocesamiento y modelo usando únicamente el conjunto de entrenamiento."),
-    ("predict_proba", "Obtiene la probabilidad estimada de pertenecer a cada clase."),
-    ("predicciones = pipeline.predict", "Genera etiquetas binarias sobre datos que el modelo no usó para ajustarse."),
-    ("accuracy_score", "Calcula la proporción total de predicciones correctas."),
-    ("f1_score", "Calcula el equilibrio entre precisión y cobertura de la clase de retraso."),
-    ("confusion_matrix", "Cuenta verdaderos y falsos positivos y negativos."),
-    ("OneHotEncoder", "Convierte la prioridad categórica en columnas numéricas sin orden artificial."),
-    ("StandardScaler", "Estandariza variables numéricas usando estadísticas del entrenamiento."),
-    ("joblib.dump", "Guarda el pipeline entrenado para reutilizar exactamente sus transformaciones."),
-    ("np.random.default_rng", "Crea un generador aleatorio local controlado por una semilla."),
-    ("log_odds =", "Combina condiciones logísticas para construir la probabilidad sintética base."),
-    ("flips =", "Introduce ruido controlado para que la etiqueta no sea una regla perfectamente trivial."),
-    ("unicodedata.normalize", "Separa letras y tildes antes de retirar marcas diacríticas."),
-    ("contains_keyword", "Exige coincidencias de palabras o frases completas."),
-    ("matched_keywords", "Conserva las palabras que justifican cada clasificación."),
-    ("ranked = sorted", "Ordena áreas por puntaje y usa el orden del catálogo para desempatar."),
-    ("haversine", "Calcula una estimación geodésica en línea recta entre dos coordenadas."),
-    ("grafo.bloquear_arista", "Marca el tramo como no transitable para la siguiente planificación."),
-    ("GrafoEntregas.desde", "Construye la representación de estados que consumen los algoritmos."),
-    ("registrar_explicacion", "Activa evidencia adicional sin cambiar la solución calculada."),
-    ("TfidfVectorizer", "Convierte texto en vectores ponderados: más peso a términos informativos y menos a los comunes."),
-    ("fit_transform", "Aprende el vocabulario de la base documental y construye su matriz TF-IDF."),
-    ("cosine_similarity", "Mide el parecido angular entre la consulta y cada protocolo de la base."),
-    ("similarities.argmax", "Selecciona la posición del documento con mayor similitud coseno."),
-    ("make_pipeline", "Encadena vectorización y clasificador en un único flujo sin fuga de datos."),
-    ("LogisticRegression", "Modelo supervisado que aprende a separar las categorías operativas del dominio."),
-    ("predict_proba", "Obtiene la probabilidad estimada de pertenecer a cada clase."),
-    ("detonantes =", "Registra las palabras exactas de la consulta que activaron la regla experta."),
-    ("classifier.fit", "Entrena el clasificador con los ejemplos etiquetados del dominio logístico."),
-    ("unicodedata.category", "Filtra las marcas diacríticas para normalizar el texto de entrada."),
+    ("heapq.heappop", "Extrae de la cola de prioridad (min-heap) el nodo con menor costo proyectado f(n) (en A*) o menor g(n) (en Dijkstra) en tiempo O(log N)."),
+    ("heapq.heappush", "Inserta un candidato en la cola de prioridad manteniendo el orden del min-heap en tiempo O(log N)."),
+    ("nuevo_g =", "Calcula el costo real acumulado si se avanza hasta este vecino: g(vecino) = g(actual) + c(actual, vecino)."),
+    ("f_nxt =", "Aplica la función de evaluación A*: f(n) = g(n) + h(n), sumando tiempo recorrido g(n) y tiempo estimado a la meta h(n)."),
+    ("came_from", "Registra predecesores para reconstruir el camino óptimo hacia atrás al alcanzar la meta."),
+    ("train_test_split", "Divide los pedidos en 75% entrenamiento y 25% evaluación con partición estratificada para preservar la proporción de retrasos."),
+    ("pipeline.fit", "Ajusta preprocesamiento (StandardScaler, OneHotEncoder) y clasificador únicamente con datos de entrenamiento (sin fuga de datos)."),
+    ("predict_proba", "Obtiene la probabilidad estimada de pertenecer a cada clase evaluando la función logística sigmoide."),
+    ("predicciones = pipeline.predict", "Genera etiquetas binarias sobre el conjunto de evaluación independiente (X_test) que el modelo no vio al entrenar."),
+    ("accuracy_score", "Calcula la proporción total de predicciones correctas: (VP + VN) / Total."),
+    ("f1_score", "Calcula el F1-score: 2·(Prec·Rec)/(Prec+Rec), media armónica que balancea falsas alarmas y retrasos no detectados."),
+    ("confusion_matrix", "Cuenta verdaderos positivos, falsos positivos, verdaderos negativos y falsos negativos."),
+    ("OneHotEncoder", "Convierte la prioridad categórica en columnas binarias (one-hot) sin imponer un orden numérico artificial."),
+    ("StandardScaler", "Estandariza variables numéricas mediante z-score: z = (x - μ) / σ usando la media y desviación estándar del entrenamiento."),
+    ("joblib.dump", "Guarda el pipeline entrenado para reutilizar exactamente sus transformaciones en inferencias futuras."),
+    ("np.random.default_rng", "Crea un generador pseudoaleatorio local controlado por una semilla fija para asegurar reproducibilidad total."),
+    ("log_odds =", "Combina linealmente las condiciones logísticas (tráfico, pico, distancia, ventana) para construir el log-odds base z = β0 + Σ βi·xi."),
+    ("probabilidad = 1.0 / (1.0 + np.exp(-log_odds))", "Aplica la función logística sigmoide σ(z) = 1 / (1 + e^-z) para acotar el riesgo de retraso en [0.0, 1.0]."),
+    ("retrasado = (probabilidad >= 0.5)", "Aplica la regla de decisión con umbral 0.5: clasifica como retrasado (1) si la probabilidad es ≥ 50%."),
+    ("flips =", "Introduce un 10% de ruido aleatorio para que la etiqueta simule imprevistos reales y no sea trivialmente separable."),
+    ("unicodedata.normalize", "Separa letras y tildes (forma NFD) antes de retirar marcas diacríticas para normalizar texto."),
+    ("contains_keyword", "Exige coincidencias de palabras o frases completas con límites de palabra para evitar falsos positivos."),
+    ("matched_keywords", "Conserva las palabras clave exactas que justifican cada clasificación con evidencia auditable."),
+    ("ranked = sorted", "Ordena áreas por puntaje de evidencia léxica y usa el orden del catálogo para desempatar."),
+    ("haversine", "Calcula la distancia geodésica en línea recta sobre la esfera terrestre entre dos coordenadas geográficas."),
+    ("grafo.bloquear_arista", "Marca el tramo vial como no transitable en el grafo para que los algoritmos busquen rutas alternas."),
+    ("grafo.desbloquear_arista", "Restaura la transitabilidad de una vía previamente bloqueada en el grafo."),
+    ("replanificar_ruta", "Simula el hallazgo de una vía cerrada durante la entrega y recalcula la ruta óptima con A* desde la posición actual."),
+    ("GrafoEntregas.desde", "Construye la red vial (espacio de estados) con nodos de paradas y aristas ponderadas que consumen los algoritmos."),
+    ("registrar_explicacion", "Activa el registro paso a paso de estados y costos para trazabilidad y visualización sin cambiar la solución calculada."),
+    ("TfidfVectorizer", "Convierte textos de protocolos en vectores ponderados: da más peso a términos logísticos raros y menos a los comunes."),
+    ("fit_transform", "Aprende el vocabulario de la base documental y construye su matriz de pesos TF-IDF."),
+    ("cosine_similarity", "Mide la afinidad angular cos(θ) = (u·v)/(||u||·||v||) entre la consulta del operador y cada protocolo logístico."),
+    ("similarities.argmax", "Selecciona el índice del protocolo operativo con mayor similitud coseno respecto a la consulta."),
+    ("make_pipeline", "Encadena vectorización y clasificador en un único flujo garantizando ausencia total de data leakage."),
+    ("LogisticRegression", "Modelo lineal probabilístico que aprende a predecir la probabilidad de cada categoría operativa."),
+    ("RandomForestClassifier", "Ensamble no lineal de 200 árboles de decisión con muestreo aleatorio para contrastar con el modelo lineal."),
+    ("detonantes =", "Registra las palabras exactas de la consulta que activaron la regla experta para auditoría."),
+    ("queue.popleft", "Extrae de la cola FIFO en tiempo constante O(1) el nodo más antiguo para expandir el siguiente nivel en BFS."),
+    ("queue.append", "Agrega un nodo al final de la cola FIFO para ser explorado en el siguiente nivel de profundidad de BFS."),
+    ("while cur is not None", "Recorre hacia atrás el diccionario came_from desde el destino hasta el origen para reconstruir el camino óptimo."),
+    ("for nxt, costo_paso in grafo.vecinos", "Itera sobre los vecinos accesibles y no bloqueados del nodo actual junto con su costo de desplazamiento."),
+    ("if current == meta", "Test de meta: evalúa si el nodo extraído es el destino final. En A* y Dijkstra garantiza costo mínimo."),
 )
+
+IMPORT_EXPLANATIONS: dict[str, str] = {
+    "pandas": "Importa la librería pandas (alias 'pd') para cargar, transformar y analizar tablas de pedidos logísticos (DataFrames).",
+    "numpy": "Importa la librería numpy (alias 'np') para cálculo numérico vectorial, operaciones de matrices y funciones matemáticas/probabilísticas.",
+    "heapq": "Importa el módulo heapq de colas de prioridad (min-heap binario) para extraer en tiempo O(log N) el nodo con menor f(n) o g(n).",
+    "math": "Importa el módulo math de la biblioteca estándar (sin, cos, atan2, sqrt, radians) para calcular la distancia de Haversine.",
+    "time": "Importa el módulo time para cronometrar con alta resolución (time.perf_counter) el tiempo real de cómputo en milisegundos.",
+    "deque": "Importa deque (cola de doble extremo) para implementar la cola FIFO de BFS con inserciones y extracciones eficientes en O(1).",
+    "dataclass": "Importa el decorador @dataclass para crear estructuras de datos inmutables y tipadas (nodos, resultados de búsqueda y métricas).",
+    "field": "Importa field para configurar valores predeterminados mutables (como listas y diccionarios) en clases decoradas con @dataclass.",
+    "Path": "Importa Path de pathlib para gestionar rutas de archivos de manera robusta y compatible entre sistemas operativos (Linux/Windows).",
+    "re": "Importa el módulo re para búsqueda, coincidencia y limpieza de texto mediante expresiones regulares.",
+    "json": "Importa el módulo json para leer y exportar métricas, grafos y configuraciones en formato estructurado JSON.",
+    "unicodedata": "Importa unicodedata para normalizar cadenas de texto (descomposición NFD) y remover tildes/acentos diacríticos de forma uniforme.",
+    "joblib": "Importa joblib para guardar y cargar en disco los modelos entrenados y sus transformaciones de preprocesamiento.",
+    "argparse": "Importa argparse para gestionar argumentos y opciones desde la línea de comandos de manera estándar.",
+    "StandardScaler": "Importa StandardScaler de scikit-learn para estandarizar variables numéricas continuas mediante z-score: z = (x - μ) / σ.",
+    "OneHotEncoder": "Importa OneHotEncoder de scikit-learn para transformar variables categóricas (prioridad alta/media/baja) en columnas binarias (one-hot).",
+    "ColumnTransformer": "Importa ColumnTransformer de scikit-learn para aplicar transformaciones distintas a columnas numéricas y categóricas en un solo paso.",
+    "Pipeline": "Importa Pipeline de scikit-learn para encadenar preprocesamiento y clasificador, garantizando ausencia de fuga de datos (data leakage).",
+    "make_pipeline": "Importa make_pipeline para encadenar vectorización TF-IDF y clasificador en un único flujo sin data leakage.",
+    "LogisticRegression": "Importa Regresión Logística (modelo supervisado interpretable) para predecir probabilidades de retraso mediante la función sigmoide.",
+    "RandomForestClassifier": "Importa Random Forest (ensamble de 200 árboles de decisión con bagging) para comparar el rendimiento contra la regresión logística.",
+    "train_test_split": "Importa train_test_split para dividir los pedidos en 75% entrenamiento y 25% evaluación independiente de forma estratificada.",
+    "accuracy_score": "Importa accuracy_score para medir la exactitud global (porcentaje de predicciones correctas sobre el total).",
+    "f1_score": "Importa f1_score para calcular la media armónica entre precisión y exhaustividad (recall), métrica reina ante clases desbalanceadas.",
+    "confusion_matrix": "Importa confusion_matrix para desglosar aciertos y errores en Verdaderos Positivos, Falsos Positivos, Verdaderos Negativos y Falsos Negativos.",
+    "TfidfVectorizer": "Importa TfidfVectorizer para convertir textos de protocolos operativos en vectores numéricos ponderados por frecuencia TF-IDF.",
+    "cosine_similarity": "Importa cosine_similarity para medir la afinidad angular cos(θ) entre el vector de la consulta y los protocolos logísticos.",
+    "a_estrella": "Importa el algoritmo de búsqueda informada A* que encuentra la ruta óptima minimizando la función de costo f(n) = g(n) + h(n).",
+    "ResultadoBusqueda": "Importa la estructura ResultadoBusqueda con la ruta óptima, costo acumulado, nodos explorados y tiempo de cómputo.",
+    "dijkstra": "Importa el algoritmo de Dijkstra (búsqueda de costo uniforme con heurística h(n)=0) como línea base de comparación para A*.",
+    "bfs": "Importa búsqueda en anchura (BFS) que encuentra el camino con menor número de saltos mediante una cola FIFO.",
+    "replanificar_ruta": "Importa la función de replanificación que simula vías bloqueadas y recalcula la ruta óptima con A* desde el punto actual.",
+    "GrafoEntregas": "Importa la clase GrafoEntregas que modela la red de transporte (nodos de depósito/clientes y aristas ponderadas con lista de adyacencia).",
+    "Parada": "Importa la clase Parada que modela cada punto de entrega o depósito (coordenadas GPS, tipo de parada y demanda de paquetes).",
+    "haversine_km": "Importa la función de distancia geodésica de Haversine para calcular la heurística admisible en línea recta entre coordenadas GPS.",
+    "SistemaHibridoLogistica": "Importa el motor híbrido trazable que combina reglas expertas simbólicas, similitud documental TF-IDF y clasificación supervisada.",
+}
+
+VARIABLE_SEMANTICS: dict[str, str] = {
+    "distancia_km": "Variable numérica continua que guarda la distancia del trayecto de entrega en kilómetros (km).",
+    "volumen_m3": "Variable numérica continua que guarda el volumen del paquete o carga a entregar en metros cúbicos (m³).",
+    "ventana_min": "Variable numérica discreta que guarda el tamaño de la ventana horaria pactada con el cliente en minutos (min).",
+    "trafico_index": "Variable numérica continua que guarda el nivel de congestión vehicular normalizado entre 0.0 (fluido) y 1.0 (trancón total).",
+    "cadena_frio": "Variable indicadora binaria: 1 si el pedido requiere refrigeración estricta, 0 en caso contrario.",
+    "hora_pico": "Variable indicadora binaria: 1 si la entrega ocurre en horas de alto tráfico vehicular, 0 en horario valle.",
+    "zona_rural": "Variable indicadora binaria: 1 si el destino se encuentra en área rural o de difícil acceso, 0 en zona urbana.",
+    "prioridad": "Variable categórica ('alta', 'media', 'baja') que guarda el nivel de urgencia o servicio pactado para la entrega.",
+    "retrasado": "Variable objetivo binaria (etiqueta supervisada): 1 si el pedido sufrió retraso, 0 si se entregó puntualmente.",
+    "probabilidad": "Guarda la probabilidad estimada de retraso en el intervalo [0.0, 1.0] calculada mediante la función sigmoide logística.",
+    "log_odds": "Guarda el valor de la combinación lineal z = β0 + Σ βi·xi que representa el logaritmo de la razón de momios de retraso.",
+    "flips": "Guarda una máscara booleana de ruido aleatorio del 10% para simular contingencias reales y evitar separabilidad artificial.",
+    "frontier": "Cola de prioridad (min-heap) que contiene los nodos candidatos ordenados por costo f(n) = g(n) + h(n) o g(n).",
+    "g_score": "Diccionario que asocia cada nodo con su costo real acumulado mínimo g(n) desde el depósito de origen.",
+    "f_score": "Diccionario que asocia cada nodo con su costo proyectado total f(n) = g(n) + h(n) hacia el destino.",
+    "came_from": "Diccionario de punteros que guarda el nodo predecesor de cada parada para reconstruir el camino óptimo.",
+    "queue": "Cola FIFO (First-In, First-Out) que almacena los nodos a explorar por niveles en la búsqueda BFS.",
+    "visitados": "Conjunto (set) de nodos ya alcanzados para prevenir ciclos infinitos y exploraciones redundantes.",
+    "current": "Identificador del nodo o parada actual que se está expandiendo en la presente iteración del algoritmo.",
+    "nuevo_g": "Costo acumulado calculado si se transita por el nodo actual hacia el vecino: g(actual) + c(actual, vecino).",
+    "f_nxt": "Función de evaluación de A* para el vecino: f(vecino) = nuevo_g + h(vecino).",
+    "costo_paso": "Peso o costo directo de desplazamiento entre el nodo actual y el vecino inmediato.",
+    "costo_total": "Costo acumulado total del camino óptimo en segundos de viaje o distancia en kilómetros.",
+    "nodos_expandidos": "Contador de nodos extraídos de la frontera, métrica central del esfuerzo computacional.",
+    "nodos_visitados": "Contador de nodos únicos insertados en la frontera o descubiertos durante la exploración.",
+    "tiempo_ms": "Tiempo de cómputo real transcurrido medido en milisegundos.",
+    "ruta": "Lista ordenada de identificadores de paradas [nodo_1, nodo_2, ...] que forman el camino óptimo.",
+    "explicacion": "Lista con el registro paso a paso de estados, costos y decisiones para auditoría y sustentación.",
+    "aristas_bloqueadas": "Conjunto de aristas dirigidas (origen, destino) cerradas por obras o congestión vehicular.",
+    "X_train": "Matriz de características de entrenamiento (75% de los pedidos) usada para ajustar el modelo.",
+    "X_test": "Matriz de características de evaluación independiente (25% de los pedidos) para evaluar sin sesgos.",
+    "y_train": "Vector de etiquetas de retraso correspondientes al conjunto de entrenamiento.",
+    "y_test": "Vector de etiquetas de retraso reales de prueba para medir exactitud y F1-score sin trampa.",
+    "predicciones": "Vector de predicciones binarias generadas por el modelo sobre los datos de prueba.",
+}
 
 
 @dataclass(frozen=True)
@@ -283,6 +366,33 @@ def _bloque_linea(bloques: list[Bloque], numero: int) -> Bloque | None:
     return min(candidatos, key=lambda item: item.fin - item.inicio) if candidatos else None
 
 
+def _explicar_import(limpio: str) -> str:
+    """Explica pedagógicamente la razón e impacto del paquete o símbolo importado."""
+    for clave, explicacion in IMPORT_EXPLANATIONS.items():
+        if re.search(rf"\b{re.escape(clave)}\b", limpio):
+            return explicacion
+    if limpio.startswith("import "):
+        modulo = limpio[7:].split()[0].split(".")[0].strip(",")
+        return f"Importa la librería o módulo `{modulo}` para disponer de sus herramientas en este componente logístico."
+    if limpio.startswith("from "):
+        partes = limpio.split()
+        if len(partes) >= 2:
+            modulo = partes[1].split(".")[0]
+            return f"Importa funciones o clases del módulo `{modulo}` para modularizar y reutilizar la lógica de entrega."
+    return "Importa nombres y utilidades necesarios para estructurar y ejecutar el ejercicio del dominio logístico."
+
+
+def _buscar_semantica_variable(destino: str) -> str | None:
+    """Identifica el significado y unidades que guarda la variable asignada."""
+    nombre_var = re.split(r"[:\[\].\s]", destino)[0].strip()
+    if nombre_var in VARIABLE_SEMANTICS:
+        return VARIABLE_SEMANTICS[nombre_var]
+    for clave, semantica in VARIABLE_SEMANTICS.items():
+        if clave in destino:
+            return semantica
+    return None
+
+
 def _explicar_linea(texto: str, numero: int, bloque: Bloque | None) -> tuple[str, str]:
     limpio = texto.strip()
     contexto = f" Dentro de `{bloque.nombre}`: {bloque.descripcion}" if bloque else ""
@@ -296,7 +406,7 @@ def _explicar_linea(texto: str, numero: int, bloque: Bloque | None) -> tuple[str
     if limpio.startswith(('"""', "'''")):
         return "documentación", "Inicia o termina documentación legible para personas y herramientas."
     if limpio.startswith("from ") or limpio.startswith("import "):
-        return "importación", "Importa nombres necesarios sin ejecutar el ejercicio principal todavía."
+        return "importación", _explicar_import(limpio)
     if limpio.startswith("@"):
         return "decorador", "Aplica comportamiento adicional a la definición que aparece a continuación."
     if limpio.startswith("class "):
@@ -321,6 +431,9 @@ def _explicar_linea(texto: str, numero: int, bloque: Bloque | None) -> tuple[str
         return "flujo", f"Modifica explícitamente el avance del bloque actual.{contexto}"
     if re.match(r"^[A-Za-z_][\w.\[\], ]*\s*[+:]?=", limpio):
         destino = limpio.split("=", 1)[0].strip().rstrip(":")
+        semantica = _buscar_semantica_variable(destino)
+        if semantica:
+            return "asignación", f"Asigna `{destino}`: {semantica}{contexto}"
         return "asignación", f"Calcula y guarda un valor en `{destino}` para reutilizarlo después.{contexto}"
     if limpio[0] in ")]}":
         return "continuación", f"Cierra una expresión o colección iniciada en líneas anteriores.{contexto}"

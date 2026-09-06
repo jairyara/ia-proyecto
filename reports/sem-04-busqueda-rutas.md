@@ -1,5 +1,13 @@
 # Reporte Técnico — Búsqueda Heurística A* y Replanificación de Rutas
 
+> [!NOTE]
+> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 04**
+> - **Tema curricular**: Búsqueda Heurística ($A^*$), Algoritmos No Informados (Dijkstra, BFS), Heurísticas Admisibles y Replanificación Dinámica.
+> - **Problema en última milla**: Calcular la ruta mínima de entrega del furgón y replanificar en vivo ante calles cerradas ($\times$) por imprevistos.
+> - **Datos asociados**: Topologías reales de [`data/amazon_rutas_muestra.json`](../data/amazon_rutas_muestra.json) y cuadrículas sintéticas con paradas `DEP` y `CLI`.
+> - **Código ejecutable**: [`src/busqueda/grafo.py`](../src/busqueda/grafo.py), [`src/busqueda/a_estrella.py`](../src/busqueda/a_estrella.py), [`src/busqueda/no_informada.py`](../src/busqueda/no_informada.py), [`src/busqueda/replanificacion.py`](../src/busqueda/replanificacion.py).
+> - **En el Dashboard**: Pestaña *"Semana 04: Búsqueda y replanificación"* -> Simulador visual paso a paso con traza de ejecución y bloqueos.
+
 **Curso:** Inteligencia Artificial · 10.º semestre · Proyecto 8 (Sistema Inteligente para Logística)  
 **Tema:** Marco tecnológico de la IA · Espacios de estados, A*, heurísticas admisibles y replanificación  
 **Módulos:** `src/busqueda/grafo.py`, `src/busqueda/a_estrella.py`, `src/busqueda/no_informada.py`, `src/busqueda/replanificacion.py`  

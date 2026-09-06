@@ -191,6 +191,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .code-explanation div { display: grid; gap: 4px; }
 .code-explanation strong { color: #dce8df; font-size: 10px; line-height: 1.35; }
 .code-explanation p { margin: 0; color: #748177; font-size: 9px; line-height: 1.45; }
+.code-editor-link { margin-top: 6px; display: inline-flex; align-items: center; gap: 5px; color: var(--mint); font: 750 9px ui-monospace, monospace; text-decoration: none; transition: opacity .15s ease; }
+.code-editor-link:hover { text-decoration: underline; color: #70edb1; }
 .variable-strip { padding: 12px 16px; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 6px; background: #0d1310; border-top: 1px solid rgba(255,255,255,.06); }
 .variable-strip div { min-width: 0; padding: 8px; display: grid; gap: 4px; background: rgba(255,255,255,.03); border-radius: 5px; }
 .variable-strip span { color: #536059; font-size: 7px; font-weight: 800; letter-spacing: .1em; }
@@ -392,6 +394,9 @@ td:first-child { color: #344139; font-weight: 700; }
 .explanation-panel h2 { margin: 25px 0 10px; font-size: 20px; letter-spacing: -.03em; }.explanation-panel > p { margin: 0; color: #9aa8a0; font-size: 11px; line-height: 1.7; }
 .explanation-panel > pre { margin: 23px 0; padding: 13px; overflow: auto; color: #aaf0cc; background: #0f1713; border: 1px solid rgba(255,255,255,.06); border-radius: 7px; white-space: pre-wrap; }.explanation-panel > pre code { font: 9px/1.6 ui-monospace, monospace; }
 .block-context { margin-top: auto; padding: 15px; color: #98a59d; background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.06); border-radius: 7px; }.block-context span { color: #64c793; font-size: 7px; font-weight: 800; letter-spacing: .1em; }.block-context p { margin: 7px 0 0; font-size: 9px; line-height: 1.55; }
+.editor-direct-btn { margin: 16px 0 6px; padding: 9px 12px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #092116; background: var(--mint); border: 1px solid var(--mint); border-radius: 6px; font: 750 10px ui-monospace, monospace; text-decoration: none; transition: all .15s ease; }
+.editor-direct-btn:hover { background: #70edb1; transform: translateY(-1px); }
+.editor-direct-btn.disabled { pointer-events: none; opacity: .4; }
 .source-truth { margin-top: 15px; color: #536159; font: 7px ui-monospace, monospace; }
 
 /* Visualizador Markdown */

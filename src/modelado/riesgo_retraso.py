@@ -8,19 +8,32 @@ guarda los artefactos en `artifacts/` junto con un reporte Markdown.
 
 from __future__ import annotations
 
+# argparse: para configurar argumentos y banderas desde la línea de comandos
 import argparse
+# json: para serializar y deserializar métricas y metadatos de evaluación en JSON
 import json
+# Path: para manejo robusto de rutas del sistema de archivos
 from pathlib import Path
 
+# joblib: para guardar y cargar en disco modelos y pipelines entrenados de Scikit-Learn
 import joblib
+# numpy (np): biblioteca para operaciones numéricas y matrices
 import numpy as np
+# pandas (pd): biblioteca para cargar y manipular tablas de datos (DataFrames)
 import pandas as pd
+# ColumnTransformer: aplica preprocesamiento diferenciado según el tipo de columna
 from sklearn.compose import ColumnTransformer
+# RandomForestClassifier: ensamble no lineal de 200 árboles con técnica de bagging
 from sklearn.ensemble import RandomForestClassifier
+# LogisticRegression: modelo probabilístico lineal supervisado interpretable
 from sklearn.linear_model import LogisticRegression
+# Métricas de evaluación: accuracy, matriz de confusión y F1-score
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+# train_test_split: partición estratificada en conjunto de entrenamiento y evaluación
 from sklearn.model_selection import train_test_split
+# Pipeline: encapsula preprocesamiento y modelo para prevenir fuga de datos (Data Leakage)
 from sklearn.pipeline import Pipeline
+# OneHotEncoder: codifica categóricas en binarias; StandardScaler: estandarización z-score
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
@@ -29,7 +42,9 @@ DEFAULT_INPUT = ROOT / "data" / "pedidos.csv"
 DEFAULT_REPORT = ROOT / "reports" / "sem-02-riesgo-retraso.md"
 DEFAULT_METRICS = ROOT / "artifacts" / "riesgo-retraso-metrics.json"
 DEFAULT_MODEL = ROOT / "artifacts" / "riesgo-retraso-model.pkl"
+# SEED: semilla fija para garantizar que la partición train/test sea 100% reproducible
 SEED = 20260828
+# TEST_SIZE: 25% de los datos se reserva exclusivamente para evaluación independiente
 TEST_SIZE = 0.25
 
 NUMERIC_FEATURES = [
@@ -44,6 +59,7 @@ TARGET = "retrasado"
 
 
 def cargar_pedidos(ruta: Path) -> pd.DataFrame:
+    """Carga el dataset de pedidos desde un archivo CSV validando su existencia previa."""
     if not ruta.exists():
         raise FileNotFoundError(
             f"No existe {ruta}. Genera primero con `python -m src.datos.sintetico`."
@@ -52,20 +68,43 @@ def cargar_pedidos(ruta: Path) -> pd.DataFrame:
 
 
 def construir_pipelines() -> dict[str, Pipeline]:
+    """Construye los pipelines de preprocesamiento y modelos sin fuga de datos (Data Leakage).
+
+    PREGUNTAS DE SUSTENTACIÓN:
+    1. ¿QUÉ ES DATA LEAKAGE Y CÓMO LO PREVIENE EL PIPELINE?
+       Si calculamos la media y desviación estándar sobre todo el dataset antes de dividirlo,
+       la información de prueba contamina el entrenamiento. Al encapsular el preprocesamiento
+       dentro de un Pipeline, el escalador solo calcula estadísticas en fit(X_train) y luego
+       las aplica rígidamente en transform(X_test).
+    2. ¿QUÉ HACE COLUMNTRAMSFORMER?
+       Aplica transformaciones heterogéneas según el tipo de variable:
+       - Numéricas: StandardScaler (centra en media 0 y varianza 1).
+       - Binarias: passthrough (se dejan intactas en 0 y 1).
+       - Categóricas: OneHotEncoder (crea columnas booleanas para cada categoría de prioridad).
+    3. FÓRMULAS MATEMÁTICAS:
+       - StandardScaler (z-score): z = (x - mu) / sigma
+       - LogisticRegression (sigmoide): P(Y=1|X) = 1 / (1 + exp(-z))
+       - Random Forest: Promedio de votos de T=200 árboles entrenados con muestras bootstrap
+    """
     preprocess = ColumnTransformer(
         transformers=[
+            # Estandarización z-score: z = (x - u) / s. Vital para que variables en km no dominen sobre m3
             ("num", StandardScaler(), NUMERIC_FEATURES),
+            # Las binarias (0/1) no se alteran para conservar su semántica lógica
             ("bin", "passthrough", BINARY_FEATURES),
+            # Codificación dummy para 'prioridad'; handle_unknown='ignore' previene fallos ante categorías nuevas
             ("cat", OneHotEncoder(handle_unknown="ignore"), CATEGORICAL_FEATURES),
         ]
     )
     return {
+        # Modelo 1: Regresión Logística (baseline lineal, rápido y explicable)
         "logistic_regression": Pipeline(
             [
                 ("preprocess", preprocess),
                 ("model", LogisticRegression(max_iter=1000, random_state=SEED)),
             ]
         ),
+        # Modelo 2: Random Forest (ensamble no lineal de 200 árboles de decisión con bagging)
         "random_forest": Pipeline(
             [
                 ("preprocess", preprocess),
@@ -83,10 +122,27 @@ def construir_pipelines() -> dict[str, Pipeline]:
 def entrenar_y_evaluar(
     datos: pd.DataFrame,
 ) -> tuple[dict[str, dict[str, float | list]], str, Pipeline]:
+    """Entrena los modelos candidatos, evalúa métricas en test y selecciona el mejor.
+
+    PREGUNTAS DE SUSTENTACIÓN:
+    1. ¿POR QUÉ stratify=y EN train_test_split?
+       Garantiza que la proporción de entregas retrasadas (clase 1) sea exactamente la misma
+       en el conjunto de entrenamiento (75%) y en el de prueba (25%), evitando sesgos de partición.
+    2. ¿POR QUÉ SE ELIGE EL MEJOR POR F1-SCORE Y NO POR ACCURACY?
+       En logística los retrasos son menos frecuentes que las entregas a tiempo (desbalance).
+       Un modelo trivial que prediga siempre 'no retrasado' tendría un accuracy engañoso del ~80%
+       pero un F1 de 0.0. F1 es la media armónica entre Precisión y Recall:
+       F1 = 2 * (Precision * Recall) / (Precision + Recall)
+       Donde Precision = TP / (TP + FP) y Recall = TP / (TP + FN).
+    """
     features = NUMERIC_FEATURES + BINARY_FEATURES + CATEGORICAL_FEATURES
+    # ESTA VARIABLE GUARDA: Matriz de características X (todas las variables de entrada del pedido)
     X = datos[features]
+    # ESTA VARIABLE GUARDA: Vector objetivo y (etiqueta binaria: 1 retrasado, 0 puntual)
     y = datos[TARGET]
 
+    # Partición 75% entrenamiento / 25% evaluación independiente con estratificación
+    # ESTAS VARIABLES GUARDAN: Conjuntos disjuntos para entrenar y evaluar sin trampa
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -95,21 +151,32 @@ def entrenar_y_evaluar(
         stratify=y,
     )
 
+    # ESTA VARIABLE GUARDA: Diccionario con las métricas comparativas de cada modelo
     resultados: dict[str, dict[str, float | list]] = {}
     for nombre, pipeline in construir_pipelines().items():
+        # Entrena el pipeline (ajusta StandardScaler + OneHotEncoder + Modelo solo sobre X_train)
         pipeline.fit(X_train, y_train)
+
+        # Inferencia y predicción sobre datos nunca antes vistos (X_test)
         predicciones = pipeline.predict(X_test)
+
+        # Registro de métricas objetivas de evaluación
         resultados[nombre] = {
+            # Accuracy: (TP + TN) / Total de casos evaluados
             "accuracy": float(accuracy_score(y_test, predicciones)),
+            # F1-score: 2 * (Precision * Recall) / (Precision + Recall)
             "f1": float(f1_score(y_test, predicciones, zero_division=0)),
+            # Matriz de confusión: [[TN, FP], [FN, TP]]
             "matriz_confusion": confusion_matrix(y_test, predicciones).tolist(),
             "n_train": int(len(y_train)),
             "n_test": int(len(y_test)),
             "tasa_positiva_test": float(y_test.mean()),
         }
 
+    # Criterio de selección del mejor modelo: mayor F1-score en evaluación independiente
     mejor = max(resultados, key=lambda nombre: resultados[nombre]["f1"])
     mejor_pipeline = construir_pipelines()[mejor]
+    # Reentrena el pipeline ganador sobre los datos de entrenamiento para guardarlo
     mejor_pipeline.fit(X_train, y_train)
     return resultados, mejor, mejor_pipeline
 

@@ -2,25 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
 import LearningHeader from './LearningHeader.jsx'
 import { api } from '../services/api.js'
-import { buildEditorUri, EDITORS } from '../services/editor.js'
-
-const EDITOR_STORAGE_KEY = 'orbita.editor'
-
-function storedEditor() {
-  try {
-    return window.localStorage?.getItem(EDITOR_STORAGE_KEY)
-  } catch {
-    return null
-  }
-}
-
-function storeEditor(editor) {
-  try {
-    window.localStorage?.setItem(EDITOR_STORAGE_KEY, editor)
-  } catch {
-    // El enlace sigue funcionando si el navegador bloquea almacenamiento local.
-  }
-}
+import { buildEditorUri, EDITORS, storedEditor, storeEditor } from '../services/editor.js'
 
 export default function CodeExplorer({ week }) {
   const [exerciseId, setExerciseId] = useState(week.ejercicios[0]?.id || '')
@@ -119,10 +101,17 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
   const selected = document.lineas.find((line) => line.numero === selectedLine) || document.lineas[0]
   const progress = document.total_lineas ? (selectedLine / document.total_lineas) * 100 : 0
   const sourceRef = useRef(null)
-  const [editor, setEditor] = useState(() => {
-    const saved = storedEditor()
-    return EDITORS[saved] ? saved : 'pycharm'
-  })
+  const [editor, setEditor] = useState(() => storedEditor())
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.detail && EDITORS[e.detail]) {
+        setEditor(e.detail)
+      }
+    }
+    window.addEventListener('editor-change', handler)
+    return () => window.removeEventListener('editor-change', handler)
+  }, [])
 
   const editorUri = useMemo(() => {
     try {
@@ -168,8 +157,8 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
           <span><i />{document.ruta}</span>
           <div className="source-actions">
             <small>{document.total_lineas} líneas · {document.hash}</small>
-            <label>
-              <span className="sr-only">IDE para edición</span>
+            <label className="ide-picker">
+              <span>IDE:</span>
               <select value={editor} onChange={selectEditor} aria-label="IDE para edición">
                 {Object.entries(EDITORS).map(([id, item]) => <option value={id} key={id}>{item.label}</option>)}
               </select>
@@ -178,11 +167,11 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
               className={!editorUri ? 'disabled' : ''}
               href={editorUri || undefined}
               aria-disabled={!editorUri}
-              aria-label={`Abrir ${document.ruta}, línea ${selectedLine}, en ${EDITORS[editor].label}`}
-              title="El navegador puede pedir autorización la primera vez"
+              aria-label={`Abrir ${document.ruta}, línea ${selectedLine}, en ${EDITORS[editor]?.label || 'VS Code'}`}
+              title="Abre el archivo en esta línea exacta en tu IDE local"
             >
               <Icon name="external" size={13} />
-              Abrir L{selectedLine}
+              Abrir en {EDITORS[editor]?.label || 'VS Code'} · L{selectedLine}
             </a>
           </div>
         </div>
@@ -221,6 +210,16 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
             <p>{selected.resumen_bloque}</p>
           </div>
         )}
+        <a
+          className={`editor-direct-btn ${!editorUri ? 'disabled' : ''}`}
+          href={editorUri || undefined}
+          aria-disabled={!editorUri}
+          aria-label={`Abrir ${document.ruta}, línea ${selectedLine}, en ${EDITORS[editor]?.label || 'VS Code'}`}
+          title="Abre directamente en VS Code posicionando el cursor en esta línea exacta"
+        >
+          <Icon name="external" size={14} />
+          Abrir esta línea en {EDITORS[editor]?.label || 'VS Code'} (L{selected?.numero})
+        </a>
         <small className="source-truth">Fuente real · hash {document.hash}</small>
       </aside>
     </section>
