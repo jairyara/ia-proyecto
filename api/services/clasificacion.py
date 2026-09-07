@@ -17,8 +17,8 @@ def evaluar_requerimiento(solicitud: RequerimientoRequest) -> dict:
     evidencia = [
         {
             "area": area,
-            "puntaje": resultado.scores[area],
-            "palabras": list(resultado.matched_keywords[area]),
+            "puntaje": resultado.scores.get(area, 0),
+            "palabras": list(resultado.matched_keywords.get(area, ())),
             "componente": componentes.get(area, "Revisión manual del requerimiento."),
         }
         for area in resultado.detected

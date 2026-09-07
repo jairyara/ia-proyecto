@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import unittest
 
+from fastapi.testclient import TestClient
+
+from api.main import app
 from api.schemas.busqueda_dto import ReplanificacionRequest, SimulacionBusquedaRequest
 from api.schemas.clasificacion_dto import RequerimientoRequest
 from api.schemas.hibrido_dto import ConsultaHibridaRequest
@@ -77,6 +80,28 @@ class DashboardClasificacionTests(unittest.TestCase):
         self.assertEqual(respuesta["principal"], "Búsqueda y optimización")
         self.assertGreaterEqual(len(respuesta["detectadas"]), 2)
         self.assertIn("a estrella", respuesta["evidencia"][0]["palabras"])
+
+    def test_endpoint_acepta_texto_personalizado_sin_reglas(self):
+        cliente = TestClient(app, raise_server_exceptions=False)
+
+        respuesta = cliente.post(
+            "/api/clasificacion/evaluar-requerimiento",
+            json={"descripcion": "Registrar el color corporativo"},
+        )
+
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertEqual(respuesta.json()["principal"], "Requiere análisis")
+        self.assertEqual(
+            respuesta.json()["evidencia"],
+            [
+                {
+                    "area": "Requiere análisis",
+                    "puntaje": 0,
+                    "palabras": [],
+                    "componente": "Revisión manual del requerimiento.",
+                }
+            ],
+        )
 
 
 class DashboardHibridoTests(unittest.TestCase):

@@ -6,6 +6,17 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 
+- **feat** (2026-09-06): interfaz optimizada para sustentación en TV 4K.
+  - `feat` El menú lateral se puede contraer a una barra de iconos para ampliar
+    el laboratorio; el estado se conserva en el navegador y cada acceso mantiene
+    etiqueta accesible y ayuda contextual.
+  - `style` La interfaz aplica escalado proporcional automático en viewports 2K
+    y 4K, eleva a 11 px el mínimo tipográfico y refuerza tamaños/contraste de
+    texto, código, tablas y controles sin alterar el menú móvil.
+  - `fix` El estado colapsado se aplica directamente al aside para ocultar sin
+    recortes la marca, textos y estado de API incluso con escalado del sistema.
+  - `test` Se valida la interacción accesible y el mínimo tipográfico; 7 pruebas
+    frontend y el build de producción pasan con pnpm.
 - **feat** (2026-09-03): Semana 5 — sistema híbrido trazable demostrable en el dashboard.
   - `feat` Motor híbrido en `src/hibrido/sistema.py`: 5 reglas expertas del
     dominio logístico declaradas como datos (`Regla(accion, palabras,

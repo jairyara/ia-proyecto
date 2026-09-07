@@ -23,10 +23,10 @@ function Grid({ graph, step, start, goal, obstacles, onToggle }) {
         const blocked = obstacleSet.has(id)
         const states = [
           blocked && 'cell--blocked',
-          closed.has(id) && 'cell--closed',
-          frontier.has(id) && 'cell--frontier',
-          route.has(id) && 'cell--route',
-          step?.actual === id && 'cell--current',
+          !blocked && closed.has(id) && 'cell--closed',
+          !blocked && frontier.has(id) && 'cell--frontier',
+          !blocked && route.has(id) && 'cell--route',
+          !blocked && step?.actual === id && 'cell--current',
           start === id && 'cell--start',
           goal === id && 'cell--goal',
         ].filter(Boolean).join(' ')

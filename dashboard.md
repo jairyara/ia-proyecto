@@ -223,6 +223,13 @@ ia-proyecto/
 - [x] Registrar la Semana 5 en el catálogo de contenido y crear `reports/sem-05-sistema-hibrido.md`.
 - [x] Validar 67 pruebas Python y el build de producción con pnpm.
 
+### Fase 8: Interfaz para sustentación en TV 4K
+- [x] Añadir un control accesible para contraer el menú lateral a una barra de iconos y ampliar el área útil del laboratorio.
+- [x] Persistir la preferencia del menú en `localStorage`, manteniendo independiente el comportamiento móvil.
+- [x] Escalar de forma automática y proporcional la interfaz completa en viewports 2K/4K, conservando sin cambios la composición de escritorio.
+- [x] Establecer 11 px como mínimo tipográfico y ampliar textos operativos, código, tablas y controles para conservar legibilidad aunque el TV 4K exponga un viewport CSS reducido.
+- [x] Validar el control del menú y el mínimo tipográfico con pruebas de componente, y ejecutar el build de producción con pnpm.
+
 ---
 
 ## 6. Criterios de Éxito y Calidad

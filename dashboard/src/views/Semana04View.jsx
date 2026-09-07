@@ -161,8 +161,8 @@ export default function Semana04View() {
         </div>
         <div className="header-stat">
           <span>ESTADO DEL EXPERIMENTO</span>
-          <strong><i className={loading ? 'pulse' : ''} /> {loading ? 'Calculando' : simulation?.resultado?.encontrado ? 'Ruta encontrada' : 'Sin solución'}</strong>
-          <small>{simulation ? `${simulation.pasos.length} estados trazables` : 'Esperando API'}</small>
+          <strong><i className={loading ? 'pulse' : ''} /> {loading ? 'Calculando' : dirty ? 'Cambios pendientes' : simulation?.resultado?.encontrado ? 'Ruta encontrada' : 'Sin solución'}</strong>
+          <small>{dirty ? 'La ruta visible es anterior; aplica los cambios' : simulation ? `${simulation.pasos.length} estados trazables` : 'Esperando API'}</small>
         </div>
       </header>
 
@@ -222,7 +222,7 @@ export default function Semana04View() {
             <GridCanvas environment={environment} graph={simulation?.grafo} step={step} start={simulation?.inicio || start} goal={simulation?.meta || goal} obstacles={obstacles} onToggle={toggleObstacle} />
             {loading && <div className="loading-overlay"><span className="loader" />Calculando estados…</div>}
           </div>
-          {environment === 'cuadricula' && <p className="canvas-hint">Haz clic sobre una celda para simular una vía cerrada por obras o congestión vial. Luego haz clic en "Aplicar cambios".</p>}
+          {environment === 'cuadricula' && <p className="canvas-hint">{dirty ? 'Bloqueos pendientes: la ruta anterior se conserva solo como referencia. Haz clic en "Aplicar cambios" para recalcularla.' : 'Haz clic sobre una celda para simular una vía cerrada por obras o congestión vial. Luego haz clic en "Aplicar cambios".'}</p>}
           <StepPlayer index={index} total={simulation?.pasos?.length || 0} playing={playing} speed={speed} onPlaying={setPlaying} onStep={(delta) => { setPlaying(false); setIndex((current) => Math.max(0, Math.min(current + delta, (simulation?.pasos?.length || 1) - 1))) }} onReset={() => { setPlaying(false); setIndex(0) }} onSpeed={setSpeed} />
         </section>
         <CodeExplainer code={simulation?.codigo} step={step} fileName={simulation?.archivo_codigo} workspaceRoot={simulation?.workspace_editor} />

@@ -7,7 +7,9 @@ const sections = [
   { id: 'semana05', week: '05', title: 'Sistema híbrido', subtitle: 'Reglas · TF-IDF · LogReg', icon: 'spark' },
 ].sort((left, right) => Number(left.week) - Number(right.week))
 
-export default function Navbar({ active, onChange, apiOnline, mobileOpen, onToggle }) {
+export default function Navbar({ active, onChange, apiOnline, mobileOpen, onToggle, collapsed, onCollapse }) {
+  const collapseLabel = collapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'
+
   return (
     <>
       <header className="mobile-header">
@@ -19,11 +21,26 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
           <Icon name={mobileOpen ? 'close' : 'menu'} />
         </button>
       </header>
-      <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`}>
+      <aside
+        id="sidebar-navigation"
+        className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''} ${mobileOpen ? 'sidebar--open' : ''}`}
+        aria-label="Navegación principal"
+      >
+        <button
+          type="button"
+          className="sidebar-toggle"
+          onClick={onCollapse}
+          aria-label={collapseLabel}
+          aria-controls="sidebar-navigation"
+          aria-expanded={!collapsed}
+          title={collapseLabel}
+        >
+          <Icon name={collapsed ? 'chevronRight' : 'chevronLeft'} size={16} />
+        </button>
         <div>
           <a className="brand" href="#main" aria-label="Órbita, laboratorio de IA logística">
             <span className="brand-mark"><span /></span>
-            <span>
+            <span className="brand-copy">
               <strong>ÓRBITA</strong>
               <small>IA LOGÍSTICA</small>
             </span>
@@ -36,6 +53,8 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
                 key={section.id}
                 onClick={() => { onChange(section.id); onToggle(false) }}
                 aria-current={active === section.id ? 'page' : undefined}
+                aria-label={`Semana ${Number(section.week)}: ${section.title}`}
+                title={collapsed ? `Semana ${Number(section.week)} · ${section.title}` : undefined}
               >
                 <span className="nav-icon"><Icon name={section.icon} /></span>
                 <span className="nav-copy">
@@ -50,7 +69,7 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
         <div className="sidebar-footer">
           <div className="api-state">
             <span className={`status-dot ${apiOnline ? 'status-dot--online' : ''}`} />
-            <span>
+            <span className="api-copy">
               <strong>{apiOnline ? 'API conectada' : 'API sin conexión'}</strong>
               <small>FastAPI · Python</small>
             </span>

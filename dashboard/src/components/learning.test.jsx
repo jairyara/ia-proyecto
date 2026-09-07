@@ -1,8 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { readFileSync } from 'node:fs'
 import { CodeDocument } from './CodeExplorer.jsx'
+import GridCanvas from './GridCanvas.jsx'
 import { MarkdownRenderer, slugify } from './MarkdownViewer.jsx'
+import Navbar from './Navbar.jsx'
 import { buildEditorUri } from '../services/editor.js'
+
+const dashboardStyles = readFileSync('src/index.css', 'utf8')
 
 afterEach(cleanup)
 
@@ -64,6 +69,56 @@ describe('buildEditorUri', () => {
       relativePath: '../secreto.py',
       line: 1,
     })).toThrow('no es segura')
+  })
+})
+
+describe('Navbar', () => {
+  it('permite contraer y expandir el menú lateral con una etiqueta accesible', () => {
+    const onCollapse = vi.fn()
+    const props = {
+      active: 'semana02',
+      onChange: vi.fn(),
+      apiOnline: true,
+      mobileOpen: false,
+      onToggle: vi.fn(),
+      onCollapse,
+    }
+    const { rerender } = render(<Navbar {...props} collapsed={false} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Contraer menú lateral' }))
+    expect(onCollapse).toHaveBeenCalledOnce()
+
+    rerender(<Navbar {...props} collapsed />)
+    expect(screen.getByRole('button', { name: 'Expandir menú lateral' }).getAttribute('aria-expanded')).toBe('false')
+    expect(screen.getByRole('button', { name: 'Semana 2: Riesgo de retraso' }).getAttribute('title')).toContain('Riesgo de retraso')
+    expect(screen.getByRole('complementary', { name: 'Navegación principal' }).classList.contains('sidebar--collapsed')).toBe(true)
+  })
+})
+
+describe('GridCanvas', () => {
+  it('no representa una celda bloqueada como parte de la ruta', () => {
+    render(
+      <GridCanvas
+        environment="cuadricula"
+        graph={null}
+        step={{ ruta_parcial: ['(0,0)', '(1,0)'], frontera: [], cerrados: [] }}
+        start="(0,0)"
+        goal="(4,4)"
+        obstacles={[[1, 0]]}
+        onToggle={vi.fn()}
+      />,
+    )
+
+    const blockedCell = screen.getByRole('button', { name: 'Celda 1, 0, bloqueada' })
+    expect(blockedCell.classList.contains('cell--blocked')).toBe(true)
+    expect(blockedCell.classList.contains('cell--route')).toBe(false)
+  })
+})
+
+describe('legibilidad de presentación', () => {
+  it('no usa tipografías explícitas menores de 11 px', () => {
+    expect(dashboardStyles).not.toMatch(/font-size:\s*(?:[1-9]|10)px\b/)
+    expect(dashboardStyles).not.toMatch(/font:\s*[^;]*(?<!\d)(?:[1-9]|10)px\b/)
   })
 })
 

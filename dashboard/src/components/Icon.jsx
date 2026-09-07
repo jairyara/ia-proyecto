@@ -19,6 +19,8 @@ const paths = {
   search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></>,
   raw: <><path d="M4 5h16v14H4zM8 9l-2 3 2 3M12 15h4"/></>,
   external: <><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></>,
+  chevronLeft: <path d="m15 18-6-6 6-6"/>,
+  chevronRight: <path d="m9 18 6-6-6-6"/>,
 }
 
 export default function Icon({ name, size = 18, className = '' }) {

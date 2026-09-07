@@ -210,6 +210,12 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    seleccionada directamente en **PyCharm** o **VS Code**; la tercera renderiza
    los reportes Markdown con tabla de contenido, búsqueda, tablas y fórmulas.
 
+   Para la sustentación, el botón circular del borde del menú lateral lo reduce
+   a una barra de iconos y libera espacio para el laboratorio; la preferencia se
+   conserva en el navegador. En pantallas 2K/4K la interfaz aumenta de escala
+   automáticamente, sin cambiar las proporciones usadas en un monitor de
+   escritorio convencional.
+
    El navegador solicitará autorización para abrir el IDE la primera vez. Con
    Docker, Compose transmite automáticamente la ruta actual del repositorio al
    contenedor. Si se ejecuta desde otro directorio, se puede indicar de forma
