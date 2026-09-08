@@ -1,3 +1,4 @@
+# Dashboard · Semana 03 — Clasificación simbólica
 """Línea base simbólica para clasificar requerimientos logísticos por área de IA."""
 
 from __future__ import annotations
@@ -315,6 +316,14 @@ def render_report(requirements: list[Requirement], input_name: str) -> str:
 
     lines = [
         "# Clasificación de requerimientos por área de IA",
+        "",
+        "> [!NOTE]",
+        "> **FICHA DE TRAZABILIDAD ACADÉMICA · SEMANA 03**",
+        "> - **Tema curricular**: Clasificación Simbólica · Sistemas Expertos basados en reglas, vocabulario de dominio y trazabilidad de inferencia.",
+        "> - **Problema en última milla**: Clasificar automáticamente las solicitudes del cliente (frío, vehículo especial, ventanas) con 100% de explicabilidad.",
+        "> - **Datos asociados**: [`data/requerimientos_logistica.csv`](../data/requerimientos_logistica.csv) (20 requerimientos auditados).",
+        "> - **Código ejecutable**: [`src/clasificacion/requerimientos.py`](../src/clasificacion/requerimientos.py).",
+        "> - **En el Dashboard**: Pestaña *\"Semana 03: Clasificación simbólica\"* -> Clasificador de requerimientos y evidencia de reglas.",
         "",
         "Reporte generado por `python -m src.clasificacion.requerimientos`.",
         "",

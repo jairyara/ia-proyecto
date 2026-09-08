@@ -133,9 +133,15 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
   }
 
   useEffect(() => {
+    if (!sourceRef.current) return
+    sourceRef.current.scrollTop = 0
+    sourceRef.current.scrollLeft = 0
+  }, [document.hash])
+
+  useEffect(() => {
     const active = sourceRef.current?.querySelector(`[data-line="${selectedLine}"]`)
-    active?.scrollIntoView?.({ block: 'nearest' })
-  }, [selectedLine])
+    active?.scrollIntoView?.({ block: 'nearest', inline: 'start' })
+  }, [document.hash, selectedLine])
 
   return (
     <section className="code-explorer">
@@ -175,7 +181,7 @@ export function CodeDocument({ document, selectedLine, onSelect, playing, onPlay
             </a>
           </div>
         </div>
-        <div className="source-code" ref={sourceRef} role="listbox" aria-label={`Código de ${document.titulo}`}>
+        <div className="source-code" key={document.hash} ref={sourceRef} role="listbox" aria-label={`Código de ${document.titulo}`}>
           {document.lineas.map((line) => (
             <button
               id={`source-line-${line.numero}`}

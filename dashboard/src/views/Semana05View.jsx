@@ -4,6 +4,22 @@ import { api } from '../services/api.js'
 
 const initialText = 'El furgón refrigerado perdió temperatura y la carga láctea corre riesgo'
 
+export function LocalContributions({ factors = [] }) {
+  return (
+    <div className="local-contributions">
+      <span>APORTE LOCAL · PESO × TF-IDF</span>
+      {factors.length
+        ? <div>{factors.map((factor) => (
+          <span key={factor.termino} title={`Peso del modelo ${factor.peso.toFixed(3)} × TF-IDF ${factor.tfidf.toFixed(3)}`}>
+            <code>{factor.termino}</code>
+            <b>+{factor.aporte.toFixed(3)}</b>
+          </span>
+        ))}</div>
+        : <small>La consulta no contiene términos conocidos con aporte positivo.</small>}
+    </div>
+  )
+}
+
 export default function Semana05View() {
   const [query, setQuery] = useState(initialText)
   const [context, setContext] = useState(null)
@@ -58,12 +74,12 @@ export default function Semana05View() {
           <textarea value={query} maxLength={1000} onChange={(event) => setQuery(event.target.value)} placeholder="Ej.: El camión reporta una falla de refrigeración con carga de fármacos…" />
           <div className="analyzer-actions"><p>El texto se normaliza (minúsculas, sin tildes) antes de alimentar las tres técnicas.</p><button className="primary-button" onClick={() => responder()} disabled={loading || query.trim().length < 3}><Icon name="spark" />{loading ? 'Evaluando…' : 'Responder con trazabilidad'}</button></div>
           <div className="examples">
-            <span className="field-caption">CONSULTAS DE LA GUÍA</span>
-            <div>{(context?.consultas_ejemplo || []).map((example, index) => <button key={example} onClick={() => selectExample(example)}><small>C{index + 1}</small><span>{example}</span></button>)}</div>
+            <span className="field-caption">CONSULTAS DE DEMOSTRACIÓN · 3 GUÍA + 5 EXTRA</span>
+            <div>{(context?.consultas_demostracion || context?.consultas_ejemplo || []).map((example, index) => <button key={example} onClick={() => selectExample(example)}><small>C{index + 1}</small><span>{example}</span></button>)}</div>
           </div>
         </section>
 
-        <section className="panel classification-result classification-result--mint" aria-live="polite">
+        <section className={`panel classification-result classification-result--mint ${clasificacion?.aceptada === false ? 'classification-result--review' : ''}`} aria-live="polite">
           <div className="result-orbit"><span className="result-icon"><Icon name="spark" size={28} /></span><i /><i /></div>
           <span className="eyebrow">CATEGORÍA OPERATIVA</span>
           <h2>{clasificacion?.clase?.replace(/_/g, ' ') || 'Evaluando…'}</h2>
@@ -76,7 +92,14 @@ export default function Semana05View() {
               </div>
             ))}
           </div>
-          <div className="confidence-note"><Icon name="check" /><span><strong>Triple señal auditada</strong><small>Regla + protocolo + clase para la misma entrada.</small></span></div>
+          <LocalContributions factors={clasificacion?.factores} />
+          <div className={`confidence-note ${clasificacion?.aceptada === false ? 'confidence-note--review' : ''}`}>
+            <Icon name={clasificacion?.aceptada === false ? 'alert' : 'check'} />
+            <span>
+              <strong>{clasificacion?.aceptada === false ? 'Revisión manual recomendada' : 'Triple señal auditada'}</strong>
+              <small>{clasificacion?.aceptada === false ? clasificacion.motivo_revision : 'Regla + protocolo + clase para la misma entrada.'}</small>
+            </span>
+          </div>
         </section>
       </div>
 

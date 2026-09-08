@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Punto de entrada CLI para la extracción de Amazon Last Mile (delegado a src.datos.amazon)."""
 
 import sys

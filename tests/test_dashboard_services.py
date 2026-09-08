@@ -117,11 +117,25 @@ class DashboardHibridoTests(unittest.TestCase):
         self.assertIn("Protocolo 1", respuesta["evidencia"]["documento"])
         self.assertGreater(respuesta["evidencia"]["similitud"], 0.0)
         self.assertEqual(respuesta["clasificacion"]["clase"], "cadena_frio")
+        self.assertGreater(len(respuesta["clasificacion"]["factores"]), 0)
         self.assertAlmostEqual(
             sum(item["probabilidad"] for item in respuesta["clasificacion"]["probabilidades"]),
             1.0,
             places=5,
         )
+
+    def test_consulta_sin_sentido_no_fuerza_una_categoria(self):
+        respuesta = responder_consulta(
+            ConsultaHibridaRequest(
+                consulta="kmnfchjdfs sf fsjkgjhks gsfh gfskg ghsjkgh"
+            )
+        )
+
+        self.assertEqual(respuesta["clasificacion"]["clase"], "requiere_revision")
+        self.assertFalse(respuesta["clasificacion"]["aceptada"])
+        self.assertEqual(respuesta["clasificacion"]["terminos_reconocidos"], 0)
+        self.assertEqual(respuesta["reglas"], [])
+        self.assertEqual(respuesta["evidencia"]["similitud"], 0.0)
 
     def test_contexto_documenta_reglas_clases_y_ejemplos(self):
         contexto = obtener_contexto()
@@ -129,8 +143,24 @@ class DashboardHibridoTests(unittest.TestCase):
         self.assertEqual(len(contexto["reglas"]), 5)
         self.assertEqual(len(contexto["clases"]), 4)
         self.assertEqual(len(contexto["consultas_ejemplo"]), 3)
+        self.assertEqual(len(contexto["consultas_demostracion"]), 8)
         self.assertGreaterEqual(contexto["base_conocimiento"]["total_documentos"], 8)
         self.assertEqual(contexto["entrenamiento"]["total_ejemplos"], 16)
+
+    def test_consultas_de_demostracion_cubren_todas_las_reglas(self):
+        contexto = obtener_contexto()
+        acciones = set()
+        cantidades = []
+
+        for consulta in contexto["consultas_demostracion"]:
+            respuesta = responder_consulta(ConsultaHibridaRequest(consulta=consulta))
+            activadas = {regla["accion"] for regla in respuesta["reglas"]}
+            acciones.update(activadas)
+            cantidades.append(len(activadas))
+
+        self.assertEqual(acciones, {regla["accion"] for regla in contexto["reglas"]})
+        self.assertIn(0, cantidades)
+        self.assertTrue(any(cantidad > 1 for cantidad in cantidades))
 
 
 if __name__ == "__main__":

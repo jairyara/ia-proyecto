@@ -1,3 +1,4 @@
+# Dashboard · Semana 04 — Búsqueda y replanificación
 """Modelado de grafos viales y topologías de entrega."""
 
 from __future__ import annotations

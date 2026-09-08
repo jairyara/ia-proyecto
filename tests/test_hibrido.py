@@ -75,6 +75,24 @@ class ClasificacionTests(unittest.TestCase):
         valores = [item["probabilidad"] for item in resultado["probabilidades"]]
         self.assertEqual(valores, sorted(valores, reverse=True))
 
+    def test_expone_los_tres_terminos_con_mayor_aporte_local(self):
+        resultado = clasificar("el furgón perdió temperatura en ruta")
+
+        self.assertGreater(len(resultado["factores"]), 0)
+        self.assertLessEqual(len(resultado["factores"]), 3)
+        aportes = [item["aporte"] for item in resultado["factores"]]
+        self.assertEqual(aportes, sorted(aportes, reverse=True))
+        self.assertTrue(all(item["peso"] > 0 and item["tfidf"] > 0 for item in resultado["factores"]))
+        self.assertIn("temperatura", [item["termino"] for item in resultado["factores"]])
+
+    def test_se_abstiene_ante_una_consulta_sin_vocabulario_conocido(self):
+        resultado = clasificar("kmnfchjdfs sf fsjkgjhks gsfh gfskg ghsjkgh")
+
+        self.assertEqual(resultado["clase"], "requiere_revision")
+        self.assertFalse(resultado["aceptada"])
+        self.assertEqual(resultado["terminos_reconocidos"], 0)
+        self.assertIn("vocabulario", resultado["motivo_revision"].lower())
+
 
 class RespuestaHibridaTests(unittest.TestCase):
     def test_consultas_de_la_guia_producen_la_traza_esperada(self):

@@ -1,3 +1,4 @@
+# Dashboard · Semana 05 — Sistema híbrido trazable
 """Experimento reproducible de la Semana 5: sistema híbrido de trazabilidad.
 
 Ejecuta las tres consultas de prueba de la guía contra el motor híbrido

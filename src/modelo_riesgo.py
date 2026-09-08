@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Punto de entrada CLI para el modelo de riesgo de retraso (delegado a src.modelado.riesgo_retraso)."""
 
 import sys

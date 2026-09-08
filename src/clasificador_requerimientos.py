@@ -1,3 +1,4 @@
+# Dashboard · Semana 03 — Clasificación simbólica
 """Punto de entrada CLI para el clasificador de requerimientos (delegado a src.clasificacion.requerimientos)."""
 
 import sys

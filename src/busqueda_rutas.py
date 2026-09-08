@@ -1,3 +1,4 @@
+# Dashboard · Semana 04 — Búsqueda y replanificación
 """Script principal de benchmarking, planificación y replanificación de rutas con A* y Dijkstra."""
 
 from __future__ import annotations

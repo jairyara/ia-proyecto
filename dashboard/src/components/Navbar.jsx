@@ -7,9 +7,7 @@ const sections = [
   { id: 'semana05', week: '05', title: 'Sistema híbrido', subtitle: 'Reglas · TF-IDF · LogReg', icon: 'spark' },
 ].sort((left, right) => Number(left.week) - Number(right.week))
 
-export default function Navbar({ active, onChange, apiOnline, mobileOpen, onToggle, collapsed, onCollapse }) {
-  const collapseLabel = collapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'
-
+export default function Navbar({ active, onChange, apiOnline, mobileOpen, onToggle, collapsed }) {
   return (
     <>
       <header className="mobile-header">
@@ -26,17 +24,6 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
         className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''} ${mobileOpen ? 'sidebar--open' : ''}`}
         aria-label="Navegación principal"
       >
-        <button
-          type="button"
-          className="sidebar-toggle"
-          onClick={onCollapse}
-          aria-label={collapseLabel}
-          aria-controls="sidebar-navigation"
-          aria-expanded={!collapsed}
-          title={collapseLabel}
-        >
-          <Icon name={collapsed ? 'chevronRight' : 'chevronLeft'} size={16} />
-        </button>
         <div>
           <a className="brand" href="#main" aria-label="Órbita, laboratorio de IA logística">
             <span className="brand-mark"><span /></span>

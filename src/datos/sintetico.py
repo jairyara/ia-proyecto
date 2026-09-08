@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Generador sintético de pedidos para la tarea predictiva del Corte 1."""
 
 from __future__ import annotations

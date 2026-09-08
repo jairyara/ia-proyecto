@@ -1,3 +1,4 @@
+# Dashboard · Semana 04 — Búsqueda y replanificación
 """Módulo de replanificación dinámica ante eventos imprevistos (vías bloqueadas)."""
 
 from __future__ import annotations

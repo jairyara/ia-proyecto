@@ -92,10 +92,12 @@
 
 ### Vista Semana 5: Sistema Híbrido Trazable
 * **Consulta Operativa en Lenguaje Natural:**
-  - Campo de texto con las tres consultas de la guía como presets seleccionables.
+  - Campo de texto con 8 consultas seleccionables: las 3 de la guía y 5 casos extra que cubren las cinco reglas, recuperación sin regla y activación múltiple.
   - La entrada se normaliza (minúsculas, sin tildes) antes de alimentar las tres técnicas.
 * **Panel de Categoría Operativa:**
   - Clase predicha por `LogisticRegression` con barras de probabilidad por categoría (`predict_proba`).
+  - Los tres términos con mayor aporte local positivo a la clase ganadora, calculado como coeficiente del modelo × valor TF-IDF de la consulta.
+  - Estado **Requiere revisión** cuando no reconoce vocabulario del dominio o la diferencia entre las dos probabilidades principales es menor a 0.03; así evita forzar categorías sobre texto irrelevante.
 * **Trazabilidad de la Decisión en Tres Nodos:**
   - **Reglas expertas:** acción disparada junto con la palabra exacta de la consulta que la activó (las reglas son datos estructurados `Regla(accion, palabras, descripcion)`, no lambdas anónimas).
   - **Evidencia documental:** protocolo SOP recuperado con medidor de similitud coseno TF-IDF.
@@ -219,12 +221,12 @@ ia-proyecto/
 - [x] Implementar `src/hibrido/sistema.py` con reglas expertas declarativas (datos, no lambdas), recuperación TF-IDF + coseno y clasificación con `predict_proba`.
 - [x] Crear `data/base_conocimiento.txt` con 10 protocolos SOP y script reproducible `python -m src.sistema_hibrido`.
 - [x] Exponer `/api/hibrido/responder` y `/api/hibrido/contexto` con contratos Pydantic.
-- [x] Construir `Semana05View.jsx` con presets de la guía, barras de probabilidad, trazabilidad en tres nodos y catálogo de reglas.
+- [x] Construir `Semana05View.jsx` con 8 consultas de demostración, barras de probabilidad, aportes locales de términos, trazabilidad en tres nodos y catálogo de reglas.
 - [x] Registrar la Semana 5 en el catálogo de contenido y crear `reports/sem-05-sistema-hibrido.md`.
 - [x] Validar 67 pruebas Python y el build de producción con pnpm.
 
 ### Fase 8: Interfaz para sustentación en TV 4K
-- [x] Añadir un control accesible para contraer el menú lateral a una barra de iconos y ampliar el área útil del laboratorio.
+- [x] Añadir en el header del contenido un control accesible con icono de panel para contraer el menú lateral a una barra de iconos y ampliar el área útil del laboratorio.
 - [x] Persistir la preferencia del menú en `localStorage`, manteniendo independiente el comportamiento móvil.
 - [x] Escalar de forma automática y proporcional la interfaz completa en viewports 2K/4K, conservando sin cambios la composición de escritorio.
 - [x] Establecer 11 px como mínimo tipográfico y ampliar textos operativos, código, tablas y controles para conservar legibilidad aunque el TV 4K exponga un viewport CSS reducido.

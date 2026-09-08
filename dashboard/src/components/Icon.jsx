@@ -21,6 +21,7 @@ const paths = {
   external: <><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></>,
   chevronLeft: <path d="m15 18-6-6 6-6"/>,
   chevronRight: <path d="m9 18 6-6-6-6"/>,
+  panelLeft: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M4 4h4v16H4z" fill="currentColor" stroke="none" opacity=".18"/></>,
 }
 
 export default function Icon({ name, size = 18, className = '' }) {

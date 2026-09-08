@@ -1,3 +1,4 @@
+# Dashboard · Semana 05 — Sistema híbrido trazable
 """Sistema híbrido de soporte logístico (Semana 5).
 
 Combina tres técnicas del marco tecnológico de la IA sobre la misma consulta
@@ -30,6 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = ROOT / "data"
 KB_PATH = DATA_DIR / "base_conocimiento.txt"
 MIN_DOCUMENTOS = 8
+MIN_MARGEN_CLASIFICACION = 0.03
 
 DEFAULT_DOCS = [
     "Protocolo 1: Control de temperatura y cadena de frio en transporte de perecederos y farmaceuticos; si la temperatura supera los limites o falla el termografo, se debe activar refrigeracion de emergencia o derivar a centro de acopio cercano.",
@@ -232,18 +234,56 @@ def clasificar(query: str) -> dict:
       completa de probabilidad para evaluar el nivel de certidumbre del modelo.
     """
     q = _normalizar(query)
-    label = str(classifier.predict([q])[0])
-    probabilidades = classifier.predict_proba([q])[0]
-    clases = classifier.classes_
+    tfidf = classifier.named_steps["tfidfvectorizer"]
+    modelo = classifier.named_steps["logisticregression"]
+    vector = tfidf.transform([q])
+    label_modelo = str(modelo.predict(vector)[0])
+    probabilidades = modelo.predict_proba(vector)[0]
+    clases = modelo.classes_
+    indice_clase = list(clases).index(label_modelo)
+    terminos = tfidf.get_feature_names_out()
+    fila = vector.getrow(0)
+    factores = [
+        {
+            "termino": str(terminos[indice]),
+            "peso": float(modelo.coef_[indice_clase, indice]),
+            "tfidf": float(valor_tfidf),
+            "aporte": float(modelo.coef_[indice_clase, indice] * valor_tfidf),
+        }
+        for indice, valor_tfidf in zip(fila.indices, fila.data)
+        if modelo.coef_[indice_clase, indice] * valor_tfidf > 0
+    ]
+    factores.sort(key=lambda item: item["aporte"], reverse=True)
+    probabilidades_ordenadas = sorted(
+        zip(clases, probabilidades), key=lambda item: item[1], reverse=True
+    )
+    margen = float(probabilidades_ordenadas[0][1] - probabilidades_ordenadas[1][1])
+    terminos_reconocidos = int(fila.nnz)
+    aceptada = terminos_reconocidos > 0 and margen >= MIN_MARGEN_CLASIFICACION
+    if terminos_reconocidos == 0:
+        motivo_revision = "No se reconoció vocabulario del dominio logístico."
+    elif margen < MIN_MARGEN_CLASIFICACION:
+        motivo_revision = "Las categorías principales tienen probabilidades demasiado similares."
+    else:
+        motivo_revision = ""
+    label = label_modelo if aceptada else "requiere_revision"
     return {
         "clase": label,
-        "descripcion": CLASE_DESCRIPCIONES.get(label, ""),
+        "clase_modelo": label_modelo,
+        "descripcion": (
+            CLASE_DESCRIPCIONES.get(label_modelo, "")
+            if aceptada
+            else "La entrada no aporta evidencia suficiente para asignar una categoría confiable."
+        ),
+        "aceptada": aceptada,
+        "motivo_revision": motivo_revision,
+        "terminos_reconocidos": terminos_reconocidos,
+        "margen": margen,
         "probabilidades": [
             {"clase": str(clase), "probabilidad": float(probabilidad)}
-            for clase, probabilidad in sorted(
-                zip(clases, probabilidades), key=lambda item: item[1], reverse=True
-            )
+            for clase, probabilidad in probabilidades_ordenadas
         ],
+        "factores": factores[:3],
     }
 
 
@@ -270,5 +310,11 @@ def answer(query: str) -> dict:
         "evidencia": evidencia["documento"],
         "similitud": evidencia["similitud"],
         "clase": prediccion["clase"],
+        "clase_modelo": prediccion["clase_modelo"],
         "clases": prediccion["probabilidades"],
+        "factores": prediccion["factores"],
+        "aceptada": prediccion["aceptada"],
+        "motivo_revision": prediccion["motivo_revision"],
+        "terminos_reconocidos": prediccion["terminos_reconocidos"],
+        "margen": prediccion["margen"],
     }

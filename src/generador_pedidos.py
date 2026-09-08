@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Punto de entrada CLI para la generación de pedidos sintéticos (delegado a src.datos.sintetico)."""
 
 import sys

@@ -31,6 +31,15 @@ class CatalogoContenidoTests(unittest.TestCase):
                         self.assertTrue(documento["hash"])
                         self.assertTrue(Path(documento["workspace_editor"]).is_absolute())
 
+    def test_cada_archivo_identifica_la_semana_en_la_primera_linea(self):
+        for semana in catalogo_semanas()["semanas"]:
+            etiqueta = f"# Dashboard · Semana {semana['numero']:02d} — {semana['titulo']}"
+            for ejercicio in semana["ejercicios"]:
+                for archivo in ejercicio["archivos"]:
+                    with self.subTest(semana=semana["numero"], archivo=archivo["id"]):
+                        documento = obtener_codigo(archivo["id"])
+                        self.assertEqual(documento["lineas"][0]["codigo"], etiqueta)
+
     def test_cada_informe_registrado_se_puede_navegar(self):
         for semana in catalogo_semanas()["semanas"]:
             for informe in semana["informes"]:

@@ -6,6 +6,22 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 
+- **feat** (2026-09-08): ampliación didáctica de la Semana 5.
+  - `feat` El laboratorio ofrece 8 consultas de demostración: conserva las 3
+    de la guía y añade casos para ventanas horarias, prioridad, destinatario
+    ausente, mercancía frágil y activación simultánea de dos reglas.
+  - `feat` La categoría operativa diferencia las probabilidades de salida de
+    los tres términos con mayor aporte local positivo (`peso × TF-IDF`).
+  - `fix` El clasificador se abstiene con `Requiere revisión` cuando la consulta
+    no contiene vocabulario conocido o las dos clases principales quedan casi
+    empatadas, en vez de forzar una categoría con probabilidades uniformes.
+  - `test` Se validan 73 pruebas Python, 15 pruebas frontend y el build de
+    producción con pnpm.
+- **style** (2026-09-08): control del menú lateral integrado al contenido.
+  - `style` El botón circular superpuesto a la marca Órbita se reemplaza por un
+    control rectangular con icono de panel lateral dentro del header compartido.
+  - `a11y` Conserva etiquetas dinámicas, `aria-controls` y `aria-expanded`; en
+    móvil se mantiene el control independiente del menú.
 - **feat** (2026-09-06): interfaz optimizada para sustentación en TV 4K.
   - `feat` El menú lateral se puede contraer a una barra de iconos para ampliar
     el laboratorio; el estado se conserva en el navegador y cada acceso mantiene

@@ -96,6 +96,7 @@ function AmazonGraph({ graph, step, start, goal }) {
 }
 
 export default function GridCanvas(props) {
-  if (props.environment === 'amazon') return <AmazonGraph {...props} />
-  return <Grid {...props} />
+  const visualProps = props.stale ? { ...props, step: null } : props
+  if (props.environment === 'amazon') return <AmazonGraph {...visualProps} />
+  return <Grid {...visualProps} />
 }

@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Extractor y curador del dataset público Amazon Last Mile Routing Challenge (ALMRRC 2021).
 
 Descarga directamente desde AWS Open Data (S3), limpia inconsistencias, calcula

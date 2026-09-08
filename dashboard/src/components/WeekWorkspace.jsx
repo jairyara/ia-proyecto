@@ -11,10 +11,14 @@ const tabs = [
   { id: 'informe', label: 'Informe', icon: 'document' },
 ]
 
-export default function WeekWorkspace({ weekId, children }) {
+export default function WeekWorkspace({ weekId, children, sidebarCollapsed = false, onSidebarCollapse }) {
   const [activeTab, setActiveTab] = useState('laboratorio')
   const [week, setWeek] = useState(null)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    window.scrollTo?.({ top: 0, left: 0, behavior: 'auto' })
+  }, [activeTab, weekId])
 
   useEffect(() => {
     let current = true
@@ -31,25 +35,40 @@ export default function WeekWorkspace({ weekId, children }) {
   return (
     <>
       <div className="workspace-bar">
-        <nav className="workspace-tabs" aria-label="Vistas de la semana">
-          {tabs.map((tab) => {
-            const count = tab.id === 'codigo'
-              ? week?.ejercicios.reduce((total, exercise) => total + exercise.archivos.length, 0)
-              : tab.id === 'informe' ? week?.informes.length : null
-            return (
-              <button
-                className={activeTab === tab.id ? 'active' : ''}
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                aria-current={activeTab === tab.id ? 'page' : undefined}
-              >
-                <Icon name={tab.icon} size={16} />
-                <span>{tab.label}</span>
-                {Number.isFinite(count) && <small>{count}</small>}
-              </button>
-            )
-          })}
-        </nav>
+        <div className="workspace-leading">
+          {onSidebarCollapse && (
+            <button
+              type="button"
+              className={`content-sidebar-toggle ${sidebarCollapsed ? 'content-sidebar-toggle--collapsed' : ''}`}
+              onClick={onSidebarCollapse}
+              aria-label={sidebarCollapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'}
+              aria-controls="sidebar-navigation"
+              aria-expanded={!sidebarCollapsed}
+              title={sidebarCollapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'}
+            >
+              <Icon name="panelLeft" size={22} />
+            </button>
+          )}
+          <nav className="workspace-tabs" aria-label="Vistas de la semana">
+            {tabs.map((tab) => {
+              const count = tab.id === 'codigo'
+                ? week?.ejercicios.reduce((total, exercise) => total + exercise.archivos.length, 0)
+                : tab.id === 'informe' ? week?.informes.length : null
+              return (
+                <button
+                  className={activeTab === tab.id ? 'active' : ''}
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  aria-current={activeTab === tab.id ? 'page' : undefined}
+                >
+                  <Icon name={tab.icon} size={16} />
+                  <span>{tab.label}</span>
+                  {Number.isFinite(count) && <small>{count}</small>}
+                </button>
+              )
+            })}
+          </nav>
+        </div>
         <span className="workspace-context">S{String(week?.numero || weekId.replace(/\D/g, '')).padStart(2, '0')}</span>
       </div>
 

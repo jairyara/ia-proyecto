@@ -1,3 +1,4 @@
+# Dashboard · Semana 04 — Búsqueda y replanificación
 """Implementación del algoritmo de búsqueda heurística A* para rutas de distribución."""
 
 # Permite usar anotaciones de tipo avanzadas y referencias hacia adelante (ej. clases no definidas aún)

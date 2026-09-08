@@ -24,6 +24,49 @@ function Slider({ label, value, min, max, step, unit, onChange }) {
   )
 }
 
+const confusionCells = [
+  { key: 'tn', abbreviation: 'VN', label: 'Verdadero negativo', hint: 'Sin retraso: acierto', row: 0, column: 0 },
+  { key: 'fp', abbreviation: 'FP', label: 'Falso positivo', hint: 'Alerta falsa', row: 0, column: 1 },
+  { key: 'fn', abbreviation: 'FN', label: 'Falso negativo', hint: 'Retraso no detectado', row: 1, column: 0 },
+  { key: 'tp', abbreviation: 'VP', label: 'Verdadero positivo', hint: 'Retraso: acierto', row: 1, column: 1 },
+]
+
+export function ConfusionMatrix({ matrix }) {
+  if (!matrix) return null
+
+  return (
+    <>
+      <div className="confusion-layout" aria-label="Matriz de confusión del modelo elegido">
+        <span />
+        <small>Pred. 0</small>
+        <small>Pred. 1</small>
+        <small>Real 0</small>
+        {confusionCells.slice(0, 2).map((cell) => (
+          <strong className={`confusion-cell confusion-cell--${cell.key}`} key={cell.key} title={cell.label}>
+            <small>{cell.abbreviation}</small>
+            <b>{matrix[cell.row][cell.column]}</b>
+          </strong>
+        ))}
+        <small>Real 1</small>
+        {confusionCells.slice(2).map((cell) => (
+          <strong className={`confusion-cell confusion-cell--${cell.key}`} key={cell.key} title={cell.label}>
+            <small>{cell.abbreviation}</small>
+            <b>{matrix[cell.row][cell.column]}</b>
+          </strong>
+        ))}
+      </div>
+      <div className="confusion-guide" aria-label="Guía rápida de la matriz">
+        {confusionCells.map((cell) => (
+          <span className={`confusion-guide__item confusion-guide__item--${cell.key}`} key={cell.key}>
+            <b>{cell.abbreviation}</b>
+            <small>{cell.hint}</small>
+          </span>
+        ))}
+      </div>
+    </>
+  )
+}
+
 export default function Semana02View() {
   const [order, setOrder] = useState(initialOrder)
   const [prediction, setPrediction] = useState(null)
@@ -133,7 +176,7 @@ export default function Semana02View() {
           ))}
           <article className="confusion-card">
             <span className="field-caption">MATRIZ DE CONFUSIÓN · ELEGIDO</span>
-            {matrix && <div className="confusion-layout"><span /><small>Pred. 0</small><small>Pred. 1</small><small>Real 0</small><strong className="tn">{matrix[0][0]}</strong><strong>{matrix[0][1]}</strong><small>Real 1</small><strong>{matrix[1][0]}</strong><strong className="tp">{matrix[1][1]}</strong></div>}
+            <ConfusionMatrix matrix={matrix} />
           </article>
         </div>
       </section>

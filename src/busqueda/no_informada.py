@@ -1,3 +1,4 @@
+# Dashboard · Semana 04 — Búsqueda y replanificación
 """Implementación de algoritmos de búsqueda no informada para línea base."""
 
 from __future__ import annotations

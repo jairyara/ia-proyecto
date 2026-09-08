@@ -50,10 +50,14 @@ export default function App() {
         mobileOpen={mobileOpen}
         onToggle={(value) => setMobileOpen((current) => typeof value === 'boolean' ? value : !current)}
         collapsed={sidebarCollapsed}
-        onCollapse={() => setSidebarCollapsed((current) => !current)}
       />
       <main id="main" className="main-content">
-        <WeekWorkspace key={active} weekId={active}>
+        <WeekWorkspace
+          key={active}
+          weekId={active}
+          sidebarCollapsed={sidebarCollapsed}
+          onSidebarCollapse={() => setSidebarCollapsed((current) => !current)}
+        >
           <View />
         </WeekWorkspace>
       </main>

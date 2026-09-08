@@ -1,3 +1,4 @@
+# Dashboard · Semana 02 — Aprendizaje supervisado
 """Baseline supervisado de riesgo de retraso para el Corte 1.
 
 Entrena LogisticRegression (baseline interpretable) y RandomForestClassifier
