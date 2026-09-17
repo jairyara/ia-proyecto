@@ -113,6 +113,9 @@ El sistema cuenta hoy con una base verificable:
 - búsqueda heurística A* con líneas base y replanificación dinámica;
 - sistema híbrido trazable (reglas expertas + TF-IDF + clasificación) con
   base de conocimiento de 10 protocolos operativos;
+- representaciones de Semana 7 sobre 14.411 paradas Amazon: distancia
+  euclidiana normalizada por IQR, traducción a hechos P75 y autómatas binario
+  y POD;
 - validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
@@ -135,7 +138,8 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 │   ├── modelado/       # Modelos predictivos supervisados y evaluación de métricas
 │   ├── clasificacion/  # Clasificador simbólico y reglas de taxonomía
 │   ├── busqueda/       # Búsqueda heurística A*, líneas base no informadas y replanificación
-│   └── hibrido/        # Sistema híbrido: reglas expertas + TF-IDF/coseno + clasificación
+│   ├── hibrido/        # Sistema híbrido: reglas expertas + TF-IDF/coseno + clasificación
+│   └── representaciones/ # Vectores Amazon, reglas simbólicas y autómatas de Semana 7
 └── tests/              # Pruebas automatizadas unitarias y de integración
 ```
 
@@ -187,12 +191,19 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    python -m src.sistema_hibrido
    ```
 
-6. **Pruebas automatizadas:**
+6. **Representaciones del reconocimiento (caso oficial + Amazon):**
+   ```bash
+   python -m src.representaciones_reconocimiento
+   ```
+   Procesa las 14.411 paradas reales sin entrenar un modelo y genera
+   `reports/sem-07-representaciones-evidencia.md`.
+
+7. **Pruebas automatizadas:**
    ```bash
    python -m unittest discover -s tests -v
    ```
 
-7. **Dashboard web, ejecución local con recarga automática:**
+8. **Dashboard web, ejecución local con recarga automática:**
    ```bash
    # Terminal 1, desde la raíz y con .venv activo
    uvicorn api.main:app --reload --port 8000
@@ -225,7 +236,7 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    DASHBOARD_EDITOR_WORKSPACE=/ruta/absoluta/ia-proyecto docker compose up --build
    ```
 
-7. **Dashboard completo con Docker:**
+9. **Dashboard completo con Docker:**
    ```bash
    docker compose up --build
    ```

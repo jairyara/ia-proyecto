@@ -69,6 +69,11 @@ produjo.
   (`data/base_conocimiento.txt`) y clasificación supervisada con distribución
   de probabilidad (`src/hibrido/`, `api/hibrido`,
   `reports/sem-05-sistema-hibrido.md`).
+- [x] Representaciones del reconocimiento de Semana 7: caso oficial exacto,
+  vectores de 14.411 paradas Amazon con euclidiana cruda y normalizada por IQR,
+  traducción a hechos mediante P75, reglas auditables y AFD de protocolo POD
+  (`src/representaciones/`, `api/representaciones`,
+  `reports/sem-07-representaciones.md`).
 
 ## Arquitectura incremental
 
@@ -103,7 +108,7 @@ antes de inferir.
 
 ## Roadmap
 
-Material confirmado del curso hasta la **Semana 5** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`, `Semana_05_IA_Marco_Tecnologico_Clase_final.pptx` y `../ia-semestre/TEMATICAS.md`). Las semanas 6 en adelante se actualizan según se publique el material.
+Material confirmado del curso hasta la **Semana 7** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`, `Semana_05_IA_Marco_Tecnologico_Clase_final.pptx`, `Semana_07_Representaciones_del_reconocimiento_Clase.pptx`, `Explicacion_Semana_07.md` y `../ia-semestre/TEMATICAS.md`). Las semanas posteriores se actualizan según se publique el material.
 
 | Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
 |---:|---|---|---|
@@ -111,9 +116,10 @@ Material confirmado del curso hasta la **Semana 5** (fuentes: `Guia_Explicativa_
 | **3** | Taxonomía de IA | Mapeo de 7 áreas y clasificador simbólico (`src.clasificacion.requerimientos`) | **Completado** |
 | **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **Completado** |
 | **5** | Marco tecnológico: sistemas híbridos | Reglas expertas + TF-IDF/coseno + regresión logística con trazabilidad, demostrable en el dashboard (`src.hibrido`) | **Completado** |
-| 6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | Pendiente |
+| 6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | **Completado** |
 | **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** | **Meta hito** |
-| 7–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
+| **7** | Representaciones del reconocimiento | Caso oficial + vectores Amazon, euclidiana/IQR, hechos P75 y autómatas (`src.representaciones`) | **Completado** |
+| 8–12 | Reglas y representación del conocimiento | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
 | **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |
 | 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación (`src.vision`, `src.agentes`) | Pendiente |
 | **18** | **Corte 3** | **Sistema integrado — `v3.0.0`** | **Meta hito** |
@@ -156,6 +162,35 @@ Para cada escenario de prueba se registrarán y contrastarán en tabla Markdown:
 1. **REALIZADO:** Módulo `src/busqueda/`, pruebas `tests/test_busqueda.py` y reporte `reports/sem-04-busqueda-rutas.md`.
 2. **FUNCIONA:** Ejecución reproducible en Python 3.13.x sin dependencias externas fuera de `requirements.txt`.
 3. **COINCIDE:** Identificación formal de los 5 elementos (Estado, Acción, Transición, Meta, Costo) y comprobación de optimalidad y admisibilidad.
+
+## Especificación técnica — Semana 7: Representaciones del reconocimiento
+
+Basada en `Semana_07_Representaciones_del_reconocimiento_Clase.pptx` y
+`Explicacion_Semana_07.md`:
+
+1. **Caso oficial:** reproduce los vectores `[72, 0.85, 3]` y
+   `[70, 0.80, 2]`, la distancia euclidiana `2.237`, la inferencia
+   `riesgo_termico` y el AFD binario sobre `1101`, `1110` y `0001`.
+2. **Datos del proyecto:** procesa las 14.411 paradas de 100 rutas en
+   `data/amazon_pedidos.csv`; usa distancia al depósito, volumen total y tiempo
+   de servicio, todas sin nulos.
+3. **Método numérico:** compara cada vector contra la mediana del dataset. Se
+   conserva la euclidiana cruda como evidencia didáctica y se usa como medida
+   principal la euclidiana después de dividir por el IQR de cada variable.
+4. **Método simbólico:** valores que superan el P75 originan
+   `parada_lejana`, `volumen_alto` y `servicio_prolongado`; reglas declarativas
+   aplican `issubset` y conservan premisas cumplidas/faltantes.
+5. **Método secuencial:** el AFD POD valida `A → V → F`; las secuencias son
+   pruebas controladas porque Amazon no registra esos eventos.
+6. **Trazabilidad:** cada salida identifica si proviene de la guía, de una fila
+   Amazon, de una estadística calculada o de una decisión explícita del
+   proyecto. No hay entrenamiento, objetivo ni partición train/test.
+
+### Criterios de validación
+
+- **Realizado:** core, pruebas, informe, evidencia, API y laboratorio Órbita.
+- **Funciona:** procesamiento determinista de 14.411 filas y trazas completas.
+- **Coincide:** `2.237`, `riesgo_termico` y AFD `True/False/True` oficiales.
 
 ## Alcance por corte
 

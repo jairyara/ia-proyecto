@@ -4,6 +4,23 @@ Registro de cambios inspirado en
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). El versionado
 aplica a las entregas de los cortes 1, 2 y 3.
 
+### Semana 07 — Representaciones del reconocimiento (`src/representaciones/`)
+
+- **feat** (2026-09-17): caso oficial y adaptación trazable al Proyecto 8.
+  - `feat` Reproducción exacta de distancia `2.237`, inferencia
+    `riesgo_termico` y AFD binario `True/False/True` de la presentación.
+  - `feat` Procesamiento de 14.411 paradas reales Amazon con vector
+    `[distancia, volumen, servicio]`, referencia mediana, escala IQR y distancia
+    euclidiana cruda/normalizada; no hay entrenamiento ni partición train/test.
+  - `feat` Traducción Numérico ↔ Simbólico mediante percentiles 75 calculados,
+    tres reglas didácticas auditables y AFD POD con escenarios controlados.
+  - `feat` API `/api/representaciones/contexto` y
+    `/api/representaciones/evaluar`, además del laboratorio Semana 07 dentro de
+    Corte 2 con procedencia visible para cada salida.
+  - `docs` Informe `reports/sem-07-representaciones.md` y evidencia regenerable.
+  - `test` Pruebas de caso oficial, estadísticas, límites P75, reglas,
+    autómatas, procedencia y contratos de dashboard.
+
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 
 - **feat** (2026-09-08): ampliación didáctica de la Semana 5.
