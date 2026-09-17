@@ -11,10 +11,12 @@ from api.schemas.busqueda_dto import ReplanificacionRequest, SimulacionBusquedaR
 from api.schemas.clasificacion_dto import RequerimientoRequest
 from api.schemas.hibrido_dto import ConsultaHibridaRequest
 from api.schemas.modelado_dto import PedidoRequest
+from api.schemas.representaciones_dto import EvaluacionRepresentacionRequest
 from api.services.busqueda import replanificar_busqueda, simular_busqueda
 from api.services.clasificacion import evaluar_requerimiento
 from api.services.hibrido import obtener_contexto, responder_consulta
 from api.services.modelado import obtener_metricas, predecir_riesgo
+from api.services.representaciones import evaluar_representacion, obtener_contexto as obtener_contexto_representaciones
 
 
 class DashboardBusquedaTests(unittest.TestCase):
@@ -161,6 +163,35 @@ class DashboardHibridoTests(unittest.TestCase):
         self.assertEqual(acciones, {regla["accion"] for regla in contexto["reglas"]})
         self.assertIn(0, cantidades)
         self.assertTrue(any(cantidad > 1 for cantidad in cantidades))
+
+
+class DashboardRepresentacionesTests(unittest.TestCase):
+    def test_contexto_separa_guia_y_amazon(self):
+        contexto = obtener_contexto_representaciones()
+        self.assertAlmostEqual(
+            contexto["caso_clase"]["numerica"]["distancia_euclidiana"],
+            2.237,
+            places=3,
+        )
+        self.assertEqual(contexto["amazon"]["fuente"]["total_registros"], 14411)
+        self.assertEqual(len(contexto["amazon"]["perfiles"]), 5)
+
+    def test_evaluacion_expone_trazabilidad_completa(self):
+        respuesta = evaluar_representacion(
+            EvaluacionRepresentacionRequest(pedido_id="AMZ-00150", secuencia_pod="AVF")
+        )
+        self.assertEqual(len(respuesta["numerica"]["campos"]), 3)
+        self.assertEqual(len(respuesta["simbolica"]["hechos"]), 3)
+        self.assertEqual(len(respuesta["simbolica"]["reglas_activadas"]), 3)
+        self.assertTrue(respuesta["automata_pod"]["aceptada"])
+
+    def test_endpoint_rechaza_pedido_inexistente(self):
+        cliente = TestClient(app, raise_server_exceptions=False)
+        respuesta = cliente.post(
+            "/api/representaciones/evaluar",
+            json={"pedido_id": "AMZ-99999", "secuencia_pod": "AVF"},
+        )
+        self.assertEqual(respuesta.status_code, 422)
 
 
 if __name__ == "__main__":

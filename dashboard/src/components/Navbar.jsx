@@ -8,9 +8,13 @@ const corteOneSections = [
   { id: 'semana05', week: '05', title: 'Sistema híbrido', subtitle: 'Reglas · TF-IDF · LogReg', icon: 'spark' },
 ].sort((left, right) => Number(left.week) - Number(right.week))
 
+const corteTwoSections = [
+  { id: 'semana07', week: '07', title: 'Representaciones', subtitle: 'Euclidiana · reglas · AFD', icon: 'activity' },
+]
+
 const cuts = [
   { id: 'corte1', number: 1, sections: corteOneSections },
-  { id: 'corte2', number: 2, sections: [] },
+  { id: 'corte2', number: 2, sections: corteTwoSections },
   { id: 'corte3', number: 3, sections: [] },
 ]
 

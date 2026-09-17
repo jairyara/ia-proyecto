@@ -5,6 +5,7 @@ import Semana02View from './views/Semana02View.jsx'
 import Semana03View from './views/Semana03View.jsx'
 import Semana04View from './views/Semana04View.jsx'
 import Semana05View from './views/Semana05View.jsx'
+import Semana07View from './views/Semana07View.jsx'
 import { api } from './services/api.js'
 
 const SIDEBAR_STORAGE_KEY = 'orbita.sidebarCollapsed'
@@ -14,6 +15,7 @@ const views = {
   semana03: Semana03View,
   semana04: Semana04View,
   semana05: Semana05View,
+  semana07: Semana07View,
 }
 
 export default function App() {

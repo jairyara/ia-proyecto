@@ -116,6 +116,29 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("sem05-hibrido", "Sistema híbrido de trazabilidad", "reports/sem-05-sistema-hibrido.md"),
         ],
     },
+    "semana07": {
+        "numero": 7,
+        "titulo": "Representaciones del reconocimiento",
+        "ejercicios": [
+            {
+                "id": "representaciones-reconocimiento",
+                "titulo": "Numérica, simbólica y autómatas",
+                "descripcion": "Caso oficial y adaptación trazable sobre 14.411 paradas Amazon.",
+                "archivos": [
+                    ("representaciones-clase", "Caso oficial", "src/representaciones/caso_clase.py"),
+                    ("representacion-numerica", "Representación numérica", "src/representaciones/numerica.py"),
+                    ("representacion-simbolica", "Representación simbólica", "src/representaciones/simbolica.py"),
+                    ("automata-pod", "Autómata POD", "src/representaciones/automata.py"),
+                    ("integracion-representaciones", "Integración de representaciones", "src/representaciones/reconocimiento.py"),
+                    ("experimento-representaciones", "Experimento reproducible", "src/representaciones_reconocimiento.py"),
+                ],
+            },
+        ],
+        "informes": [
+            ("sem07-representaciones", "Representaciones del reconocimiento", "reports/sem-07-representaciones.md"),
+            ("sem07-evidencia", "Evidencia reproducible", "reports/sem-07-representaciones-evidencia.md"),
+        ],
+    },
 }
 
 
@@ -141,6 +164,20 @@ FUNCTION_DESCRIPTIONS = {
     "desde_cuadricula": "Transforma una cuadrícula transitable en un grafo dirigido ponderado.",
     "desde_amazon_ruta": "Transforma una ruta curada de Amazon en nodos y aristas ponderadas.",
     "main": "Orquesta la ejecución reproducible desde la línea de comandos.",
+    "ejecutar_caso_clase": "Reproduce los vectores, hechos y secuencias exactos de la guía de Semana 07.",
+    "trazar_01": "Recorre el AFD oficial y conserva cada transición de la cadena binaria.",
+    "accepts_01": "Decide si una cadena binaria termina en 01 y alcanza el estado de aceptación q2.",
+    "cargar_dataset": "Carga Amazon Last Mile y valida que las tres variables numéricas estén completas.",
+    "calcular_estadisticas": "Calcula Q1, mediana, Q3 e IQR sobre las 14.411 paradas reales.",
+    "evaluar_vector": "Compara una parada con la mediana mediante euclidiana cruda y normalizada por IQR.",
+    "perfiles_demostracion": "Selecciona cinco paradas reales mediante criterios deterministas y auditables.",
+    "construir_umbrales": "Convierte los percentiles 75 del dataset en umbrales simbólicos trazables.",
+    "vector_a_hechos": "Traduce magnitudes Amazon a hechos conservando valor, límite y procedencia.",
+    "evaluar_reglas": "Aplica reglas simbólicas con issubset y explica activaciones parciales.",
+    "validar_entrega": "Recorre el AFD POD y devuelve la traza completa de estados y transiciones.",
+    "contexto_dataset": "Resume procedencia, estadísticas, reglas y perfiles de Semana 07.",
+    "evaluar_parada": "Integra las representaciones numérica, simbólica y secuencial para una parada real.",
+    "generar_evidencia": "Regenera el informe de resultados oficiales y Amazon de Semana 07.",
 }
 
 

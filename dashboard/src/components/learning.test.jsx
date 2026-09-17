@@ -10,6 +10,7 @@ import { buildEditorUri } from '../services/editor.js'
 import { api } from '../services/api.js'
 import { ConfusionMatrix } from '../views/Semana02View.jsx'
 import { LocalContributions } from '../views/Semana05View.jsx'
+import Semana07View from '../views/Semana07View.jsx'
 
 const dashboardStyles = readFileSync('src/index.css', 'utf8')
 
@@ -107,7 +108,7 @@ describe('buildEditorUri', () => {
 })
 
 describe('Navbar', () => {
-  it('agrupa los temas por corte y deja preparados los cortes 2 y 3', () => {
+  it('agrupa los temas por corte e incorpora Semana 7 en Corte 2', () => {
     render(
       <Navbar
         active="semana02"
@@ -133,7 +134,7 @@ describe('Navbar', () => {
     expect(corteTwo.getAttribute('aria-expanded')).toBe('true')
     expect(screen.getByRole('button', { name: 'Corte 1' }).getAttribute('aria-expanded')).toBe('false')
     expect(document.getElementById('corte2-topics').hidden).toBe(false)
-    expect(document.getElementById('corte2-topics').textContent).toContain('Los temas aparecerán aquí.')
+    expect(screen.getByRole('button', { name: 'Semana 7: Representaciones' })).toBeTruthy()
   })
 
   it('mantiene etiquetas accesibles cuando el menú está colapsado', () => {
@@ -149,6 +150,37 @@ describe('Navbar', () => {
     rerender(<Navbar {...props} collapsed />)
     expect(screen.getByRole('button', { name: 'Semana 2: Riesgo de retraso' }).getAttribute('title')).toContain('Riesgo de retraso')
     expect(screen.getByRole('complementary', { name: 'Navegación principal' }).classList.contains('sidebar--collapsed')).toBe(true)
+  })
+})
+
+describe('Semana07View', () => {
+  it('expone la procedencia real y separa las tres representaciones', async () => {
+    vi.spyOn(api, 'contextoRepresentaciones').mockResolvedValue({
+      caso_clase: {
+        numerica: { muestra: [72, 0.85, 3], referencia: [70, 0.8, 2], distancia_euclidiana: 2.237 },
+        simbolica: { conclusion: 'riesgo_termico', hechos: ['temperatura_alta', 'carga_alta'] },
+        automata: { secuencias: [{ secuencia: '1101', aceptada: true }] },
+      },
+      amazon: {
+        fuente: { total_registros: 14411, rutas: 100 },
+        perfiles: [{ codigo: 'triple', pedido_id: 'AMZ-00150', criterio: 'Supera los tres percentiles 75' }],
+      },
+    })
+    vi.spyOn(api, 'evaluarRepresentacion').mockResolvedValue({
+      pedido: { pedido_id: 'AMZ-00150' },
+      numerica: { distancia_cruda: 117, distancia_normalizada: 2.5, campos: [] },
+      simbolica: { hechos: ['parada_lejana'], hechos_detalle: [], reglas_activadas: [], reglas_parciales: [] },
+      automata_pod: { estado_final: 'q3', aceptada: true, traza: [] },
+      procedencia: { vector: 'fila real de data/amazon_pedidos.csv' },
+    })
+
+    render(<Semana07View />)
+
+    expect(await screen.findByText('Euclidiana + IQR')).toBeTruthy()
+    expect(screen.getByText('Hechos + reglas')).toBeTruthy()
+    expect(screen.getByText('Autómata POD')).toBeTruthy()
+    expect(screen.getByText(/Amazon Last Mile Routing Challenge 2021/)).toBeTruthy()
+    expect(screen.getByText('riesgo_termico')).toBeTruthy()
   })
 })
 

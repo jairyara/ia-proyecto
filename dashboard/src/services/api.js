@@ -61,6 +61,12 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ consulta }),
     }),
+  contextoRepresentaciones: () => request('/api/representaciones/contexto'),
+  evaluarRepresentacion: (payload) =>
+    request('/api/representaciones/evaluar', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
   contenidoSemanas: () => request('/api/contenido/semanas'),
   codigo: (archivoId) => request(`/api/contenido/codigo/${encodeURIComponent(archivoId)}`),
   informe: (informeId) => request(`/api/contenido/informes/${encodeURIComponent(informeId)}`),
