@@ -107,6 +107,35 @@ describe('buildEditorUri', () => {
 })
 
 describe('Navbar', () => {
+  it('agrupa los temas por corte y deja preparados los cortes 2 y 3', () => {
+    render(
+      <Navbar
+        active="semana02"
+        onChange={vi.fn()}
+        apiOnline
+        mobileOpen={false}
+        onToggle={vi.fn()}
+        collapsed={false}
+      />,
+    )
+
+    expect(screen.getByRole('button', { name: 'Corte 1' }).getAttribute('aria-expanded')).toBe('true')
+    expect(document.querySelectorAll('.nav-cut-icon').length).toBe(3)
+    expect(screen.getByRole('group', { name: 'Temas del Corte 1' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Semana 2: Riesgo de retraso' })).toBeTruthy()
+
+    const corteTwo = screen.getByRole('button', { name: 'Corte 2' })
+    const corteThree = screen.getByRole('button', { name: 'Corte 3' })
+    expect(corteTwo.getAttribute('aria-expanded')).toBe('false')
+    expect(corteThree.getAttribute('aria-expanded')).toBe('false')
+
+    fireEvent.click(corteTwo)
+    expect(corteTwo.getAttribute('aria-expanded')).toBe('true')
+    expect(screen.getByRole('button', { name: 'Corte 1' }).getAttribute('aria-expanded')).toBe('false')
+    expect(document.getElementById('corte2-topics').hidden).toBe(false)
+    expect(document.getElementById('corte2-topics').textContent).toContain('Los temas aparecerán aquí.')
+  })
+
   it('mantiene etiquetas accesibles cuando el menú está colapsado', () => {
     const props = {
       active: 'semana02',

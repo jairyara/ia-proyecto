@@ -22,6 +22,7 @@ const paths = {
   chevronLeft: <path d="m15 18-6-6 6-6"/>,
   chevronRight: <path d="m9 18 6-6-6-6"/>,
   panelLeft: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M4 4h4v16H4z" fill="currentColor" stroke="none" opacity=".18"/></>,
+  calendar: <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></>,
 }
 
 export default function Icon({ name, size = 18, className = '' }) {
