@@ -38,17 +38,7 @@ def contexto_dataset() -> dict:
             "nulos_en_variables": int(datos[list(CAMPOS_VECTOR)].isna().sum().sum()),
         },
         "estadisticas": estadisticas,
-        "umbrales": [
-            {
-                "hecho": item.hecho,
-                "campo": item.campo,
-                "comparador": ">",
-                "limite": item.limite,
-                "descripcion": item.descripcion,
-                "origen": "percentil_75_amazon",
-            }
-            for item in umbrales
-        ],
+        "umbrales": [item.como_dict() for item in umbrales],
         "distribucion_hechos": [
             {"cantidad_hechos": int(cantidad), "registros": int(registros)}
             for cantidad, registros in distribucion.items()

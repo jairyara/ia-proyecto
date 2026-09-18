@@ -2,20 +2,7 @@
 
 > Generado por `python -m src.representaciones_reconocimiento`.
 
-## 1. Caso oficial de clase
-
-- Muestra: `[72.0, 0.85, 3.0]`
-- Referencia: `[70.0, 0.8, 2.0]`
-- Distancia euclidiana: `2.237`
-- Conclusión simbólica: `riesgo_termico`
-
-| Secuencia | Estado final | ¿Aceptada? |
-|---|---|---|
-| `1101` | `q2` | **True** |
-| `1110` | `q1` | **False** |
-| `0001` | `q2` | **True** |
-
-## 2. Datos reales Amazon
+## 1. Datos reales Amazon
 
 - Registros procesados: **14,411**.
 - Rutas: **100**.
@@ -33,7 +20,7 @@
 | 2 | 2,025 |
 | 3 | 193 |
 
-## 3. Perfiles demostrativos reales
+## 2. Perfiles demostrativos reales
 
 | Criterio | Pedido | Vector | Distancia normalizada | Hechos |
 |---|---|---|---:|---|
@@ -43,7 +30,7 @@
 | Mayor tiempo de servicio | `AMZ-06618` | `[18.094, 0.0028, 2644.0]` | 56.509 | `['servicio_prolongado']` |
 | Supera los tres percentiles 75 | `AMZ-00150` | `[22.656, 0.0465, 116.8]` | 2.573 | `['parada_lejana', 'volumen_alto', 'servicio_prolongado']` |
 
-## 4. AFD logístico POD — escenarios controlados
+## 3. AFD logístico POD — escenarios controlados
 
 > Amazon no registra eventos A/V/F/C; estas secuencias son pruebas diseñadas.
 
@@ -54,7 +41,7 @@
 | `AF` | `q_fallo` | **False** |
 | `AV` | `q2` | **False** |
 
-## 5. Procedencia serializada
+## 4. Procedencia serializada
 
 ```json
 {

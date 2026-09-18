@@ -15,6 +15,17 @@ class UmbralDatos:
     limite: float
     descripcion: str
 
+    def como_dict(self) -> dict:
+        """Serializa el umbral con una única estructura para API y reportes."""
+        return {
+            "hecho": self.hecho,
+            "campo": self.campo,
+            "comparador": ">",
+            "limite": self.limite,
+            "descripcion": self.descripcion,
+            "origen": "percentil_75_amazon",
+        }
+
 
 @dataclass(frozen=True)
 class ReglaRepresentacion:
@@ -57,13 +68,8 @@ def vector_a_hechos(vector: VectorParada, umbrales: tuple[UmbralDatos, ...]) -> 
     valores = dict(zip(CAMPOS_VECTOR, vector.vector().tolist()))
     return [
         {
-            "hecho": umbral.hecho,
-            "campo": umbral.campo,
+            **umbral.como_dict(),
             "valor": float(valores[umbral.campo]),
-            "comparador": ">",
-            "limite": umbral.limite,
-            "descripcion": umbral.descripcion,
-            "origen": "percentil_75_amazon",
         }
         for umbral in umbrales
         if valores[umbral.campo] > umbral.limite
@@ -74,14 +80,7 @@ def describir_hecho(hecho: str, umbrales: tuple[UmbralDatos, ...]) -> dict:
     """Traduce Simbólico → Numérico mostrando el umbral que creó el hecho."""
     for umbral in umbrales:
         if umbral.hecho == hecho:
-            return {
-                "hecho": hecho,
-                "campo": umbral.campo,
-                "comparador": ">",
-                "limite": umbral.limite,
-                "descripcion": umbral.descripcion,
-                "origen": "percentil_75_amazon",
-            }
+            return umbral.como_dict()
     raise KeyError(f"Hecho no derivado por Semana 07: {hecho}")
 
 

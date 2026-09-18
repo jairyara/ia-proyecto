@@ -1,11 +1,12 @@
-"""Pruebas de Semana 07: caso oficial, Amazon, reglas y autómatas."""
+"""Pruebas de Semana 07: Amazon, reglas y autómata POD."""
 
 from __future__ import annotations
 
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 
 from src.representaciones.automata import validar_entrega
-from src.representaciones.caso_clase import accepts_01, ejecutar_caso_clase, trazar_01
 from src.representaciones.numerica import (
     VectorParada,
     calcular_estadisticas,
@@ -14,27 +15,13 @@ from src.representaciones.numerica import (
     perfiles_demostracion,
 )
 from src.representaciones.reconocimiento import contexto_dataset, evaluar_parada
+from src.representaciones_reconocimiento import ejecutar_representaciones, mostrar_resultados
 from src.representaciones.simbolica import (
     construir_umbrales,
     describir_hecho,
     evaluar_reglas,
     vector_a_hechos,
 )
-
-
-class CasoClaseTests(unittest.TestCase):
-    def test_reproduce_resultados_oficiales(self):
-        resultado = ejecutar_caso_clase()
-        self.assertAlmostEqual(resultado["numerica"]["distancia_euclidiana"], 2.237, places=3)
-        self.assertEqual(resultado["simbolica"]["conclusion"], "riesgo_termico")
-        self.assertEqual(
-            [item["aceptada"] for item in resultado["automata"]["secuencias"]],
-            [True, False, True],
-        )
-
-    def test_automata_binario_rechaza_simbolo_desconocido(self):
-        self.assertFalse(accepts_01("10x01"))
-        self.assertEqual(trazar_01("10x01")["estado_final"], "q_error")
 
 
 class DatosAmazonTests(unittest.TestCase):
@@ -131,6 +118,17 @@ class IntegracionRepresentacionesTests(unittest.TestCase):
         self.assertEqual(len(resultado["simbolica"]["reglas_activadas"]), 3)
         self.assertTrue(resultado["automata_pod"]["aceptada"])
         self.assertIn("amazon_pedidos.csv", resultado["procedencia"]["vector"])
+
+    def test_script_muestra_las_tres_representaciones(self):
+        salida = StringIO()
+        with redirect_stdout(salida):
+            mostrar_resultados(ejecutar_representaciones())
+
+        texto = salida.getvalue()
+        self.assertIn("Representación numérica", texto)
+        self.assertIn("Representación simbólica", texto)
+        self.assertIn("Autómata POD", texto)
+        self.assertIn("AVF: aceptada", texto)
 
 
 if __name__ == "__main__":

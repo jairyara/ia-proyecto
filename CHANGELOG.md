@@ -6,9 +6,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ### Semana 07 — Representaciones del reconocimiento (`src/representaciones/`)
 
-- **feat** (2026-09-17): caso oficial y adaptación trazable al Proyecto 8.
-  - `feat` Reproducción exacta de distancia `2.237`, inferencia
-    `riesgo_termico` y AFD binario `True/False/True` de la presentación.
+- **feat** (2026-09-17): aplicación trazable al Proyecto 8.
   - `feat` Procesamiento de 14.411 paradas reales Amazon con vector
     `[distancia, volumen, servicio]`, referencia mediana, escala IQR y distancia
     euclidiana cruda/normalizada; no hay entrenamiento ni partición train/test.
@@ -18,8 +16,10 @@ aplica a las entregas de los cortes 1, 2 y 3.
     `/api/representaciones/evaluar`, además del laboratorio Semana 07 dentro de
     Corte 2 con procedencia visible para cada salida.
   - `docs` Informe `reports/sem-07-representaciones.md` y evidencia regenerable.
-  - `test` Pruebas de caso oficial, estadísticas, límites P75, reglas,
+  - `test` Pruebas de estadísticas, límites P75, reglas,
     autómatas, procedencia y contratos de dashboard.
+  - `fix` La entrega conserva solo la adaptación logística, muestra las tres
+    salidas en consola y comparte los escenarios POD entre API y dashboard.
 
 ### Dashboard interactivo y didáctico de IA (`api/`, `dashboard/`)
 

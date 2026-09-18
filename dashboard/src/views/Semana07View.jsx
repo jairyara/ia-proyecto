@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import Icon from '../components/Icon.jsx'
 import { api } from '../services/api.js'
 
-const POD_SEQUENCES = ['AVF', 'AVC', 'AF', 'AV']
-
 const number = (value, digits = 3) => Number(value ?? 0).toLocaleString('es-CO', {
   minimumFractionDigits: digits,
   maximumFractionDigits: digits,
@@ -22,8 +20,10 @@ export default function Semana07View() {
       .then((payload) => {
         setContext(payload)
         const initial = payload.amazon.perfiles.find((item) => item.codigo === 'triple') || payload.amazon.perfiles[0]
+        const initialSequence = payload.automata_pod.secuencias[0].secuencia
         setSelected(initial.pedido_id)
-        return api.evaluarRepresentacion({ pedido_id: initial.pedido_id, secuencia_pod: 'AVF' })
+        setSequence(initialSequence)
+        return api.evaluarRepresentacion({ pedido_id: initial.pedido_id, secuencia_pod: initialSequence })
       })
       .then(setResult)
       .catch((requestError) => setError(requestError.message))
@@ -43,8 +43,8 @@ export default function Semana07View() {
     }
   }
 
-  const official = context?.caso_clase
   const amazon = context?.amazon
+  const podSequences = (context?.automata_pod?.secuencias || []).map((item) => item.secuencia)
   const maxContribution = useMemo(() => Math.max(...(result?.numerica?.campos || []).map((item) => item.contribucion_cuadrada), 0.001), [result])
 
   const chooseProfile = (pedidoId) => {
@@ -63,7 +63,7 @@ export default function Semana07View() {
         <div>
           <div className="week-kicker"><span>SEMANA 07</span><i /> REPRESENTACIONES DEL RECONOCIMIENTO</div>
           <h1>Una parada real,<br /><em>tres formas de entenderla.</em></h1>
-          <p>El caso oficial demuestra el concepto; 14.411 paradas Amazon muestran cómo la representación condiciona lo que podemos medir, explicar y validar.</p>
+          <p>Sobre 14.411 paradas Amazon, cada representación conserva una parte distinta de la operación: magnitudes, decisiones explicables u orden de eventos.</p>
         </div>
         <div className="model-badge model-badge--mint"><Icon name="activity" size={24} /><span><small>SIN ENTRENAMIENTO</small><strong>Euclidiana · Reglas · AFD</strong></span></div>
       </header>
@@ -77,17 +77,8 @@ export default function Semana07View() {
         <p><Icon name="check" /><span><b>Origen:</b> Amazon Last Mile Routing Challenge 2021. Referencia = mediana; escala = IQR; hechos = valores que superan P75.</span></p>
       </section>
 
-      <section className="panel official-case">
-        <div className="panel-heading"><div><span className="eyebrow">CASO OFICIAL · COINCIDE</span><h2>Ejercicio exacto de la presentación</h2></div><span className="count-pill">3 representaciones</span></div>
-        <div className="official-grid">
-          <article><span>01 · NUMÉRICA</span><code>{official?.numerica?.muestra?.join(' · ') || '72 · 0.85 · 3'}</code><p>Referencia: [{official?.numerica?.referencia?.join(', ')}]</p><strong>d = {number(official?.numerica?.distancia_euclidiana)}</strong></article>
-          <article><span>02 · SIMBÓLICA</span><code>{official?.simbolica?.conclusion || 'riesgo_termico'}</code><p>{official?.simbolica?.hechos?.join(' · ')}</p><strong>issubset → True</strong></article>
-          <article><span>03 · AUTÓMATA</span><div className="sequence-results">{(official?.automata?.secuencias || []).map((item) => <code key={item.secuencia} className={item.aceptada ? 'accepted' : ''}>{item.secuencia} → {String(item.aceptada)}</code>)}</div><p>Acepta cadenas terminadas en 01.</p></article>
-        </div>
-      </section>
-
       <section className="panel representation-controls">
-        <div className="panel-heading"><div><span className="eyebrow">ADAPTACIÓN REAL · AMAZON</span><h2>Selecciona una parada trazable</h2></div><span className="count-pill">{result?.pedido?.pedido_id || 'cargando…'}</span></div>
+        <div className="panel-heading"><div><span className="eyebrow">APLICACIÓN REAL · AMAZON</span><h2>Selecciona una parada trazable</h2></div><span className="count-pill">{result?.pedido?.pedido_id || 'cargando…'}</span></div>
         <div className="profile-picker">
           {(amazon?.perfiles || []).map((profile) => (
             <button className={selected === profile.pedido_id ? 'active' : ''} key={profile.pedido_id} onClick={() => chooseProfile(profile.pedido_id)} disabled={loading}>
@@ -131,7 +122,7 @@ export default function Semana07View() {
 
         <section className="panel representation-card automata-card">
           <div className="representation-title"><span>03</span><div><small>MÉTODO SECUENCIAL</small><h2>Autómata POD</h2></div></div>
-          <div className="pod-picker">{POD_SEQUENCES.map((pod) => <button className={sequence === pod ? 'active' : ''} key={pod} onClick={() => chooseSequence(pod)} disabled={loading}>{pod}</button>)}</div>
+          <div className="pod-picker">{podSequences.map((pod) => <button className={sequence === pod ? 'active' : ''} key={pod} onClick={() => chooseSequence(pod)} disabled={loading}>{pod}</button>)}</div>
           <div className={`automata-result ${result?.automata_pod?.aceptada ? 'accepted' : ''}`}>
             <small>ESTADO FINAL</small><strong>{result?.automata_pod?.estado_final || 'q0'}</strong><span>{result?.automata_pod?.aceptada ? 'Secuencia aceptada' : 'Secuencia no aceptada'}</span>
           </div>

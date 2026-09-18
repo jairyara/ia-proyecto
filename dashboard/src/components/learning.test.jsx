@@ -156,14 +156,15 @@ describe('Navbar', () => {
 describe('Semana07View', () => {
   it('expone la procedencia real y separa las tres representaciones', async () => {
     vi.spyOn(api, 'contextoRepresentaciones').mockResolvedValue({
-      caso_clase: {
-        numerica: { muestra: [72, 0.85, 3], referencia: [70, 0.8, 2], distancia_euclidiana: 2.237 },
-        simbolica: { conclusion: 'riesgo_termico', hechos: ['temperatura_alta', 'carga_alta'] },
-        automata: { secuencias: [{ secuencia: '1101', aceptada: true }] },
-      },
       amazon: {
         fuente: { total_registros: 14411, rutas: 100 },
         perfiles: [{ codigo: 'triple', pedido_id: 'AMZ-00150', criterio: 'Supera los tres percentiles 75' }],
+      },
+      automata_pod: {
+        secuencias: [
+          { secuencia: 'A', aceptada: false },
+          { secuencia: 'AVC', aceptada: false },
+        ],
       },
     })
     vi.spyOn(api, 'evaluarRepresentacion').mockResolvedValue({
@@ -180,7 +181,8 @@ describe('Semana07View', () => {
     expect(screen.getByText('Hechos + reglas')).toBeTruthy()
     expect(screen.getByText('Autómata POD')).toBeTruthy()
     expect(screen.getByText(/Amazon Last Mile Routing Challenge 2021/)).toBeTruthy()
-    expect(screen.getByText('riesgo_termico')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'A' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'AVC' })).toBeTruthy()
   })
 })
 

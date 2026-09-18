@@ -166,15 +166,14 @@ class DashboardHibridoTests(unittest.TestCase):
 
 
 class DashboardRepresentacionesTests(unittest.TestCase):
-    def test_contexto_separa_guia_y_amazon(self):
+    def test_contexto_expone_amazon_y_automata_adaptado(self):
         contexto = obtener_contexto_representaciones()
-        self.assertAlmostEqual(
-            contexto["caso_clase"]["numerica"]["distancia_euclidiana"],
-            2.237,
-            places=3,
-        )
         self.assertEqual(contexto["amazon"]["fuente"]["total_registros"], 14411)
         self.assertEqual(len(contexto["amazon"]["perfiles"]), 5)
+        self.assertEqual(
+            [item["secuencia"] for item in contexto["automata_pod"]["secuencias"]],
+            ["AVF", "AVC", "AF", "AV"],
+        )
 
     def test_evaluacion_expone_trazabilidad_completa(self):
         respuesta = evaluar_representacion(

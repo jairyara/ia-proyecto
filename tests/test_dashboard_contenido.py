@@ -55,6 +55,23 @@ class CatalogoContenidoTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             obtener_informe("../../README")
 
+    def test_funciones_homonimas_conservan_descripciones_por_modulo(self):
+        hibrido = obtener_codigo("motor-hibrido")
+        simbolica = obtener_codigo("representacion-simbolica")
+        descripcion_hibrida = next(
+            item["descripcion"]
+            for item in hibrido["outline"]
+            if item["nombre"] == "evaluar_reglas"
+        )
+        descripcion_simbolica = next(
+            item["descripcion"]
+            for item in simbolica["outline"]
+            if item["nombre"] == "evaluar_reglas"
+        )
+
+        self.assertIn("palabra de la consulta", descripcion_hibrida)
+        self.assertIn("issubset", descripcion_simbolica)
+
 
 class TrazasConCodigoRealTests(unittest.TestCase):
     def test_cada_traza_pertenece_a_su_funcion_real(self):

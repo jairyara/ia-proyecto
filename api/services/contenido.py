@@ -123,9 +123,8 @@ SEMANAS: dict[str, dict[str, Any]] = {
             {
                 "id": "representaciones-reconocimiento",
                 "titulo": "Numérica, simbólica y autómatas",
-                "descripcion": "Caso oficial y adaptación trazable sobre 14.411 paradas Amazon.",
+                "descripcion": "Aplicación trazable sobre 14.411 paradas Amazon.",
                 "archivos": [
-                    ("representaciones-clase", "Caso oficial", "src/representaciones/caso_clase.py"),
                     ("representacion-numerica", "Representación numérica", "src/representaciones/numerica.py"),
                     ("representacion-simbolica", "Representación simbólica", "src/representaciones/simbolica.py"),
                     ("automata-pod", "Autómata POD", "src/representaciones/automata.py"),
@@ -142,42 +141,44 @@ SEMANAS: dict[str, dict[str, Any]] = {
 }
 
 
-FUNCTION_DESCRIPTIONS = {
-    "generar_pedidos": "Crea pedidos sintéticos reproducibles y calcula su etiqueta de retraso.",
-    "entrenar_y_evaluar": "Divide los datos, entrena los candidatos y compara sus métricas.",
-    "construir_pipelines": "Define preprocesamiento y modelos dentro de pipelines sin fuga de datos.",
-    "guardar_artefactos": "Serializa el modelo elegido y sus métricas reproducibles.",
-    "classify_requirement": "Aplica todas las categorías y ordena la evidencia encontrada.",
-    "normalize_text": "Normaliza el texto para que las reglas comparen vocabulario equivalente.",
-    "contains_keyword": "Comprueba palabras o frases completas y evita falsos positivos parciales.",
-    "a_estrella": "Encuentra una ruta mínima priorizando f(n) = g(n) + h(n).",
-    "dijkstra": "Encuentra el costo mínimo usando únicamente el costo acumulado g(n).",
-    "bfs": "Explora el grafo por niveles mediante una cola FIFO.",
-    "replanificar_ruta": "Bloquea un tramo y calcula una ruta alternativa desde el estado actual.",
-    "evaluar_reglas": "Evalúa las reglas expertas y reporta qué palabra de la consulta disparó cada una.",
-    "recuperar_evidencia": "Recupera el protocolo operativo más afín con TF-IDF y similitud coseno.",
-    "clasificar": "Predice la categoría operativa y su distribución de probabilidad.",
-    "answer": "Responde la consulta combinando reglas, evidencia documental y clase predicha.",
-    "load_documents": "Carga la base de conocimiento y siembra los protocolos por defecto si falta el archivo.",
-    "responder_consulta": "Adapta la respuesta del motor híbrido al contrato de la API.",
-    "obtener_contexto": "Expone reglas, clases y ejemplos para documentar la interfaz.",
-    "desde_cuadricula": "Transforma una cuadrícula transitable en un grafo dirigido ponderado.",
-    "desde_amazon_ruta": "Transforma una ruta curada de Amazon en nodos y aristas ponderadas.",
-    "main": "Orquesta la ejecución reproducible desde la línea de comandos.",
-    "ejecutar_caso_clase": "Reproduce los vectores, hechos y secuencias exactos de la guía de Semana 07.",
-    "trazar_01": "Recorre el AFD oficial y conserva cada transición de la cadena binaria.",
-    "accepts_01": "Decide si una cadena binaria termina en 01 y alcanza el estado de aceptación q2.",
-    "cargar_dataset": "Carga Amazon Last Mile y valida que las tres variables numéricas estén completas.",
-    "calcular_estadisticas": "Calcula Q1, mediana, Q3 e IQR sobre las 14.411 paradas reales.",
-    "evaluar_vector": "Compara una parada con la mediana mediante euclidiana cruda y normalizada por IQR.",
-    "perfiles_demostracion": "Selecciona cinco paradas reales mediante criterios deterministas y auditables.",
-    "construir_umbrales": "Convierte los percentiles 75 del dataset en umbrales simbólicos trazables.",
-    "vector_a_hechos": "Traduce magnitudes Amazon a hechos conservando valor, límite y procedencia.",
-    "evaluar_reglas": "Aplica reglas simbólicas con issubset y explica activaciones parciales.",
-    "validar_entrega": "Recorre el AFD POD y devuelve la traza completa de estados y transiciones.",
-    "contexto_dataset": "Resume procedencia, estadísticas, reglas y perfiles de Semana 07.",
-    "evaluar_parada": "Integra las representaciones numérica, simbólica y secuencial para una parada real.",
-    "generar_evidencia": "Regenera el informe de resultados oficiales y Amazon de Semana 07.",
+FUNCTION_DESCRIPTIONS: dict[tuple[str, str], str] = {
+    ("src/datos/sintetico.py", "generar_pedidos"): "Crea pedidos sintéticos reproducibles y calcula su etiqueta de retraso.",
+    ("src/datos/sintetico.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
+    ("src/datos/amazon.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
+    ("src/modelado/riesgo_retraso.py", "entrenar_y_evaluar"): "Divide los datos, entrena los candidatos y compara sus métricas.",
+    ("src/modelado/riesgo_retraso.py", "construir_pipelines"): "Define preprocesamiento y modelos dentro de pipelines sin fuga de datos.",
+    ("src/modelado/riesgo_retraso.py", "guardar_artefactos"): "Serializa el modelo elegido y sus métricas reproducibles.",
+    ("src/modelado/riesgo_retraso.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
+    ("src/clasificacion/requerimientos.py", "classify_requirement"): "Aplica todas las categorías y ordena la evidencia encontrada.",
+    ("src/clasificacion/requerimientos.py", "normalize_text"): "Normaliza el texto para que las reglas comparen vocabulario equivalente.",
+    ("src/clasificacion/requerimientos.py", "contains_keyword"): "Comprueba palabras o frases completas y evita falsos positivos parciales.",
+    ("src/clasificacion/requerimientos.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
+    ("src/busqueda/a_estrella.py", "a_estrella"): "Encuentra una ruta mínima priorizando f(n) = g(n) + h(n).",
+    ("src/busqueda/no_informada.py", "dijkstra"): "Encuentra el costo mínimo usando únicamente el costo acumulado g(n).",
+    ("src/busqueda/no_informada.py", "bfs"): "Explora el grafo por niveles mediante una cola FIFO.",
+    ("src/busqueda/replanificacion.py", "replanificar_ruta"): "Bloquea un tramo y calcula una ruta alternativa desde el estado actual.",
+    ("src/hibrido/sistema.py", "evaluar_reglas"): "Evalúa reglas expertas y reporta qué palabra de la consulta disparó cada una.",
+    ("src/hibrido/sistema.py", "recuperar_evidencia"): "Recupera el protocolo operativo más afín con TF-IDF y similitud coseno.",
+    ("src/hibrido/sistema.py", "clasificar"): "Predice la categoría operativa y su distribución de probabilidad.",
+    ("src/hibrido/sistema.py", "answer"): "Responde la consulta combinando reglas, evidencia documental y clase predicha.",
+    ("src/hibrido/sistema.py", "load_documents"): "Carga la base de conocimiento y siembra los protocolos por defecto si falta el archivo.",
+    ("src/busqueda/grafo.py", "desde_cuadricula"): "Transforma una cuadrícula transitable en un grafo dirigido ponderado.",
+    ("src/busqueda/grafo.py", "desde_amazon_ruta"): "Transforma una ruta curada de Amazon en nodos y aristas ponderadas.",
+    ("src/sistema_hibrido.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
+    ("src/representaciones/numerica.py", "cargar_dataset"): "Carga Amazon Last Mile y valida que las tres variables numéricas estén completas.",
+    ("src/representaciones/numerica.py", "calcular_estadisticas"): "Calcula Q1, mediana, Q3 e IQR sobre las 14.411 paradas reales.",
+    ("src/representaciones/numerica.py", "evaluar_vector"): "Compara una parada con la mediana mediante euclidiana cruda y normalizada por IQR.",
+    ("src/representaciones/numerica.py", "perfiles_demostracion"): "Selecciona cinco paradas reales mediante criterios deterministas y auditables.",
+    ("src/representaciones/simbolica.py", "construir_umbrales"): "Convierte los percentiles 75 del dataset en umbrales simbólicos trazables.",
+    ("src/representaciones/simbolica.py", "vector_a_hechos"): "Traduce magnitudes Amazon a hechos conservando valor, límite y procedencia.",
+    ("src/representaciones/simbolica.py", "evaluar_reglas"): "Aplica reglas simbólicas con issubset y explica activaciones parciales.",
+    ("src/representaciones/automata.py", "validar_entrega"): "Recorre el AFD POD y devuelve la traza completa de estados y transiciones.",
+    ("src/representaciones/reconocimiento.py", "contexto_dataset"): "Resume procedencia, estadísticas, reglas y perfiles de Semana 07.",
+    ("src/representaciones/reconocimiento.py", "evaluar_parada"): "Integra las representaciones numérica, simbólica y secuencial para una parada real.",
+    ("src/representaciones_reconocimiento.py", "ejecutar_representaciones"): "Ejecuta las tres representaciones sobre perfiles Amazon trazables.",
+    ("src/representaciones_reconocimiento.py", "generar_evidencia"): "Regenera el informe de resultados Amazon de Semana 07.",
+    ("src/representaciones_reconocimiento.py", "mostrar_resultados"): "Presenta en consola las salidas numéricas, simbólicas y secuenciales.",
+    ("src/representaciones_reconocimiento.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
 }
 
 
@@ -376,14 +377,14 @@ def catalogo_semanas() -> dict[str, list[dict[str, Any]]]:
     return {"semanas": semanas}
 
 
-def _bloques_python(source: str) -> list[Bloque]:
+def _bloques_python(source: str, ruta: str) -> list[Bloque]:
     tree = ast.parse(source)
     bloques: list[Bloque] = []
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
             tipo = "clase" if isinstance(node, ast.ClassDef) else "función"
             descripcion = FUNCTION_DESCRIPTIONS.get(
-                node.name,
+                (ruta, node.name),
                 f"Define la {tipo} `{node.name}` y agrupa su comportamiento.",
             )
             bloques.append(
@@ -486,7 +487,7 @@ def obtener_codigo(archivo_id: str) -> dict[str, Any]:
     metadata = archivos[archivo_id]
     ruta = _ruta_segura(metadata["ruta"])
     source = ruta.read_text(encoding="utf-8")
-    bloques = _bloques_python(source)
+    bloques = _bloques_python(source, metadata["ruta"])
     lineas = []
     for numero, texto in enumerate(source.splitlines(), start=1):
         bloque = _bloque_linea(bloques, numero)

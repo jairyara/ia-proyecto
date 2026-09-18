@@ -5,15 +5,13 @@ from __future__ import annotations
 from functools import lru_cache
 
 from api.schemas.representaciones_dto import EvaluacionRepresentacionRequest
-from src.representaciones.caso_clase import ejecutar_caso_clase
 from src.representaciones.reconocimiento import contexto_dataset, evaluar_parada, evaluaciones_pod
 
 
 @lru_cache(maxsize=1)
 def obtener_contexto() -> dict:
-    """Expone procedencia, caso oficial y estadísticas reales Amazon."""
+    """Expone estadísticas Amazon y escenarios POD adaptados al proyecto."""
     return {
-        "caso_clase": ejecutar_caso_clase(),
         "amazon": contexto_dataset(),
         "automata_pod": {
             "origen": "escenario controlado; Amazon no registra eventos A/V/F/C",

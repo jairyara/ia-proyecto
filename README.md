@@ -114,8 +114,7 @@ El sistema cuenta hoy con una base verificable:
 - sistema híbrido trazable (reglas expertas + TF-IDF + clasificación) con
   base de conocimiento de 10 protocolos operativos;
 - representaciones de Semana 7 sobre 14.411 paradas Amazon: distancia
-  euclidiana normalizada por IQR, traducción a hechos P75 y autómatas binario
-  y POD;
+  euclidiana normalizada por IQR, traducción a hechos P75 y autómata POD;
 - validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
@@ -191,7 +190,7 @@ Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos 
    python -m src.sistema_hibrido
    ```
 
-6. **Representaciones del reconocimiento (caso oficial + Amazon):**
+6. **Representaciones del reconocimiento aplicadas a Amazon:**
    ```bash
    python -m src.representaciones_reconocimiento
    ```
