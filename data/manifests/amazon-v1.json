@@ -1,0 +1,9 @@
+{
+  "fuente": "amazon-logistica",
+  "version": "v1",
+  "sha256": "82fe3732ef9c1ea815c1a5679abc4f3678beb9e9b6f978ab8aff18b0dd5a12eb",
+  "procedencia": "data/amazon_pedidos.csv; extracción histórica del Amazon Last Mile Routing Research Challenge. Filas agregadas por parada; retrasado_estimado es heurístico, no observado.",
+  "paradas": 14411,
+  "rutas": 100,
+  "estaciones": 17
+}

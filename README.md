@@ -1,8 +1,8 @@
 # Sistema inteligente para logística
 
-> [!TIP]
-> **¿Buscando qué se hizo cada semana y cómo se aplica al camión de reparto?**  
-> Consulta el **[`Mapa Maestro de Semanas y Trazabilidad`](MAPA_SEMANAS.md)** para ver la matriz de correspondencia completa entre temas académicos, datos (`data/`), código (`src/`), reportes (`reports/`) y pestañas del Dashboard.
+> **Documentación:** [guía técnica y operación](docs/guia-tecnica.md).
+>
+> **Alcance y próximo diseño:** [proyecto y dashboard](docs/proyecto.md).
 
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
@@ -118,7 +118,7 @@ El sistema cuenta hoy con una base verificable:
 - validación automática y reportes reproducibles.
 
 Los siguientes módulos se incorporan según el roadmap, los cortes y las
-decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
+decisiones abiertas de [`docs/proyecto.md`](docs/proyecto.md).
 
 ## Estructura
 
@@ -128,8 +128,8 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 ├── api/                # API FastAPI y servicios de trazabilidad/inferencia
 ├── data/               # Datos versionados (sintéticos y Amazon Last Mile)
 ├── dashboard/          # SPA React + Vite + Tailwind del laboratorio Órbita
-├── docs/               # Fuentes y justificaciones oficiales del curso
-├── notebooks/          # Exploración y análisis reproducible
+├── docs/               # Índice, guías operativas, fuentes y justificación
+├── migrations/         # Versiones del esquema PostgreSQL
 ├── reports/            # Evidencia, reportes y métricas por tema
 ├── src/                # Código fuente modular
 │   ├── comun/          # Utilidades comunes (cálculo geodésico Haversine, cliente HTTP)
@@ -138,16 +138,18 @@ decisiones abiertas de [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md).
 │   ├── clasificacion/  # Clasificador simbólico y reglas de taxonomía
 │   ├── busqueda/       # Búsqueda heurística A*, líneas base no informadas y replanificación
 │   ├── hibrido/        # Sistema híbrido: reglas expertas + TF-IDF/coseno + clasificación
-│   └── representaciones/ # Vectores Amazon, reglas simbólicas y autómatas de Semana 7
+│   ├── representaciones/ # Vectores Amazon, reglas simbólicas y autómatas de Semana 7
+│   ├── persistencia/   # Modelos y sesiones PostgreSQL
+│   └── vision/         # Adquisición, auditoría e importación del piloto
 └── tests/              # Pruebas automatizadas unitarias y de integración
 ```
 
 ## Configuración
 
-La guía del curso requiere **Python 3.13.x**.
+La versión elegida para el proyecto es **Python 3.14.x** (entorno local y Docker).
 
 ```bash
-python3.13 -m venv .venv
+python3.14 -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
@@ -158,6 +160,58 @@ Corepack selecciona automáticamente la versión fijada `pnpm@11.25.0` desde
 `dashboard/package.json`.
 
 ## Uso
+
+### Docker: un solo proyecto con app + PostgreSQL
+
+En Docker Desktop, **`ia-proyecto`** agrupa los dos servicios: `dashboard`
+(React compilado + FastAPI en el mismo monolito) y `db` (PostgreSQL con volumen
+persistente). No se necesitan contenedores separados por fase ni un servidor Node.
+
+Con `.env` configurado según `.env.example` (`COMPOSE_PROFILES=persistencia`):
+
+```bash
+docker compose up -d --build --wait  # inicia todo el proyecto
+docker compose ps                  # ambos servicios deben aparecer healthy
+docker compose logs -f dashboard
+docker compose stop                # detiene todo sin borrar datos
+```
+
+- **App:** [http://localhost:8000](http://localhost:8000).
+- **API / Swagger:** [http://localhost:8000/docs](http://localhost:8000/docs).
+- **PostgreSQL:** `127.0.0.1:5433` desde el host; `db:5432` dentro de Compose.
+- `APP_PORT` permite cambiar el puerto web; los puertos solo se publican en localhost.
+- Volumen real: `ia-proyecto_postgres_data`. **No ejecutar `down --volumes` si
+  se quieren conservar los datos.** App y BD comparten proyecto, no contenedor:
+  reconstruir la app no sustituye el almacenamiento de PostgreSQL.
+
+La primera instalación requiere elegir `POSTGRES_PASSWORD` en `.env` y ejecutar
+los pasos de migración/seed siguientes. No versionar ese archivo. Los comandos
+administrativos se ejecutan en el monolito ya encendido:
+
+```bash
+docker compose exec -T dashboard python -m alembic upgrade head
+docker compose exec -T dashboard python -m src.datos.seed
+curl --fail http://localhost:8000/api/health
+```
+
+No usar un contenedor temporal de pruebas como servidor del dashboard:
+[`docker compose run`](https://docs.docker.com/reference/cli/docker/compose/run/)
+no publica los puertos por defecto. Usar `up` para la app y `exec` para comandos
+en ella; si hace falta un comando aislado, usar `run --rm` para no dejar residuos.
+
+### Datos y piloto visual
+
+PostgreSQL conserva 14.411 paradas, 100 rutas y 17 estaciones; el piloto añade
+200 imágenes y 200 asociaciones **simuladas**, sin modificar las fuentes de
+las semanas anteriores. El dashboard ya permite inspeccionar esos datos e
+imágenes; el MLP visual sigue sin entrenamiento ni predicciones.
+
+La [guía técnica](docs/guia-tecnica.md) concentra configuración, migraciones,
+seeds, procedencia/licencia, almacenamiento, recuperación y pruebas. No mezclar
+el almacén del host y el volumen Docker para una misma BD; no borrar volúmenes
+para limpiar el proyecto.
+
+### Módulos académicos y dashboard
 
 Los módulos pueden ejecutarse a través de sus paquetes o mediante los accesos directos en `src/`:
 
@@ -255,7 +309,7 @@ pnpm build
 
 ## Documentación relacionada
 
-- [`PLAN-PROYECTO.md`](PLAN-PROYECTO.md) — roadmap, cortes y decisiones
+- [`docs/proyecto.md`](docs/proyecto.md) — roadmap, cortes y decisiones
   abiertas.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — commits, calidad y reportes.
 - [`CHANGELOG.md`](CHANGELOG.md) — historial acumulativo del proyecto.

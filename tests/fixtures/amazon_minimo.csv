@@ -1,0 +1,5 @@
+pedido_id,route_id,stop_id,station_code,fecha,hora_salida_utc,tipo_parada,lat,lng,zone_id,distancia_deposito_km,num_paquetes,volumen_total_m3,volumen_promedio_m3,tiempo_servicio_seg,tiene_ventana_horaria,duracion_ventana_min,secuencia_real,capacidad_vehiculo_m3,retrasado_estimado
+AMZ-00001,RouteID_01ac92ea-734c-4c80-8049-77b813c6a02b,AC,DLA3,2018-08-03,15:30:00,Dropoff,34.08462,-118.286073,A-3.1D,15.662,4,0.0312,0.0078,79.0,0,0.0,66,3.3131,1
+AMZ-00002,RouteID_01ac92ea-734c-4c80-8049-77b813c6a02b,AE,DLA3,2018-08-03,15:30:00,Dropoff,34.085326,-118.280375,A-3.1A,15.27,1,0.0053,0.0053,142.0,0,0.0,135,3.3131,0
+AMZ-14410,RouteID_fdc5d654-5ba1-48c2-a463-bdb746e29953,ZH,DLA7,2018-08-04,15:49:30,Dropoff,33.904692,-117.589558,B-25.2J,8.959,1,0.0259,0.0259,123.0,0,0.0,58,3.3131,0
+AMZ-14411,RouteID_fdc5d654-5ba1-48c2-a463-bdb746e29953,ZQ,DLA7,2018-08-04,15:49:30,Dropoff,33.905903,-117.583072,B-25.3J,9.266,1,0.0034,0.0034,43.0,0,0.0,52,3.3131,0

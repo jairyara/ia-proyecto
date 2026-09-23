@@ -1,0 +1,28 @@
+{
+  "archivos_fuente": 400,
+  "autor": "Christian Vorhemus",
+  "bytes_fuente": 242953982,
+  "dataset_id": 1007061,
+  "dominio": "Empaques farmacéuticos en línea industrial virtual Blender; no fotografías de entregas.",
+  "etiquetas": {
+    "damaged": "danado",
+    "intact": "intacto"
+  },
+  "fecha_verificacion": "2026-09-22",
+  "generador_url": "https://github.com/christian-vorhemus/procedural-3d-image-generation",
+  "grupo": "Serial de 13 dígitos del nombre; ambas vistas del mismo serial pertenecen al mismo objeto.",
+  "handle": "christianvorhemus/industrial-quality-control-of-packages",
+  "inventario_sha256": "9d79ade579c30f7c48ffe5c57b698f8a5184156af154b78d042662fc2e02de0d",
+  "licencia_declarada": "GPL 2",
+  "licencia_evidencia": "Campo licenseName de metadatos Kaggle y ficha del dataset; no se usa licencia MIT del código como licencia de las imágenes.",
+  "licencia_url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+  "metadata_url": "https://api.kaggle.com/v1/datasets/view/christianvorhemus/industrial-quality-control-of-packages",
+  "seleccion": "Todas las 200 vistas side; una por serial; sin muestreo aleatorio ni semilla.",
+  "sintetico": true,
+  "titulo": "Industrial Quality Control of Packages",
+  "url": "https://www.kaggle.com/datasets/christianvorhemus/industrial-quality-control-of-packages/versions/2",
+  "uso_local": "Originales excluidos de Git e imagen Docker. Sin redistribución del dataset en esta fase.",
+  "version": 2,
+  "version_fecha": "2021-01-01T16:32:34.527Z",
+  "version_notas": "Cleaned images"
+}

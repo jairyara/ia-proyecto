@@ -4,6 +4,103 @@ Registro de cambios inspirado en
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). El versionado
 aplica a las entregas de los cortes 1, 2 y 3.
 
+## [En curso]
+
+- **docs** (2026-09-23): actualiza el estado del dashboard y de la API visual;
+  OpenAPI en `/docs` es suficiente por ahora. La revisión integral se hará al
+  terminar la actividad de Semana 8 con su guía, sin añadir Docusaurus.
+- **feat** (2026-09-23): agrega resumen, inspección paginada de paradas e imágenes,
+  archivos visuales por ID y ficha MLP sin predicciones; conserva los laboratorios.
+
+- **docs** (2026-09-23): consolida las guías de transición en
+  `docs/guia-tecnica.md` (estado actual y operación) y `docs/proyecto.md`
+  (alcance académico y dashboard propuesto). Retira los documentos por fases,
+  investigación separada, índice redundante y referencias dispersas en raíz;
+  conserva manifiestos de procedencia, reportes académicos y comandos vigentes.
+
+- **chore** (2026-09-23): ordena el repositorio sin retirar código, datos ni evidencia
+  académica; elimina marcadores vacíos sin uso y metadatos/cachés propios.
+  - `docs` Índice de documentación y enlace roto del README corregido.
+  - `docs` Sustituye el plan inicial del dashboard por una propuesta basada en
+    el estado actual; implementación y requisitos pendientes de la guía.
+  - `chore` Verifica un único proyecto Compose con app + PostgreSQL healthy,
+    conservando los volúmenes de BD e imágenes; no modifica otros proyectos.
+
+- **feat** (2026-09-23): cierra fase 4, piloto visual persistido, sin API/interfaz ni MLP.
+  - `feat` Migración 0003 con imágenes, pilotos y asociaciones; FK compuestas,
+    unicidad por piloto y conservación íntegra de datos Amazon.
+  - `feat` Mapa versionado de 200 asociaciones simuladas, algoritmo y semillas
+    independientes; hashes de ambos orígenes y del mapa.
+  - `feat` CLI con dry-run, auditoría, staging y publicación por lote; reintentos,
+    concurrencia, versionado y detección de corrupción sin sobrescrituras.
+  - `chore` Volumen visual persistente fuera de la SPA; piloto real importado y
+    segunda ejecución sin cambios, conservado tras recrear el monolito.
+  - `test` 160 pruebas con PostgreSQL real, local y Docker; 135 aprobadas/25 omitidas sin
+    BD, 17 frontend y builds correctos; fuentes reales y volumen verificados.
+  - `docs` Guía de fase 4, mapa reproducible, operación, recuperación y límites.
+
+- **feat** (2026-09-22): cierra fase 3 del piloto visual, sin adelantar persistencia
+  de imágenes, asociaciones, API/interfaz nueva ni entrenamiento.
+  - `feat` Fuente Industrial Quality Control of Packages v2 (GPL 2 declarada):
+    200 vistas laterales originales, 100 intactas/100 dañadas, 200 seriales/grupos,
+    PNG RGB 960×540 y 126.285.817 bytes. Originales excluidos de Git y Docker.
+  - `feat` Adquisición selectiva/reanudable, `--dry-run` sin red y auditoría offline;
+    manifiesto con procedencia, tamaños y hashes de bytes/píxeles. Repetición
+    idempotente y validación de rutas, formato, etiquetas, grupos y duplicados.
+  - `test` 139 pruebas backend aprobadas con PostgreSQL real, local y Docker;
+    126 aprobadas/13 omitidas sin BD; 17 frontend y builds correctos. Auditoría
+    real de los 200 originales y revisión visual con límites explícitos.
+  - `docs` Guía de fase 3, investigación primaria y evidencia de licencia;
+    un solo diseño de empaque/escenario, sin afirmar generalización a Amazon.
+
+- **fix** (2026-09-22): restaura acceso al monolito Docker por localhost:8000;
+  el contenedor smoke sin red/puertos había quedado activo en vez de la app real.
+  - `chore` Un único proyecto Compose `ia-proyecto` con dashboard + PostgreSQL;
+    puerto web configurable, puertos locales y logs rotados. `.env.example`
+    activa el perfil de persistencia para arrancar ambos con un comando.
+  - `docs` Arranque, verificación y parada documentados; operaciones de BD por
+    `exec`, contenedores administrativos temporales con `run --rm`.
+  - `chore` Eliminados exclusivamente smoke y contenedores/redes/volúmenes
+    desechables de fases 1–2; se preservan los proyectos ajenos.
+
+- **feat** (2026-09-22): cierra fase 2 de datos Amazon sin modificar Semanas 2–7.
+  - `feat` Migración `0002_datasets_logistica`, modelos versionados, auditoría,
+    estaciones, rutas y paradas; integridad entre datasets y decimales exactos.
+  - `feat` Manifiesto SHA-256 y CLI `python -m src.datos.seed`, con `--dry-run`,
+    validación estricta, carga atómica, versiones inmutables e idempotencia
+    incluso con ejecuciones simultáneas. Lectura interna paginada con filtros.
+  - `test` 122 pruebas backend aprobadas localmente y en Docker con PostgreSQL
+    real; 109 aprobadas y 13 omitidas explícitamente sin BD. Comparación de las
+    20 columnas de 14.411 paradas, 100 rutas y 17 estaciones; rollback y reintento.
+    17 pruebas frontend y builds frontend/Docker correctos.
+  - `docs` Guía `docs/guia-tecnica.md`, README y estado del plan actualizados.
+    Fuente visual, API/interfaz nueva y MLP permanecen pendientes.
+
+- **feat** (2026-09-22): cierra fase 1 de infraestructura persistente, sin
+  modificar los módulos académicos de Semanas 2–7.
+  - `chore` Python 3.14 como versión elegida en entorno, Docker y documentación;
+    PostgreSQL 17.11 con perfil Compose opcional, volumen y puerto local.
+  - `feat` Configuración diferida, base SQLAlchemy, motor y sesiones con
+    transacciones explícitas; Alembic con revisión inicial `0001_base`.
+  - `test` 100 pruebas backend aprobadas en Docker con PostgreSQL real;
+    sin BD/red, 98 aprobadas y 2 omitidas explícitamente. 17 pruebas frontend,
+    build frontend y build Docker aprobados. Migración conservada tras reinicio.
+  - `test` Health, búsqueda, modelado, representaciones y SPA responden HTTP 200
+    en un contenedor sin red ni BD; 20 casos del clasificador sin discrepancias.
+  - `docs` Guía `docs/guia-tecnica.md`, evidencia de cierre y plan
+    actualizado. Tablas logísticas y seed reservados para fase 2; sin imágenes
+    ni entrenamiento en esta entrega.
+
+- **docs** (2026-09-22): simplifica el piloto a una fuente sintética pequeña y
+  etiquetada; Parcel3D deja de ser obligatorio. Define ejecución fase a fase con
+  estado, entregables, pruebas y revisión antes de continuar. Mantiene las 200
+  imágenes y asociaciones simuladas; no descarga ni genera datos todavía.
+
+- **docs** (2026-09-22): define el plan de arquitectura incremental y piloto
+  Parcel3D de 200 imágenes asociadas a 200 pedidos de forma aleatoria,
+  reproducible y explícitamente simulada. Conserva Semanas 2–7 y deja el MLP
+  pendiente de la guía; no incorpora todavía BD, imágenes ni entrenamiento.
+
 ### Semana 07 — Representaciones del reconocimiento (`src/representaciones/`)
 
 - **feat** (2026-09-17): aplicación trazable al Proyecto 8.
@@ -115,7 +212,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
   `sem-04-busqueda-rutas.md`) para identificar la semana de cada tema.
   Se actualizan las rutas por defecto de los generadores (`src/datos/amazon.py`,
   `src/modelado/riesgo_retraso.py`, `src/clasificacion/requerimientos.py`,
-  `src/busqueda_rutas.py`) y las referencias en `PLAN-PROYECTO.md` y
+  `src/busqueda_rutas.py`) y las referencias en `docs/proyecto.md` y
   `CONTRIBUTING.md`. Se elimina `src/busqueda/replanificar_script.py`, duplicado
   sin uso de `src/busqueda_rutas.py`.
 
@@ -132,7 +229,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
 ### Plan de proyecto — Especificación técnica de Semana 4 (Búsqueda y A*)
 
 - **docs** (2026-08-28): integración de temáticas oficiales de la Semana 4.
-  - `docs` Se actualiza `PLAN-PROYECTO.md` con los materiales oficiales de Downloads
+  - `docs` Se actualiza `docs/proyecto.md` con los materiales oficiales de Downloads
     (`Guia_Explicativa_Semana_04_IA_Estudiantes.pdf` y `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`).
   - `docs` Se formalizan los 5 elementos de búsqueda (Estado, Acción, Transición,
     Meta, Costo) y la heurística geodésica admisible $h(n)$ sobre el grafo de
@@ -179,7 +276,7 @@ aplica a las entregas de los cortes 1, 2 y 3.
     (LogisticRegression) que superan a RandomForest (0.8350 / 0.6374).
   - `test` Cobertura nueva de reproducibilidad, rangos plausible,
     pipeline completo y contenido del reporte.
-  - `docs` `PLAN-PROYECTO.md` registra las decisiones cerradas (tarea y variables)
+  - `docs` `docs/proyecto.md` registra las decisiones cerradas (tarea y variables)
     y queda el seguimiento post-Corte 1 para evaluar el dataset público
     **Amazon Last Mile Routing Challenge**.
 - **Feedback recibido** (2026-08-28):

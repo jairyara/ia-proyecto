@@ -3,7 +3,7 @@
 Convenciones de trabajo para mantener evidencia clara, cambios revisables y
 ejecuciones reproducibles durante el semestre.
 
-El entorno de referencia del curso es Python 3.13.x. Después de activar
+El entorno elegido para el proyecto es Python 3.14.x. Después de activar
 `.venv`, todos los comandos se ejecutan mediante `python` para asegurar que no
 se use por accidente el intérprete global.
 

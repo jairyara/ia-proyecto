@@ -7,7 +7,7 @@ RUN pnpm install --frozen-lockfile
 COPY dashboard/ ./
 RUN pnpm build
 
-FROM python:3.13-slim AS api-runtime
+FROM python:3.14-slim AS api-runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -22,6 +22,8 @@ COPY src/ src/
 COPY data/ data/
 COPY artifacts/ artifacts/
 COPY reports/ reports/
+COPY alembic.ini ./
+COPY migrations/ migrations/
 COPY --from=frontend-build /app/dashboard/dist dashboard/dist
 
 EXPOSE 8000

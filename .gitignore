@@ -30,3 +30,6 @@ reports/*.png
 # Frontend del dashboard
 dashboard/node_modules/
 dashboard/dist/
+
+# Originales externos y material de revisión visual: no redistribuir en Git.
+data/visual/

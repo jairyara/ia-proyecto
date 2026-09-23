@@ -1,0 +1,38 @@
+{
+  "cobertura": {
+    "hojas": 10,
+    "imagenes_en_hojas": 200,
+    "miniatura_px": [
+      480,
+      270
+    ],
+    "originales_laterales_en_detalle": [
+      "0101069901524_side",
+      "0121190978716_side",
+      "0335828260045_side",
+      "0163723873967_side",
+      "0144714371478_side",
+      "0836881053377_side"
+    ]
+  },
+  "criterios": {
+    "diversidad": "Variación de serial, posición, giro, desenfoque y grado de deformación, pero un solo diseño de empaque y escenario. 200 grupos de origen, no 200 diseños independientes.",
+    "etiquetas": "Se conservan las etiquetas de origen. Abolladuras/ondulaciones más marcadas en damaged; algunos intact también muestran deformación leve. No se redefine el umbral visual del autor.",
+    "fondos": "Ambas clases comparten cinta, producto blanco/verde, perspectiva y luz parecidas; no se observó un fondo o marca de clase exclusivo. No se demuestra ausencia estadística de confusores.",
+    "objetos": "Empaques visibles en las 200 imágenes; algunas instancias próximas a bordes con encuadre parcial."
+  },
+  "descartes": 0,
+  "etiquetas_modificadas": 0,
+  "fecha": "2026-09-22",
+  "hojas_locales": "data/visual/revision-v1/hoja-01.jpg ... hoja-10.jpg (excluidas de Git/Docker)",
+  "limites": [
+    "No apto para afirmar rendimiento real en envíos Amazon.",
+    "No usar nombre de archivo, carpeta, serial ni datos Amazon como características.",
+    "No hacer split ordenado por carpeta/clase; definir partición por grupo con la guía de Semana 8.",
+    "No entrenar sobre las hojas de revisión; usar originales conservados.",
+    "La revisión es cualitativa, no una medición de exactitud de un modelo."
+  ],
+  "manifiesto_sha256": "ef62b04ff8cda7cb0b69a4525f7daf77a8d47b3f0a5bbf3b261e040ae3f12ca7",
+  "resultado": "apto_para_piloto_academico_con_limitaciones",
+  "revisor": "Codex: inspección visual asistida por IA; no certificación humana independiente"
+}

@@ -1,17 +1,67 @@
+# Un proyecto en Docker Desktop: monolito web/API + PostgreSQL optativo.
+# `-p` sigue permitiendo proyectos de prueba completamente aislados.
+name: ia-proyecto
+
 services:
   dashboard:
+    # React compilado y FastAPI se sirven juntos; no hay un contenedor Node.
     build:
       context: .
       target: api-runtime
     ports:
-      - "8000:8000"
+      - "127.0.0.1:${APP_PORT:-8000}:8000"
     environment:
-      DASHBOARD_CORS_ORIGINS: "http://localhost:8000,http://127.0.0.1:8000"
+      DASHBOARD_CORS_ORIGINS: "http://localhost:${APP_PORT:-8000},http://127.0.0.1:${APP_PORT:-8000}"
       # El navegador abre el archivo en el IDE del host, no en /app del contenedor.
       DASHBOARD_EDITOR_WORKSPACE: "${DASHBOARD_EDITOR_WORKSPACE:-${PWD}}"
+      # No se conecta a BD al iniciar ni se cambia el healthcheck histórico.
+      DB_HOST: db
+      DB_PORT: "5432"
+      POSTGRES_DB: "${POSTGRES_DB:-ia_logistica}"
+      POSTGRES_USER: "${POSTGRES_USER:-ia_app}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-}"
+      DB_CONNECT_TIMEOUT: "${DB_CONNECT_TIMEOUT:-3}"
+      VISUAL_STORAGE_ROOT: /var/lib/ia/visual
+    volumes:
+      - visual_data:/var/lib/ia/visual
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
       interval: 10s
       timeout: 3s
       retries: 5
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    image: postgres:17.11-alpine
+    profiles: [persistencia]
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-ia_logistica}"
+      POSTGRES_USER: "${POSTGRES_USER:-ia_app}"
+      # Vacía por defecto: PostgreSQL rechaza inicializarse sin contraseña.
+      # No usar :? aquí: rompería Compose histórico aunque db esté desactivado.
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-}"
+    ports:
+      - "127.0.0.1:${DB_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  visual_data:

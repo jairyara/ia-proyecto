@@ -6,3 +6,7 @@
 dashboard/node_modules
 dashboard/dist
 .DS_Store
+.env
+.env.*
+!.env.example
+data/visual/

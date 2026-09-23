@@ -1,0 +1,46 @@
+{
+  "consultado_el": "2026-09-22",
+  "creatorName": "Christian Vorhemus",
+  "currentVersionNumber": 2,
+  "endpoint": "https://api.kaggle.com/v1/datasets/view/christianvorhemus/industrial-quality-control-of-packages",
+  "id": 1007061,
+  "licenseName": "GPL 2",
+  "ownerRef": "christianvorhemus",
+  "ref": "christianvorhemus/industrial-quality-control-of-packages",
+  "title": "Industrial Quality Control of Packages",
+  "totalBytes": 242953982,
+  "versions": [
+    {
+      "creationDate": "2021-01-01T16:32:34.527Z",
+      "creatorName": "Christian Vorhemus",
+      "creatorNameNullable": "Christian Vorhemus",
+      "creatorRef": "industrial-quality-control-of-packages",
+      "creatorRefNullable": "industrial-quality-control-of-packages",
+      "hasCreatorName": true,
+      "hasCreatorRef": true,
+      "hasStatus": true,
+      "hasVersionNotes": true,
+      "status": "Ready",
+      "statusNullable": "Ready",
+      "versionNotes": "Cleaned images",
+      "versionNotesNullable": "Cleaned images",
+      "versionNumber": 2
+    },
+    {
+      "creationDate": "2020-11-30T09:01:47.617Z",
+      "creatorName": "Christian Vorhemus",
+      "creatorNameNullable": "Christian Vorhemus",
+      "creatorRef": "industrial-quality-control-of-packages",
+      "creatorRefNullable": "industrial-quality-control-of-packages",
+      "hasCreatorName": true,
+      "hasCreatorRef": true,
+      "hasStatus": true,
+      "hasVersionNotes": true,
+      "status": "Ready",
+      "statusNullable": "Ready",
+      "versionNotes": "Initial release",
+      "versionNotesNullable": "Initial release",
+      "versionNumber": 1
+    }
+  ]
+}

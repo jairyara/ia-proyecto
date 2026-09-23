@@ -14,6 +14,7 @@ from api.routers import (
     busqueda,
     clasificacion,
     contenido,
+    datos,
     hibrido,
     modelado,
     representaciones,
@@ -50,6 +51,7 @@ app.include_router(clasificacion.router)
 app.include_router(hibrido.router)
 app.include_router(representaciones.router)
 app.include_router(contenido.router)
+app.include_router(datos.router)
 
 
 @app.get("/api/health", tags=["sistema"])

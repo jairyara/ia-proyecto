@@ -32,6 +32,10 @@ async function request(path, options = {}) {
 
 export const api = {
   health: () => request('/api/health'),
+  resumenDatos: () => request('/api/datos/resumen'),
+  paradasDatos: (params = {}) => request(`/api/datos/paradas?${new URLSearchParams(params)}`),
+  imagenesDatos: (params = {}) => request(`/api/datos/imagenes?${new URLSearchParams(params)}`),
+  detalleImagen: (id) => request(`/api/datos/imagenes/${encodeURIComponent(id)}`),
   rutasAmazon: () => request('/api/busqueda/amazon/rutas'),
   simularBusqueda: (payload) =>
     request('/api/busqueda/a-estrella/simular', {

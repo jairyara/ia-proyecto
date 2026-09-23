@@ -1,0 +1,1024 @@
+{
+  "algoritmo": "python314-random-sample-shuffle-v1",
+  "amazon": {
+    "estaciones": 17,
+    "fuente": "amazon-logistica",
+    "paradas": 14411,
+    "procedencia": "data/amazon_pedidos.csv; extracción histórica del Amazon Last Mile Routing Research Challenge. Filas agregadas por parada; retrasado_estimado es heurístico, no observado.",
+    "rutas": 100,
+    "sha256": "82fe3732ef9c1ea815c1a5679abc4f3678beb9e9b6f978ab8aff18b0dd5a12eb",
+    "version": "v1"
+  },
+  "asociaciones": [
+    {
+      "imagen_id_origen": "0551432713405_side",
+      "pedido_id": "AMZ-00127",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0509324410896_side",
+      "pedido_id": "AMZ-00159",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0667096066460_side",
+      "pedido_id": "AMZ-00274",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0203951267320_side",
+      "pedido_id": "AMZ-00289",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0753850385083_side",
+      "pedido_id": "AMZ-00344",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0834425632046_side",
+      "pedido_id": "AMZ-00377",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0915598067788_side",
+      "pedido_id": "AMZ-00536",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0649296279533_side",
+      "pedido_id": "AMZ-00562",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0591392882740_side",
+      "pedido_id": "AMZ-00583",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0365721190881_side",
+      "pedido_id": "AMZ-00607",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0623863596623_side",
+      "pedido_id": "AMZ-00637",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0872030545745_side",
+      "pedido_id": "AMZ-00642",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0537846255617_side",
+      "pedido_id": "AMZ-00843",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0286652036220_side",
+      "pedido_id": "AMZ-00915",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0529291161632_side",
+      "pedido_id": "AMZ-00989",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0639873538899_side",
+      "pedido_id": "AMZ-00994",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0577887954384_side",
+      "pedido_id": "AMZ-01024",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0205275090120_side",
+      "pedido_id": "AMZ-01047",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0340386327664_side",
+      "pedido_id": "AMZ-01070",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0247046200167_side",
+      "pedido_id": "AMZ-01140",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0927720374404_side",
+      "pedido_id": "AMZ-01237",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0488050732622_side",
+      "pedido_id": "AMZ-01317",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0774627302679_side",
+      "pedido_id": "AMZ-01421",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0609356589366_side",
+      "pedido_id": "AMZ-01531",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0996268331124_side",
+      "pedido_id": "AMZ-01603",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0650881486288_side",
+      "pedido_id": "AMZ-01648",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0574242273602_side",
+      "pedido_id": "AMZ-01659",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0327176937261_side",
+      "pedido_id": "AMZ-01677",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0793590602940_side",
+      "pedido_id": "AMZ-01704",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0111632059302_side",
+      "pedido_id": "AMZ-01720",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0198143165548_side",
+      "pedido_id": "AMZ-01750",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0109451226527_side",
+      "pedido_id": "AMZ-01770",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0122691608037_side",
+      "pedido_id": "AMZ-01809",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0538430065614_side",
+      "pedido_id": "AMZ-01882",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0335005999157_side",
+      "pedido_id": "AMZ-01949",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0330335205342_side",
+      "pedido_id": "AMZ-01959",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0294810736965_side",
+      "pedido_id": "AMZ-02007",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0963932489172_side",
+      "pedido_id": "AMZ-02084",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0420449336143_side",
+      "pedido_id": "AMZ-02117",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0842115147726_side",
+      "pedido_id": "AMZ-02155",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0546442855674_side",
+      "pedido_id": "AMZ-02184",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0444919139735_side",
+      "pedido_id": "AMZ-02225",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0547327417252_side",
+      "pedido_id": "AMZ-02367",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0555795810016_side",
+      "pedido_id": "AMZ-02437",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0881358009155_side",
+      "pedido_id": "AMZ-02494",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0528297707806_side",
+      "pedido_id": "AMZ-02522",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0566211597310_side",
+      "pedido_id": "AMZ-02558",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0689604931304_side",
+      "pedido_id": "AMZ-02711",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0214448761111_side",
+      "pedido_id": "AMZ-02816",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0461746477443_side",
+      "pedido_id": "AMZ-02943",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0916842943733_side",
+      "pedido_id": "AMZ-02981",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0613434427567_side",
+      "pedido_id": "AMZ-03184",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0820018047114_side",
+      "pedido_id": "AMZ-03345",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0205031618492_side",
+      "pedido_id": "AMZ-03356",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0137037404616_side",
+      "pedido_id": "AMZ-03370",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0488400419488_side",
+      "pedido_id": "AMZ-03406",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0982439635180_side",
+      "pedido_id": "AMZ-03453",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0278959596807_side",
+      "pedido_id": "AMZ-03507",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0684313032655_side",
+      "pedido_id": "AMZ-03541",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0503248137143_side",
+      "pedido_id": "AMZ-03887",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0429090229299_side",
+      "pedido_id": "AMZ-03988",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0475487542036_side",
+      "pedido_id": "AMZ-04204",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0924467469402_side",
+      "pedido_id": "AMZ-04244",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0257246022717_side",
+      "pedido_id": "AMZ-04247",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0744773606739_side",
+      "pedido_id": "AMZ-04322",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0743720415875_side",
+      "pedido_id": "AMZ-04342",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0552419885211_side",
+      "pedido_id": "AMZ-04391",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0731181743770_side",
+      "pedido_id": "AMZ-04583",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0410780685074_side",
+      "pedido_id": "AMZ-04748",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0896317926617_side",
+      "pedido_id": "AMZ-05094",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0567183484805_side",
+      "pedido_id": "AMZ-05109",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0274769934484_side",
+      "pedido_id": "AMZ-05128",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0185507921789_side",
+      "pedido_id": "AMZ-05342",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0759557966123_side",
+      "pedido_id": "AMZ-05371",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0129768769736_side",
+      "pedido_id": "AMZ-05378",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0723989509001_side",
+      "pedido_id": "AMZ-05467",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0889601418161_side",
+      "pedido_id": "AMZ-05499",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0251909608388_side",
+      "pedido_id": "AMZ-05566",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0198998397732_side",
+      "pedido_id": "AMZ-05692",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0590992038114_side",
+      "pedido_id": "AMZ-05697",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0398017513292_side",
+      "pedido_id": "AMZ-05739",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0485110247997_side",
+      "pedido_id": "AMZ-05748",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0188055850357_side",
+      "pedido_id": "AMZ-05811",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0920857596665_side",
+      "pedido_id": "AMZ-05917",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0769118158365_side",
+      "pedido_id": "AMZ-05961",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0637145699424_side",
+      "pedido_id": "AMZ-06024",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0500547581085_side",
+      "pedido_id": "AMZ-06315",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0525251605644_side",
+      "pedido_id": "AMZ-06323",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0386316000696_side",
+      "pedido_id": "AMZ-06338",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0716954573504_side",
+      "pedido_id": "AMZ-06406",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0167581056939_side",
+      "pedido_id": "AMZ-06556",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0920993357254_side",
+      "pedido_id": "AMZ-06740",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0307016307115_side",
+      "pedido_id": "AMZ-06794",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0786305429776_side",
+      "pedido_id": "AMZ-06959",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0402986171307_side",
+      "pedido_id": "AMZ-07093",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0280138651335_side",
+      "pedido_id": "AMZ-07123",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0359095266860_side",
+      "pedido_id": "AMZ-07174",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0702739449714_side",
+      "pedido_id": "AMZ-07289",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0639856807498_side",
+      "pedido_id": "AMZ-07375",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0456044082275_side",
+      "pedido_id": "AMZ-07409",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0245945880113_side",
+      "pedido_id": "AMZ-07514",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0105413725474_side",
+      "pedido_id": "AMZ-07614",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0457788259795_side",
+      "pedido_id": "AMZ-07738",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0733749723896_side",
+      "pedido_id": "AMZ-07763",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0771142582506_side",
+      "pedido_id": "AMZ-08148",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0528910701189_side",
+      "pedido_id": "AMZ-08239",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0688463402925_side",
+      "pedido_id": "AMZ-08293",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0466041248872_side",
+      "pedido_id": "AMZ-08294",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0144714371478_side",
+      "pedido_id": "AMZ-08376",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0884150938683_side",
+      "pedido_id": "AMZ-08382",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0481852146417_side",
+      "pedido_id": "AMZ-08389",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0479812451345_side",
+      "pedido_id": "AMZ-08441",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0296036278729_side",
+      "pedido_id": "AMZ-08510",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0681342689666_side",
+      "pedido_id": "AMZ-08548",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0204572690665_side",
+      "pedido_id": "AMZ-08621",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0567061130190_side",
+      "pedido_id": "AMZ-08704",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0479402184553_side",
+      "pedido_id": "AMZ-08745",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0101069901524_side",
+      "pedido_id": "AMZ-08747",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0923533424371_side",
+      "pedido_id": "AMZ-08851",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0900404826440_side",
+      "pedido_id": "AMZ-08871",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0950606566689_side",
+      "pedido_id": "AMZ-08926",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0824550168669_side",
+      "pedido_id": "AMZ-08970",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0896391052674_side",
+      "pedido_id": "AMZ-09050",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0809088700646_side",
+      "pedido_id": "AMZ-09196",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0843791760826_side",
+      "pedido_id": "AMZ-09280",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0984858262748_side",
+      "pedido_id": "AMZ-09339",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0193944747528_side",
+      "pedido_id": "AMZ-09442",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0401614690003_side",
+      "pedido_id": "AMZ-09540",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0874910097325_side",
+      "pedido_id": "AMZ-09627",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0616714026463_side",
+      "pedido_id": "AMZ-09677",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0743795459102_side",
+      "pedido_id": "AMZ-09691",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0883684776538_side",
+      "pedido_id": "AMZ-09742",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0240078925171_side",
+      "pedido_id": "AMZ-09805",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0793511281438_side",
+      "pedido_id": "AMZ-09847",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0793387694868_side",
+      "pedido_id": "AMZ-09918",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0366666460888_side",
+      "pedido_id": "AMZ-09949",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0445725542185_side",
+      "pedido_id": "AMZ-10177",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0543881568324_side",
+      "pedido_id": "AMZ-10255",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0863424947682_side",
+      "pedido_id": "AMZ-10369",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0700097671588_side",
+      "pedido_id": "AMZ-10373",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0345344588281_side",
+      "pedido_id": "AMZ-10438",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0387573503409_side",
+      "pedido_id": "AMZ-10442",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0918355447454_side",
+      "pedido_id": "AMZ-10456",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0185973818825_side",
+      "pedido_id": "AMZ-10567",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0335828260045_side",
+      "pedido_id": "AMZ-10639",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0635619134582_side",
+      "pedido_id": "AMZ-10648",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0863286728007_side",
+      "pedido_id": "AMZ-10783",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0610624519902_side",
+      "pedido_id": "AMZ-10958",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0299354157113_side",
+      "pedido_id": "AMZ-10980",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0448437998906_side",
+      "pedido_id": "AMZ-11020",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0422333037137_side",
+      "pedido_id": "AMZ-11061",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0399648700926_side",
+      "pedido_id": "AMZ-11118",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0541509056966_side",
+      "pedido_id": "AMZ-11119",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0438982430269_side",
+      "pedido_id": "AMZ-11121",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0690442098193_side",
+      "pedido_id": "AMZ-11257",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0235293872824_side",
+      "pedido_id": "AMZ-11267",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0197052530143_side",
+      "pedido_id": "AMZ-11296",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0903950312389_side",
+      "pedido_id": "AMZ-11633",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0839720810840_side",
+      "pedido_id": "AMZ-11707",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0655090006990_side",
+      "pedido_id": "AMZ-11772",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0596047274831_side",
+      "pedido_id": "AMZ-11788",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0713672060001_side",
+      "pedido_id": "AMZ-11841",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0522606307335_side",
+      "pedido_id": "AMZ-11914",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0287177509968_side",
+      "pedido_id": "AMZ-11988",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0524739818729_side",
+      "pedido_id": "AMZ-12209",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0548654312026_side",
+      "pedido_id": "AMZ-12261",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0707979392424_side",
+      "pedido_id": "AMZ-12317",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0321273393013_side",
+      "pedido_id": "AMZ-12343",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0699173628519_side",
+      "pedido_id": "AMZ-12406",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0120928945494_side",
+      "pedido_id": "AMZ-12569",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0651358727205_side",
+      "pedido_id": "AMZ-12599",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0546352391740_side",
+      "pedido_id": "AMZ-12659",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0445579724899_side",
+      "pedido_id": "AMZ-12674",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0118055224146_side",
+      "pedido_id": "AMZ-12844",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0487317766749_side",
+      "pedido_id": "AMZ-12926",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0267285186115_side",
+      "pedido_id": "AMZ-12932",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0648789974617_side",
+      "pedido_id": "AMZ-13247",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0562047801759_side",
+      "pedido_id": "AMZ-13316",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0588708775826_side",
+      "pedido_id": "AMZ-13334",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0478339576335_side",
+      "pedido_id": "AMZ-13380",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0836881053377_side",
+      "pedido_id": "AMZ-13431",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0348866877857_side",
+      "pedido_id": "AMZ-13495",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0229909175324_side",
+      "pedido_id": "AMZ-13531",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0721240889831_side",
+      "pedido_id": "AMZ-13593",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0387423146773_side",
+      "pedido_id": "AMZ-13677",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0360545482431_side",
+      "pedido_id": "AMZ-13693",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0652865178026_side",
+      "pedido_id": "AMZ-13700",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0163723873967_side",
+      "pedido_id": "AMZ-13751",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0407105940330_side",
+      "pedido_id": "AMZ-13879",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0121190978716_side",
+      "pedido_id": "AMZ-13882",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0687380000113_side",
+      "pedido_id": "AMZ-13925",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0142348799278_side",
+      "pedido_id": "AMZ-13932",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0629702558757_side",
+      "pedido_id": "AMZ-13969",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0601699273844_side",
+      "pedido_id": "AMZ-14128",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0123374171704_side",
+      "pedido_id": "AMZ-14145",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0679256889404_side",
+      "pedido_id": "AMZ-14165",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0882833707036_side",
+      "pedido_id": "AMZ-14268",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0917712597310_side",
+      "pedido_id": "AMZ-14287",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0388563298350_side",
+      "pedido_id": "AMZ-14336",
+      "tipo_asociacion": "simulada"
+    },
+    {
+      "imagen_id_origen": "0839555853533_side",
+      "pedido_id": "AMZ-14344",
+      "tipo_asociacion": "simulada"
+    }
+  ],
+  "aviso": "Imagen sintética de Industrial Quality Control of Packages v2, asociada aleatoriamente para demostración. No corresponde al envío original de Amazon.",
+  "schema_version": 1,
+  "semilla_imagenes": 20260923,
+  "semilla_paradas": 20260922,
+  "version": "v1",
+  "visual": {
+    "fuente": "christianvorhemus/industrial-quality-control-of-packages",
+    "sha256": "ef62b04ff8cda7cb0b69a4525f7daf77a8d47b3f0a5bbf3b261e040ae3f12ca7",
+    "version": "2"
+  }
+}

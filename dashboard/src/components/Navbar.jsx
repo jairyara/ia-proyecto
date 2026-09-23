@@ -10,6 +10,7 @@ const corteOneSections = [
 
 const corteTwoSections = [
   { id: 'semana07', week: '07', title: 'Representaciones', subtitle: 'Euclidiana · reglas · AFD', icon: 'activity' },
+  { id: 'mlp', week: '08', title: 'MLP visual', subtitle: 'Pendiente de guía', icon: 'brain' },
 ]
 
 const cuts = [
@@ -52,6 +53,16 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
           </a>
           <p className="nav-label">PLAN ACADÉMICO</p>
           <nav className="nav-groups" aria-label="Cortes y temas del proyecto">
+            <div className="nav-list" role="group" aria-label="Proyecto y datos">
+              {[
+                { id: 'resumen', title: 'Resumen del proyecto', subtitle: 'Estado real', icon: 'activity' },
+                { id: 'paradas', title: 'Paradas Amazon', subtitle: 'Datos e inspección', icon: 'route' },
+                { id: 'visual', title: 'Piloto visual', subtitle: 'Imágenes sintéticas', icon: 'search' },
+              ].map((section) => <button key={section.id} className={`nav-item ${active === section.id ? 'nav-item--active' : ''}`}
+                onClick={() => { onChange(section.id); onToggle(false) }} aria-current={active === section.id ? 'page' : undefined}>
+                <span className="nav-icon"><Icon name={section.icon} /></span><span className="nav-copy"><strong>{section.title}</strong><small>{section.subtitle}</small></span>
+              </button>)}
+            </div>
             {cuts.map((cut) => {
               const isOpen = openCut === cut.id
               const topicCount = cut.sections.length
@@ -87,15 +98,15 @@ export default function Navbar({ active, onChange, apiOnline, mobileOpen, onTogg
                             key={section.id}
                             onClick={() => { onChange(section.id); onToggle(false) }}
                             aria-current={active === section.id ? 'page' : undefined}
-                            aria-label={`Semana ${Number(section.week)}: ${section.title}`}
-                            title={collapsed ? `Semana ${Number(section.week)} · ${section.title}` : undefined}
+                            aria-label={section.id === 'mlp' ? 'MLP visual: propuesta pendiente de guía' : `Semana ${Number(section.week)}: ${section.title}`}
+                            title={collapsed ? (section.id === 'mlp' ? 'MLP visual · propuesta' : `Semana ${Number(section.week)} · ${section.title}`) : undefined}
                           >
                             <span className="nav-icon"><Icon name={section.icon} /></span>
                             <span className="nav-copy">
                               <strong>{section.title}</strong>
                               <small>{section.subtitle}</small>
                             </span>
-                            <span className="nav-week">S{section.week}</span>
+                            <span className="nav-week">{section.id === 'mlp' ? 'MLP' : `S${section.week}`}</span>
                           </button>
                         ))}
                       </div>
