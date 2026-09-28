@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar.jsx'
 import WeekWorkspace from './components/WeekWorkspace.jsx'
+import SidebarToggle from './components/SidebarToggle.jsx'
 import Semana02View from './views/Semana02View.jsx'
 import Semana03View from './views/Semana03View.jsx'
 import Semana04View from './views/Semana04View.jsx'
@@ -18,16 +19,16 @@ const views = {
   resumen: ResumenView,
   paradas: ParadasView,
   visual: VisualView,
-  mlp: MlpView,
   semana02: Semana02View,
   semana03: Semana03View,
   semana04: Semana04View,
   semana05: Semana05View,
   semana07: Semana07View,
+  semana08: MlpView,
 }
 
 export default function App() {
-  const [active, setActive] = useState('resumen')
+  const [active, setActive] = useState('semana02')
   const [selectedImageId, setSelectedImageId] = useState(null)
   const [apiOnline, setApiOnline] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -65,12 +66,14 @@ export default function App() {
       <main id="main" className="main-content">
         {active.startsWith('semana') ? (
           <WeekWorkspace key={active} weekId={active} sidebarCollapsed={sidebarCollapsed}
-            onSidebarCollapse={() => setSidebarCollapsed((current) => !current)}><View /></WeekWorkspace>
+            onSidebarCollapse={() => setSidebarCollapsed((current) => !current)}><View onNavigate={(target, imageId = null) => {
+              setSelectedImageId(imageId)
+              setActive(target)
+            }} /></WeekWorkspace>
         ) : (
-          <><div className="workspace-bar"><button type="button" className="content-sidebar-toggle"
-            onClick={() => setSidebarCollapsed((current) => !current)}
-            aria-label={sidebarCollapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'}>
-            ☰</button><span className="workspace-context">ÓRBITA · DATOS Y PROYECTO</span></div>
+          <><div className="workspace-bar"><SidebarToggle collapsed={sidebarCollapsed}
+            onToggle={() => setSidebarCollapsed((current) => !current)} />
+            <span className="workspace-context">ÓRBITA · DATOS Y PROYECTO</span></div>
             <View initialImageId={selectedImageId} onNavigate={(target, imageId = null) => {
               setSelectedImageId(imageId)
               setActive(target)

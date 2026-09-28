@@ -49,7 +49,6 @@ def _resumen(sesion):
                    "paradas": amazon.num_paradas, "rutas": amazon.num_rutas, "estaciones": amazon.num_estaciones} if amazon else None,
         "visual": {"piloto_id": piloto.id, "version": piloto.version, "imagenes": imagenes, "grupos": grupos,
                    "clases": clases, "asociaciones": asociaciones, "sin_asociacion": max(0, amazon.num_paradas - asociaciones) if amazon else None} if piloto else None,
-        "modelo_visual": None,
     }
 
 

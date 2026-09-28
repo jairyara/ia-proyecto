@@ -1,21 +1,20 @@
 # Dependencias directas del proyecto; entorno elegido: Python 3.14.x.
 # La línea base de taxonomía usa únicamente la biblioteca estándar.
-jupyterlab==4.6.3
-matplotlib==3.11.1
 numpy==2.5.2
 pandas==3.0.5
 scikit-learn==1.9.0
+networkx==3.7
 
 # API del dashboard (versiones verificadas en PyPI el 2026-09-01).
 fastapi==0.141.1
 pydantic==2.13.5
 uvicorn==0.52.4
 
-# Persistencia nueva (fase 1; versiones verificadas en PyPI el 2026-09-22).
+# Persistencia del proyecto.
 SQLAlchemy==2.0.54
 alembic==1.20.0
 psycopg[binary]==3.3.6
 python-dotenv==1.2.3
 
-# Auditoría visual (fase 3), compatible con Python 3.14; sin entrenar modelos.
+# Auditoría y preparación de imágenes del experimento visual.
 Pillow==12.3.0

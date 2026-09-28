@@ -25,7 +25,7 @@ from src.datos.importacion import ErrorImportacion, _insertar_logistica, importa
 from src.datos.validacion import COLUMNAS, ErrorValidacion, ManifiestoAmazon, cargar_manifiesto, validar_amazon
 from src.persistencia.logistica import Estacion, Parada, Ruta
 from src.persistencia.modelos import Dataset, Importacion
-from test_migraciones import PostgreSQLAislado, configuracion_alembic
+from tests.test_migraciones import PostgreSQLAislado, configuracion_alembic
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -143,7 +143,7 @@ class SeedPostgreSQLTests(PostgreSQLAislado):
 
     def test_migracion_repetida_downgrade_y_metadata(self):
         self.migrar(command.upgrade, "head")
-        self.assertEqual(set(inspect(self.motor).get_table_names()), {"alembic_version", "datasets", "importaciones", "estaciones", "rutas", "paradas", "imagenes", "pilotos_visuales", "asociaciones_visuales"})
+        self.assertEqual(set(inspect(self.motor).get_table_names()), {"alembic_version", "datasets", "importaciones", "estaciones", "rutas", "paradas", "imagenes", "pilotos_visuales", "asociaciones_visuales", "modelos_visuales", "muestras_modelo_visual"})
         self.seed()
         self.migrar(command.downgrade, "0001_base")
         self.assertEqual(inspect(self.motor).get_table_names(), ["alembic_version"])

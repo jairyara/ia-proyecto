@@ -6,7 +6,7 @@ from alembic import context
 
 from src.configuracion import cargar_configuracion_bd
 from src.persistencia.base import Base
-from src.persistencia import modelos, logistica, imagenes  # noqa: F401 — registrar metadatos
+from src.persistencia import modelos, logistica, imagenes, modelo_visual  # noqa: F401 — registrar metadatos
 from src.persistencia.sesion import crear_motor
 
 

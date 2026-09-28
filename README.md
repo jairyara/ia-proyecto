@@ -1,8 +1,7 @@
 # Sistema inteligente para logística
 
-> **Documentación:** [guía técnica y operación](docs/guia-tecnica.md).
->
-> **Alcance y próximo diseño:** [proyecto y dashboard](docs/proyecto.md).
+> **Empieza por:** [estado, alcance y próximos pasos](docs/proyecto.md).
+> **Para ejecutar:** [guía técnica y operación](docs/guia-tecnica.md).
 
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
@@ -102,6 +101,12 @@ no existe en un clon limpio, la API lo reconstruye de forma determinista desde
 `data/pedidos.csv`.
 
 ## Estado y alcance
+
+El **hilo conductor** es un planificador logístico híbrido: rutas, predicción de
+riesgo, validación de restricciones y replanificación trazable. Cada semana se
+desarrolla el tema de la guía como módulo logístico aislado, con pruebas,
+informe e integración en Órbita. La unión extremo a extremo se hará de forma
+acumulativa en los cortes; el MLP visual aún no autoriza decisiones automáticas.
 
 El sistema cuenta hoy con una base verificable:
 
@@ -204,7 +209,9 @@ en ella; si hace falta un comando aislado, usar `run --rm` para no dejar residuo
 PostgreSQL conserva 14.411 paradas, 100 rutas y 17 estaciones; el piloto añade
 200 imágenes y 200 asociaciones **simuladas**, sin modificar las fuentes de
 las semanas anteriores. El dashboard ya permite inspeccionar esos datos e
-imágenes; el MLP visual sigue sin entrenamiento ni predicciones.
+imágenes. Semana 8 añade un MLP didáctico con evidencia PostgreSQL y ontología
+GraphML; su accuracy de prueba (0,48) no supera la línea base (0,50), por lo
+que no se usa para decisiones de despacho.
 
 La [guía técnica](docs/guia-tecnica.md) concentra configuración, migraciones,
 seeds, procedencia/licencia, almacenamiento, recuperación y pruebas. No mezclar

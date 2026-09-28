@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import Icon from './Icon.jsx'
+import SidebarToggle from './SidebarToggle.jsx'
 import { api } from '../services/api.js'
 
 const CodeExplorer = lazy(() => import('./CodeExplorer.jsx'))
@@ -36,19 +37,7 @@ export default function WeekWorkspace({ weekId, children, sidebarCollapsed = fal
     <>
       <div className="workspace-bar">
         <div className="workspace-leading">
-          {onSidebarCollapse && (
-            <button
-              type="button"
-              className={`content-sidebar-toggle ${sidebarCollapsed ? 'content-sidebar-toggle--collapsed' : ''}`}
-              onClick={onSidebarCollapse}
-              aria-label={sidebarCollapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'}
-              aria-controls="sidebar-navigation"
-              aria-expanded={!sidebarCollapsed}
-              title={sidebarCollapsed ? 'Expandir menú lateral' : 'Contraer menú lateral'}
-            >
-              <Icon name="panelLeft" size={22} />
-            </button>
-          )}
+          {onSidebarCollapse && <SidebarToggle collapsed={sidebarCollapsed} onToggle={onSidebarCollapse} />}
           <nav className="workspace-tabs" aria-label="Vistas de la semana">
             {tabs.map((tab) => {
               const count = tab.id === 'codigo'

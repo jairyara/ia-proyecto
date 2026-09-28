@@ -138,10 +138,37 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("sem07-evidencia", "Evidencia reproducible", "reports/sem-07-representaciones-evidencia.md"),
         ],
     },
+    "semana08": {
+        "numero": 8,
+        "titulo": "Reconocimiento, evidencia y ontología",
+        "ejercicios": [
+            {
+                "id": "mlp-visual",
+                "titulo": "Imagen → MLP → evidencia → significado",
+                "descripcion": "Partición por grupo, evaluación reservada, persistencia y grafo semántico.",
+                "archivos": [
+                    ("particion-visual", "Datos y partición", "src/vision/particion.py"),
+                    ("modelo-mlp-visual", "Modelo y métricas", "src/vision/modelo_mlp.py"),
+                    ("evidencia-mlp-visual", "Evidencia PostgreSQL", "src/vision/evidencia_mlp.py"),
+                    ("ontologia-logistica", "Ontología GraphML", "src/vision/ontologia.py"),
+                    ("experimento-semana08", "Experimento reproducible", "src/semana08_reconocimiento.py"),
+                ],
+            },
+        ],
+        "informes": [
+            ("sem08-reconocimiento", "Resultados y límites del MLP", "reports/sem-08-reconocimiento.md"),
+        ],
+    },
 }
 
 
 FUNCTION_DESCRIPTIONS: dict[tuple[str, str], str] = {
+    ("src/vision/particion.py", "preparar_piloto"): "Audita originales y prepara vectores sin sustituir archivos faltantes.",
+    ("src/vision/particion.py", "separar_grupos"): "Estratifica por grupo para evitar fugas entre entrenamiento y prueba.",
+    ("src/vision/modelo_mlp.py", "entrenar_y_evaluar"): "Entrena solo en train y compara MLP con línea base sobre test reservado.",
+    ("src/vision/evidencia_mlp.py", "registrar_modelo"): "Vincula versión, dataset, splits y predicciones verificadas en PostgreSQL.",
+    ("src/vision/ontologia.py", "construir_ontologia"): "Conecta imagen, predicción y clase con relaciones logísticas legibles.",
+    ("src/semana08_reconocimiento.py", "main"): "Ejecuta el experimento y registra evidencia solo cuando se solicita.",
     ("src/datos/sintetico.py", "generar_pedidos"): "Crea pedidos sintéticos reproducibles y calcula su etiqueta de retraso.",
     ("src/datos/sintetico.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",
     ("src/datos/amazon.py", "main"): "Orquesta la ejecución reproducible desde la línea de comandos.",

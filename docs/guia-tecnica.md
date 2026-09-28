@@ -1,7 +1,7 @@
 # Guía técnica — arquitectura, datos y operación
 
 Documenta el sistema actual, no la secuencia de implementación. Para alcance
-académico, dashboard actual y propuesta MLP, consultar [proyecto y dashboard](proyecto.md).
+académico y dashboard, consultar [proyecto y dashboard](proyecto.md).
 
 ## Arquitectura y estado actual
 
@@ -14,9 +14,9 @@ Python 3.14; dependencias fijadas en `requirements.txt` y `dashboard/pnpm-lock.y
   nunca `create_all`, migraciones o seeds automáticos al iniciar HTTP.
 - La BD contiene 14.411 paradas, 100 rutas y 17 estaciones Amazon; además,
   200 imágenes y 200 asociaciones simuladas a paradas distintas.
-- La API de lectura y el dashboard permiten inspeccionar paradas e imágenes del
-  piloto. No hay MLP visual entrenado ni particiones/preprocesamiento
-  definitivos; se espera la guía.
+- La API de lectura y el dashboard inspeccionan paradas e imágenes. Semana 8
+  añade un MLP didáctico evaluado, evidencia PostgreSQL y GraphML; su accuracy
+  0,48 queda por debajo de la línea base 0,50, sin uso operativo.
 - El funcionamiento histórico no depende de que la BD nueva esté disponible.
 
 ## Arranque y configuración
@@ -34,7 +34,7 @@ docker compose exec dashboard python -m alembic current
 docker compose exec dashboard python -m alembic check
 ```
 
-La revisión vigente es `0003_piloto_visual`. Las revisiones anteriores se
+La revisión vigente es `0004_mlp_visual`. Las revisiones anteriores se
 conservan para reproducir instalaciones; no se editan migraciones ya aplicadas.
 
 | Configuración | Uso |
@@ -84,6 +84,7 @@ usadas por módulos anteriores; no fusionarlas ni borrarlas como duplicados.
 | `imagenes` | Fuente, clave relativa, SHA-256, MIME, bytes, dimensiones, grupo y etiquetas |
 | `pilotos_visuales` | Datasets, versión, algoritmo, semillas, JSON del mapa y su hash |
 | `asociaciones_visuales` | Piloto, parada e imagen; tipo obligatorio `simulada` |
+| `modelos_visuales`, `muestras_modelo_visual` | Versión y hashes del MLP; split y predicción de prueba por imagen, sin reetiquetar originales |
 
 Unicidad de IDs por dataset y de cada imagen/parada por piloto; FK compuestas
 impiden cruces entre datasets. Sin borrados en cascada. Los conteos logísticos de
@@ -162,9 +163,9 @@ identificada como `2-side-<version>`. La CLI solo admite la fuente aprobada.
 14.211 paradas quedan sin imagen deliberadamente. La pantalla de inspección
 muestra: **Imagen sintética asociada aleatoriamente para demostración; no
 corresponde al envío original de Amazon.** No usar variables Amazon, nombres de
-archivo o IDs como características visuales. Particiones por grupo, aumentos
-solo en entrenamiento y transformaciones aprendidas solo con entrenamiento;
-proporciones y modelo definitivos pendientes de la guía.
+archivo o IDs como características visuales. La versión MLP v1 separa 75/25
+por grupo de origen y no aplica aumentos; cualquier transformación futura
+aprendida se ajustará solo con entrenamiento.
 
 ## Almacenamiento y recuperación
 
@@ -182,7 +183,7 @@ Docusaurus por ahora. El router de lectura `/api/datos` ofrece:
 
 | Ruta | Uso |
 |---|---|
-| `/resumen` | Conteos actuales de Amazon y piloto, y estado del modelo visual |
+| `/resumen` | Conteos actuales de Amazon y de imágenes/asociaciones simuladas; el estado MLP se consulta por separado |
 | `/paradas` | Paradas paginadas; filtros opcionales `ruta` y `estacion` |
 | `/imagenes` | Imágenes paginadas; filtro opcional `etiqueta` |
 | `/imagenes/{id}` | Metadatos, etiqueta de origen y asociación simulada |
@@ -190,7 +191,35 @@ Docusaurus por ahora. El router de lectura `/api/datos` ofrece:
 
 Los conteos provienen de la BD, no de constantes del frontend. Si PostgreSQL no
 está disponible, estos endpoints responden 503; las semanas históricas siguen
-operativas. El modelo visual continúa sin entrenamiento ni predicciones.
+operativas. Semana 8 agrega `/api/modelo-visual/resumen`, `/predicciones` y
+`/ontologia`, con respuestas documentadas por OpenAPI y sin cargar `pickle` en HTTP.
+
+### Experimento visual de Semana 8
+
+```bash
+python -m alembic upgrade head
+python -m src.semana08_reconocimiento --registrar
+```
+
+El comando audita originales, prepara 150 imágenes (75 %) para entrenamiento y
+50 (25 %) reservadas para prueba, separadas por grupo, entrena el MLP,
+compara con una línea base, guarda artefactos en `artifacts/semana08/` y registra
+modelo, splits y predicciones en PostgreSQL. Es idempotente para la misma versión
+y no migra ni importa datos por sí solo. Para ejecutar sin registro BD, omitir
+`--registrar`; la API seguirá mostrando «Aún no entrenado» si no hay modelo
+persistido. `reports/sem-08-reconocimiento.md` conserva resultados y límites;
+GraphML se exporta después de agregar el ejemplo de predicción.
+
+Las 200 asociaciones aleatorias entre imágenes y paradas Amazon son **otro
+piloto de inspección**, independiente de la partición 75/25 del MLP. Ninguna
+variable ni ID de Amazon entra al entrenamiento. El dashboard distingue ambos
+usos y permite escoger una imagen del conjunto reservado para ver su predicción
+y sus relaciones semánticas.
+
+El piloto es sintético y la evaluación de la versión inicial quedó por debajo
+del clasificador mayoritario (0,48 frente a 0,50); **no** usar su predicción
+para despacho, cuarentena ni reglas automáticas. `pickle` solo debe cargarse
+desde artefactos propios verificados por hash.
 
 Usar siempre el mismo almacenamiento asociado a la BD: en el entorno Docker
 actual no reimportar desde host con otra raíz vacía. La CLI permite

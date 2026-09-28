@@ -25,10 +25,10 @@ export default function VisualView({ initialImageId = null }) {
   }, [page, initialImageId, offset, etiqueta])
   const select = (id) => api.detalleImagen(id).then(setSelected).catch((e) => setError(e.message))
   return <div className="view-shell data-view">
-    <PageHeader eyebrow="DATOS · PILOTO VISUAL" title="Inspección de imágenes" description="Explora los empaques sintéticos y su etiqueta de origen. La asociación con una parada Amazon fue aleatoria." />
+    <PageHeader eyebrow="DATOS · IMÁGENES DE DEMOSTRACIÓN" title="Inspección de imágenes" description="Explora los empaques sintéticos y su etiqueta de origen. Su asociación con paradas Amazon es aleatoria y distinta del experimento MLP de Semana 8." />
     <DataState data={data} error={summaryError} />
     {data?.visual && <div className="data-stats"><article className="panel"><small>IMÁGENES</small><strong>{data.visual.imagenes}</strong><span>Archivos PNG originales</span></article><article className="panel"><small>INTACTO / DAÑADO</small><strong>{data.visual.clases.intacto ?? 0} / {data.visual.clases.danado ?? 0}</strong><span>Etiquetas de origen</span></article><article className="panel"><small>GRUPOS</small><strong>{data.visual.grupos}</strong><span>Para futuras particiones</span></article><article className="panel"><small>SIN IMAGEN</small><strong>{data.visual.sin_asociacion?.toLocaleString('es-CO') ?? '—'}</strong><span>Paradas Amazon sin asociación</span></article></div>}
-    <div className="data-warning" role="note"><strong>Asociación simulada.</strong> Imagen sintética asociada aleatoriamente para demostración. No corresponde al envío original de Amazon.</div>
+    <div className="data-warning" role="note"><strong>Asociación simulada.</strong> Imagen sintética asociada aleatoriamente para demostración. No corresponde al envío original de Amazon. El MLP usa estas imágenes sin variables de las paradas.</div>
     <label className="data-select">Etiqueta de origen <select value={etiqueta} onChange={(e) => { setEtiqueta(e.target.value); setOffset(0) }}><option value="">Todas</option><option value="intacto">Intacto</option><option value="danado">Dañado</option></select></label>
     {error && <div role="alert" className="alert alert--error">{error}</div>}
     {!page && !error && <div role="status" className="learning-loading">Cargando imágenes…</div>}

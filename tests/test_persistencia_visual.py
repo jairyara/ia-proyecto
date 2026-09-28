@@ -26,8 +26,8 @@ from src.vision.almacenamiento import publicar_lote, resolver_clave
 from src.vision.asociacion import construir_mapa, hash_mapa
 from src.vision.importacion import ErrorImportacionVisual, importar_piloto
 from src.vision.manifiesto import ErrorVisual, auditar_piloto, json_bytes
-from test_migraciones import PostgreSQLAislado
-from test_piloto_visual import png
+from tests.test_migraciones import PostgreSQLAislado
+from tests.test_piloto_visual import png
 
 
 class FixturesVisuales:

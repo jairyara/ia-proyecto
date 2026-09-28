@@ -39,7 +39,7 @@ class MigracionesOfflineTests(unittest.TestCase):
             config = configuracion_alembic()
             config.set_main_option("script_location", str(destino))
             revision = command.revision(config, message="revision de prueba", rev_id="prueba_fase1")
-            self.assertEqual(revision.down_revision, "0003_piloto_visual")
+            self.assertEqual(revision.down_revision, "0004_mlp_visual")
             contenido = Path(revision.path).read_text()
             compile(contenido, revision.path, "exec")
             self.assertIn("def upgrade()", contenido)

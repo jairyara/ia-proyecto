@@ -6,6 +6,19 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
+- **fix** (2026-09-26): Semana 8 distingue el conjunto visual, la asociación
+  simulada con Amazon y la partición 75 % entrenamiento / 25 % prueba. El
+  resumen consulta el estado real del MLP; el laboratorio permite escoger
+  predicciones reservadas y consultar sus relaciones ontológicas. OpenAPI
+  documenta el filtro opcional `imagen_id` de `/api/modelo-visual/ontologia`.
+
+- **chore/docs** (2026-09-26): explicita el ciclo semanal de guía → módulo
+  logístico aislado → pruebas e informe → vista en Órbita; mantiene la jornada
+  integrada como objetivo acumulativo de los cortes. Retira del
+  runtime dependencias de notebook/gráficas sin uso y un alias de navegación
+  MLP sin enlaces, sin borrar datos, migraciones ni trabajo en curso. Documenta
+  las equivalencias de Semana 8 sin agregar SQLite ni duplicar artefactos.
+
 - **docs** (2026-09-23): actualiza el estado del dashboard y de la API visual;
   OpenAPI en `/docs` es suficiente por ahora. La revisión integral se hará al
   terminar la actividad de Semana 8 con su guía, sin añadir Docusaurus.

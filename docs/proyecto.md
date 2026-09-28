@@ -18,6 +18,62 @@ eventos como pedidos nuevos o vías cerradas. Toda decisión debe conservar
 evidencia suficiente para explicar qué datos, heurística, predicción o regla la
 produjo.
 
+## Forma de trabajo y continuidad
+
+El planificador híbrido de la [justificación oficial](justificacion-proyecto-08.pdf)
+es el **hilo conductor del semestre**, no una orden de integrar todos sus
+componentes antes de abordar el siguiente tema. Se trabaja **semana a semana**:
+cada guía se adapta al dominio logístico como un módulo verificable por sí mismo
+y se presenta en Órbita. La integración entre módulos avanza de forma
+acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
+
+| Capa | Estado comprobable | Papel |
+|---|---|---|
+| Búsqueda, riesgo y reglas de Semanas 2–5 | Implementados y probados como prácticas separadas | Módulos del proyecto |
+| Representaciones de Semana 7 | Implementadas y probadas | Módulo del proyecto |
+| Datos Amazon, PostgreSQL y API de inspección | Implementados | Infraestructura y datos |
+| Imágenes, MLP y GraphML de Semana 8 | Experimento reproducible; MLP 0,48 frente a baseline 0,50 | Práctica de reconocimiento presentada en Órbita; **no** automatización operativa |
+| Integración de una jornada completa | Aún no hay orquestador ni prueba extremo a extremo | Objetivo acumulativo de cortes posteriores, no tarea que desplace la guía semanal |
+
+**Ciclo de trabajo por semana:**
+
+1. Leer la guía oficial y delimitar qué enseña, qué exige y cómo se relaciona
+   con el problema logístico; no inventar requisitos de semanas futuras.
+2. Implementar el tema como módulo aislado en `src/`, reutilizando contratos o
+   datos existentes solo cuando aporten a esa práctica.
+3. Añadir pruebas y un informe reproducible en `reports/sem-NN-*.md` con
+   método, resultados reales, límites y correspondencia con la guía.
+4. Exponer el mismo módulo mediante `api/` y su vista de Semana NN en Órbita,
+   respetando **Laboratorio / Código explicado / Informe** y sin alterar
+   laboratorios anteriores.
+5. Cerrar la semana contra la **rúbrica**, no contra los nombres de archivo o
+   tecnologías del ejemplo: documentar objetivo, adaptación, motivo y evidencia.
+   Integrar con otros módulos cuando el corte lo requiera, en un cambio separado.
+
+**Siguiente paso:** contrastar Semana 8 con su rúbrica y registrar en el informe
+las equivalencias técnicas ya decididas. Después, revisar la guía de Semana 9
+antes de diseñar su módulo.
+
+**Regla de orden:** `docs/proyecto.md` decide alcance y prioridades;
+`docs/guia-tecnica.md` explica operación; `reports/` conserva resultados;
+`docs/plan-semana-08.md` registra el plan y límites de esa práctica. Los datos,
+manifiestos, migraciones aplicadas y evidencia reproducible no se borran para
+simular una limpieza. Archivos generados e ignorados por Git se regeneran o se
+limpian solo cuando no sean necesarios para la BD y la operación local.
+
+### Qué significa «piloto» en Semana 8
+
+| Pieza | Para qué se añadió | Qué **no** demuestra |
+|---|---|---|
+| 200 imágenes sintéticas auditadas | Tener un conjunto visual etiquetado del dominio para la práctica de reconocimiento | Que correspondan a paquetes o entregas Amazon reales |
+| 200 asociaciones aleatorias imagen–parada | Demostrar persistencia y navegación entre registros logísticos y visuales | Relación física observada ni característica usada por el MLP |
+| Experimento MLP | Entrenar con 150 imágenes (75 %) y evaluar con 50 reservadas (25 %), sin cruzar grupos | Capacidad de decidir despachos: 0,48 queda por debajo de la línea base 0,50 |
+
+Los tres elementos se presentan separados en Órbita. El 75/25 pertenece **al
+experimento MLP**, no al reparto de asociaciones con Amazon. La evaluación se
+realiza solo sobre el 25 % reservado; «entrenamiento» no significa uso
+operativo del modelo.
+
 ## Principios de implementación
 
 - Cada práctica confirmada del curso se aplica al proyecto en cuanto se
@@ -39,7 +95,9 @@ produjo.
 - [x] PostgreSQL, SQLAlchemy y Alembic con Python 3.14 y compatibilidad histórica.
 - [x] Importación idempotente de 14.411 paradas, 100 rutas y 17 estaciones.
 - [x] 200 imágenes sintéticas auditadas y 200 asociaciones simuladas persistidas.
-- [ ] API e interfaz de inspección; diseño ajustable cuando llegue la guía.
+- [x] API e interfaz de inspección, con OpenAPI en `/docs`.
+- [x] Semana 8: MLP visual evaluado, evidencia PostgreSQL y ontología GraphML.
+  Accuracy de prueba **0,48**, inferior a la línea base **0,50**; uso solo didáctico.
 
 Comandos y arquitectura vigente: [guía técnica](guia-tecnica.md).
 
@@ -118,19 +176,20 @@ antes de inferir.
 
 ## Próximo trabajo
 
-Recibir la guía, contrastar sus requisitos con lo existente y ajustar el
-[dashboard actual](#dashboard-actual-y-propuesta-mlp) y la documentación al
-terminar la actividad. La persistencia, la API de inspección y la interfaz del
-piloto están disponibles; OpenAPI documenta los contratos actuales en `/docs`.
-CI consolidada y el MLP visual siguen pendientes. No fijar tarea,
-preprocesamiento, arquitectura ni métricas del MLP sin la guía.
+Cerrar el [módulo de Semana 8](../reports/sem-08-reconocimiento.md) contra su
+rúbrica con una matriz de equivalencias y justificaciones; **no** agregar SQLite
+ni otro ejemplo genérico solo para copiar la presentación. El resultado del MLP
+no justifica automatizar decisiones de despacho.
+Continuar con la próxima guía mediante el [ciclo semanal](#forma-de-trabajo-y-continuidad).
+La jornada extremo a extremo permanece como meta de integración por cortes,
+sin reemplazar las prácticas semanales. CI consolidada sigue pendiente.
 
 Trabajar por incrementos revisables con pruebas y confirmación del usuario;
 no migrar retroactivamente las entregas académicas anteriores.
 
 ## Roadmap
 
-Material confirmado del curso hasta la **Semana 7** (fuentes: `Guia_Explicativa_Semana_04_IA_Estudiantes.pdf`, `Semana_04_Marco_tecnologico_de_la_inteligencia_artificial_Clase.pptx`, `Semana_05_IA_Marco_Tecnologico_Clase_final.pptx`, `Semana_07_Representaciones_del_reconocimiento_Clase.pptx`, `Explicacion_Semana_07.md` y `../ia-semestre/TEMATICAS.md`). Las semanas posteriores se actualizan según se publique el material.
+Material confirmado del curso hasta la **Semana 8** (fuentes previas y `Semana_08_Representaciones_Reconocimiento_Diseno_Semana07.pptx`, `Explicacion_Semana_08.md`). Las semanas posteriores se actualizan según se publique el material.
 
 | Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
 |---:|---|---|---|
@@ -138,11 +197,11 @@ Material confirmado del curso hasta la **Semana 7** (fuentes: `Guia_Explicativa_
 | **3** | Taxonomía de IA | Mapeo de 7 áreas y clasificador simbólico (`src.clasificacion.requerimientos`) | **Completado** |
 | **4** | Marco tecnológico y búsqueda | Grafo vial, A* con heurística admisible Haversine, línea base no informada y replanificación (`src.busqueda`) | **Completado** |
 | **5** | Marco tecnológico: sistemas híbridos | Reglas expertas + TF-IDF/coseno + regresión logística con trazabilidad, demostrable en el dashboard (`src.hibrido`) | **Completado** |
-| 6 | Integración Corte 1 | Validación cruzada, jornada extremo a extremo y entrega `v1.0.0` | **Completado** |
+| 6 | Entrega Corte 1 | Tag `v1.0.0` y módulos demostrables; la jornada integrada sigue pendiente | **Entrega académica completada; integración de producto pendiente** |
 | **6** | **Corte 1** | **Planifica rutas — `v1.0.0`** | **Meta hito** |
 | **7** | Representaciones del reconocimiento | Vectores Amazon, euclidiana/IQR, hechos P75 y AFD POD (`src.representaciones`) | **Completado** |
-| Pre-8 | Hito técnico acordado por el equipo, no actividad oficial adicional | BD, migraciones, seed Amazon, piloto visual sintético y dashboard de inspección | Persistencia y API/interfaz de lectura completadas; MLP pendiente de guía |
-| 8 | MLP con imágenes, indicado por el equipo; guía pendiente | Ejercicio visual apoyado en el piloto de 200 imágenes; diseño y evaluación por confirmar | Pendiente de guía |
+| Pre-8 | Hito técnico acordado por el equipo, no actividad oficial adicional | BD, migraciones, seed Amazon, piloto visual sintético y dashboard de inspección | **Completado** |
+| **8** | Redes neuronales, base de imágenes y ontologías | MLP sobre piloto de 200 imágenes, evidencia PostgreSQL y GraphML; resultado inferior a baseline, solo didáctico | **Implementado y evaluado** |
 | 9–12 | Reglas y representación del conocimiento, sujeto a materiales oficiales | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
 | **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |
 | 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación (`src.vision`, `src.agentes`) | Pendiente |
@@ -257,7 +316,8 @@ resolverse antes de implementar los módulos relacionados:
 | Fuente del dataset (cerrada) | Generador sintético (`data/pedidos.csv`) y dataset curado Amazon Last Mile (`data/amazon_pedidos.csv`) | Reproducibilidad, distribuciones documentadas y datos reales para búsqueda $A^*$ |
 | Infraestructura nueva (cerrada) | PostgreSQL + SQLAlchemy + Alembic + FastAPI; preservar Semanas 2–7 | Migraciones, seeds y API probados sin regresiones históricas |
 | Alcance del piloto visual (cerrada) | 200 imágenes sintéticas; asociación simulada a 200 paradas persistida | Fuente Kaggle v2, 200 vistas laterales / grupos, balance 100/100 y manifiesto auditado |
-| Tarea visual y MLP | Candidata: clasificación intacto/dañado; arquitectura y preprocesamiento pendientes | Confirmación con guía de Semana 8; no confundir con riesgo tabular |
+| Tarea visual y MLP (cerrada para el piloto) | Clasificación intacto/dañado con gris 16×16 y MLP de 64 neuronas | Evaluación 150/50 por grupo y límites documentados; no confundir con riesgo tabular |
+| Adaptación de la guía (cerrada) | Dataset de paquetes, PostgreSQL, almacenamiento visual privado y Python 3.14 | Explicar equivalencia funcional y evidencia frente a los ejemplos de clase |
 | Reporte de avance | Frecuencia y formato por corte | Evidencia clara sin duplicar los reportes por tema |
 
 ## Riesgos y mitigaciones
@@ -273,157 +333,30 @@ resolverse antes de implementar los módulos relacionados:
 - **Crecimiento del alcance:** cada corte debe conservar una demostración
   vertical funcional antes de agregar nuevos módulos.
 
-## Dashboard actual y propuesta MLP
+## Dashboard y Semana 8
 
-La navegación, el resumen y la inspección de datos e imágenes están implementados.
-La ficha MLP es provisional y se ajustará con la guía cuando esté disponible.
+Órbita conserva las vistas de Semanas 2–7, la entrada histórica y las pestañas
+**Laboratorio / Código explicado / Informe**. Se añadió Semana 8 al Corte 2:
+consulta el modelo evaluado, la matriz de confusión, una predicción de prueba
+persistida y el recorrido semántico. La API FastAPI sigue documentada en
+`/docs`; no se agregó otra API ni Docusaurus.
 
-### 1. Punto de partida real
+El experimento es reproducible con `python -m src.semana08_reconocimiento
+--registrar` tras `python -m alembic upgrade head`. Usa las 200 imágenes
+sintéticas `side`, separadas 150/50 por grupo, gris 16×16 y MLP de 64 neuronas.
+En prueba obtuvo **accuracy 0,48**, frente a **0,50** del clasificador
+mayoritario, con advertencia de no convergencia. Por ello se muestra como
+aprendizaje y trazabilidad, **no** como decisión automática de despacho. Las
+asociaciones con paradas Amazon siguen siendo simuladas.
 
-- React/Vite y FastAPI funcionan como un único monolito.
-- La navegación organiza el resumen, los datos y las Semanas 2, 3, 4, 5 y 7 por cortes.
-- Cada tema conserva su laboratorio, código explicado e informe.
-- La BD contiene 14.411 paradas Amazon y un piloto de 200 imágenes asociadas
-  de forma simulada a 200 paradas distintas.
-- El piloto tiene endpoints de lectura y pantallas de inspección. No hay MLP visual entrenado.
-- Los módulos históricos siguen usando sus fuentes anteriores; no se migran
-  a PostgreSQL como parte de un rediseño visual.
+La evidencia queda en `modelos_visuales` y `muestras_modelo_visual`, sin cambiar
+la etiqueta de origen de `imagenes`; el grafo dirigido se exporta a GraphML
+con la relación de un caso concreto. Consulta el [plan de Semana 8](plan-semana-08.md),
+el [informe de resultados](../reports/sem-08-reconocimiento.md) y la
+[guía técnica](guia-tecnica.md) para reproducción y límites.
 
-### 2. Objetivo del dashboard
-
-Mostrar qué problema resuelve cada módulo, con qué datos, cómo funciona y qué
-resultado produce, sin confundir una demostración con evidencia de una entrega
-real. Mantener la navegación por cortes y evitar crear una pantalla por archivo.
-
-#### Navegación implementada
-
-```text
-Órbita
-├── Resumen del proyecto
-├── Datos e inspección
-│   ├── Paradas Amazon
-│   └── Piloto visual simulado
-├── Corte 1
-│   ├── Semana 2 · Riesgo de retraso
-│   ├── Semana 3 · Reglas simbólicas
-│   ├── Semana 4 · Búsqueda de rutas
-│   └── Semana 5 · Sistema híbrido
-├── Corte 2
-│   ├── Semana 7 · Representaciones
-│   └── MLP visual · propuesta, pendiente de la guía
-└── Corte 3 · sin anticipar actividades
-```
-
-No reemplazar las vistas existentes ni añadir botones que aparenten ejecutar
-algoritmos todavía no implementados.
-
-### 3. Pantallas y estado
-
-| Pantalla | Qué muestra | Estado |
-|---|---|---|
-| Resumen | Objetivo, módulos disponibles y estado real de datos/servicios | Implementado con datos consultados; la BD indisponible tiene estado explícito |
-| Paradas Amazon | Tabla paginada, filtros por ruta/estación y asociación | Implementado; unidades y procedencia explícitas |
-| Inspección visual | Imagen, etiqueta de origen, grupo, fuente y parada asociada | Implementado con archivos por ID y aviso permanente de simulación |
-| Laboratorio por semana | Problema → datos → ejecución → resultado → explicación → evidencia | Vistas históricas conservadas; ajustar con su guía cuando aplique |
-| MLP visual (propuesto) | Ficha de datos y flujo candidato; evaluación y predicción vacías | Ficha implementada; tarea, preprocesamiento y modelo pendientes de guía |
-
-**Ejemplo de flujo de inspección:** seleccionar parada → consultar si tiene
-asociación → mostrar imagen y etiqueta → explicar procedencia y limitaciones.
-La ausencia de imagen es un estado normal: 14.211 paradas no tienen asociación.
-
-El aviso será visible junto a la imagen, no escondido en una ayuda:
-
-> Imagen sintética asociada aleatoriamente para demostración.
-> No corresponde al envío original de Amazon.
-
-Separar siempre **etiqueta de origen**, **predicción futura del modelo** y
-**riesgo logístico de retraso**. No usar identificadores ni variables Amazon
-como entradas del clasificador visual.
-
-### 4. Estructura común de los laboratorios
-
-1. **Qué hacemos:** objetivo en lenguaje sencillo y actividad de la guía.
-2. **Con qué datos:** fuente, cantidad, unidad de observación y limitaciones.
-3. **Cómo funciona:** explicación breve; código detallado como consulta opcional.
-4. **Probar:** controles permitidos por la actividad, con valores y unidades claros.
-5. **Resultado:** métricas con interpretación y evidencia, no solo números.
-6. **Informe:** reporte reproducible y vínculo al requisito que cumple.
-
-Mantener estados de carga, vacío, error y BD no disponible. Un fallo de los
-módulos nuevos no debe inutilizar las semanas anteriores. Considerar teclado,
-contraste, pantallas pequeñas y explicaciones de siglas antes de aprobar UI.
-
-### 5. MLP visual: propuesta básica
-
-**Objetivo provisional:** clasificar el estado **visible** de un empaque
-sintético como `intacto` o `dañado`. No inferir daños al contenido ni al envío
-Amazon. Las 200 imágenes disponibles (100/100) sirven para un ejercicio
-académico pequeño; no permiten prometer rendimiento en fotografías reales.
-
-Una sola pantalla, sin mezclarla con el detalle logístico:
-
-```text
-MLP visual
-├── Datos: 200 imágenes, clases 100/100, 200 grupos; fuente y límites
-├── Método: imagen → preparación → vector de píxeles → MLP → clase
-├── Evaluación: particiones, matriz de confusión y métricas con explicación
-└── Ejemplo: elegir una imagen del conjunto reservado → ver etiqueta y predicción
-```
-
-**Interacción mínima útil:** elegir una imagen del conjunto de evaluación
-reservado y ver, lado a lado, su etiqueta de origen y la predicción guardada
-del modelo. Mostrar versión del modelo y si acertó. Si se presenta una
-probabilidad, identificarla como salida del modelo, **no como certeza de daño
-real**. No habilitar subida pública de imágenes ni entrenamiento desde el
-navegador en esta primera versión. El entrenamiento se ejecutaría por comando
-y la pantalla leería resultados persistidos; si no existe modelo, mostrar
-«Aún no entrenado» y nunca una predicción inventada.
-
-**Candidato técnico, no decisión cerrada:** usar un MLP pequeño sobre una
-representación reducida de los píxeles, por ejemplo 32×32 en escala de grises
-con una capa oculta de 32 neuronas. Así se puede explicar visualmente el paso
-de matriz a vector y la salida binaria sin añadir otra arquitectura. Tamaño,
-color, número de capas, regularización y librería se confirman con la guía y
-una prueba de viabilidad: reducir la imagen podría ocultar deformaciones.
-scikit-learn ya es dependencia del proyecto; su [guía oficial de MLP](https://scikit-learn.org/stable/modules/neural_networks_supervised.html)
-recomienda escalar las entradas y ajustar cualquier transformación aprendida
-solo con entrenamiento. Esta propuesta **no fija** todavía esos parámetros.
-
-**Evaluación honesta:** separar por grupo visual antes de entrenar, mantener
-una prueba final sin usarla para escoger parámetros y mostrar al menos matriz
-de confusión y métricas por clase, además del número de imágenes de cada
-partición. El reparto exacto depende de la guía. Evitar elegir únicamente
-ejemplos correctos para el demo. Como las asociaciones Amazon son aleatorias,
-la pantalla MLP no debe insinuar relación con retraso, ruta o estación.
-
-**Orden de implementación restante, sujeto a la guía:** la ficha de datos ya
-existe; después vendrían el entrenamiento/evaluación reproducibles y, al final,
-los resultados y ejemplos en el dashboard. Sin modelo válido, la sección de
-predicciones permanece vacía.
-
-### 6. Qué decidir cuando llegue la guía
-
-Crear la matriz a partir del texto real; no completar requisitos por intuición:
-
-| Requisito y referencia exacta | Obligatorio/opcional | Dato/algoritmo | Pantalla o evidencia | Prueba de aceptación | Estado |
-|---|---|---|---|---|---|
-| Pendiente de recibir guía | Por determinar | Por determinar | Por determinar | Por determinar | No implementado |
-
-Resolver explícitamente: tarea, entradas/salidas, algoritmos permitidos,
-preprocesamiento, particiones por grupo, métricas exigidas, entregables y
-criterios de evaluación. Solo entonces fijar arquitectura del MLP, tamaños,
-entrenamiento e interfaz de resultados. No prometer precisión ni asumir que
-un dataset sintético representa fotografías reales de entregas.
-
-### 7. Secuencia acordada
-
-1. **Ahora:** persistencia, API de lectura e interfaz de inspección disponibles;
-   contratos publicados con OpenAPI en `/docs`, sin Docusaurus.
-2. **Al recibir la guía:** leerla, completar la matriz y detectar brechas frente
-   a lo existente; acordar ajustes y realizar la actividad académica por incrementos.
-3. **Al terminar la actividad:** ajustar de forma integral dashboard, API,
-   documentación y pruebas según el resultado real; sin entrenamiento automático
-   al iniciar HTTP.
-
-Cierre de cada incremento: evidencia de pruebas, revisión del usuario y estado
-actualizado en la [guía técnica](guia-tecnica.md).
+**Decisión de adaptación:** el ejemplo `load_digits` + SQLite de clase se
+reemplaza por imágenes de paquetes y PostgreSQL, que ya es la base operativa.
+No se añadirá una segunda base ni se duplicará el experimento para reproducir
+nombres de archivo. El informe debe justificar explícitamente la equivalencia
+frente a la rúbrica.

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Semana 8 · Arquitectura incremental · Órbita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 24px 64px; background: #eef1ec; color: #172019; font-family: Inter, system-ui, sans-serif; }
+    main { max-width: 1280px; margin: auto; }
+    .eyebrow { margin: 0 0 8px; color: #667169; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0 0 12px; font-family: Georgia, serif; font-size: clamp(28px, 4vw, 48px); font-weight: 400; }
+    .intro { max-width: 760px; margin: 0 0 28px; color: #526056; line-height: 1.6; }
+    .figure { overflow-x: auto; border: 1px solid #dce2da; border-radius: 8px; background: #eef1ec; }
+    svg { display: block; width: 100%; min-width: 900px; height: auto; }
+    .caption { margin: 14px 0; color: #526056; font-size: 14px; line-height: 1.6; }
+    a { color: #0a7048; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Órbita / proyecto 8 / plan técnico</p>
+  <h1>Semana 8: reconocer, registrar, interpretar</h1>
+  <p class="intro">Arquitectura propuesta para agregar el MLP y la representación semántica sin sustituir PostgreSQL, la API documentada ni el dashboard de semanas anteriores.</p>
+  <div class="figure">
+    <svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="plan-semana-08-diagrama-title plan-semana-08-diagrama-desc">
+      <title id="plan-semana-08-diagrama-title">Arquitectura incremental de Semana 8</title>
+      <desc id="plan-semana-08-diagrama-desc">El piloto visual existente alimenta una partición reproducible y un MLP nuevo; la predicción se registra en PostgreSQL, se vincula con un grafo semántico y se presenta mediante FastAPI y el dashboard Órbita existentes.</desc>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#667169"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#0a8f5a"/></marker>
+        <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#397e72"/></marker>
+      </defs>
+      <rect x="0" y="0" width="1280" height="720" fill="#eef1ec"/>
+      <text x="80" y="104" fill="#667169" font-size="11" font-family="Inter, sans-serif" font-weight="700" letter-spacing="2">ENTRADA Y RECONOCIMIENTO</text>
+      <text x="80" y="352" fill="#667169" font-size="11" font-family="Inter, sans-serif" font-weight="700" letter-spacing="2">EVIDENCIA, SIGNIFICADO Y PRESENTACIÓN</text>
+
+      <!-- Conectores: todos siguen ejes horizontales o verticales y se dibujan antes de las cajas. -->
+      <line x1="320" y1="200" x2="480" y2="200" stroke="#667169" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="720" y1="200" x2="880" y2="200" stroke="#0a8f5a" stroke-width="2" marker-end="url(#arrow-accent)"/>
+      <line x1="1000" y1="240" x2="1000" y2="400" stroke="#667169" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="880" y1="440" x2="720" y2="440" stroke="#667169" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="480" y1="440" x2="320" y2="440" stroke="#397e72" stroke-width="2" marker-end="url(#arrow-link)"/>
+
+      <!-- Etiquetas con fondo opaco y margen respecto a su conector. -->
+      <rect x="360" y="171" width="80" height="15" rx="2" fill="#eef1ec"/>
+      <text x="400" y="182" fill="#667169" font-size="10" font-family="Inter, sans-serif" text-anchor="middle" font-weight="600">GRUPOS</text>
+      <rect x="758" y="171" width="84" height="15" rx="2" fill="#eef1ec"/>
+      <text x="800" y="182" fill="#0a7048" font-size="10" font-family="Inter, sans-serif" text-anchor="middle" font-weight="600">VECTORES</text>
+      <rect x="1018" y="313" width="92" height="15" rx="2" fill="#eef1ec"/>
+      <text x="1064" y="324" fill="#667169" font-size="10" font-family="Inter, sans-serif" text-anchor="middle" font-weight="600">PREDICCIÓN</text>
+      <rect x="752" y="411" width="96" height="15" rx="2" fill="#eef1ec"/>
+      <text x="800" y="422" fill="#667169" font-size="10" font-family="Inter, sans-serif" text-anchor="middle" font-weight="600">REGISTROS</text>
+      <rect x="350" y="411" width="100" height="15" rx="2" fill="#eef1ec"/>
+      <text x="400" y="422" fill="#397e72" font-size="10" font-family="Inter, sans-serif" text-anchor="middle" font-weight="600">CONSULTA</text>
+
+      <!-- Fila superior. -->
+      <rect x="80" y="160" width="240" height="80" rx="8" fill="#fbfcf9" stroke="#aeb9b0" stroke-width="1.5"/>
+      <text x="96" y="180" fill="#667169" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">EXISTENTE</text>
+      <text x="200" y="206" fill="#172019" font-size="18" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">Piloto visual</text>
+      <text x="200" y="226" fill="#667169" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">200 imágenes auditadas</text>
+
+      <rect x="480" y="160" width="240" height="80" rx="8" fill="#fbfcf9" stroke="#56665b" stroke-width="1.5"/>
+      <text x="496" y="180" fill="#526056" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">NUEVO</text>
+      <text x="600" y="206" fill="#172019" font-size="17" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">Partición y preparación</text>
+      <text x="600" y="226" fill="#667169" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">por grupo · reproducible</text>
+
+      <rect x="880" y="160" width="240" height="80" rx="8" fill="#def4e9" stroke="#0a8f5a" stroke-width="2"/>
+      <text x="896" y="180" fill="#0a7048" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">NUEVO · FOCO</text>
+      <text x="1000" y="206" fill="#172019" font-size="18" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">MLP visual</text>
+      <text x="1000" y="226" fill="#526056" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">intacto / dañado</text>
+
+      <!-- Fila inferior. -->
+      <rect x="880" y="400" width="240" height="80" rx="8" fill="#fbfcf9" stroke="#aeb9b0" stroke-width="1.5"/>
+      <text x="896" y="420" fill="#667169" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">EXISTENTE + AMPLIACIÓN</text>
+      <text x="1000" y="446" fill="#172019" font-size="18" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">PostgreSQL</text>
+      <text x="1000" y="466" fill="#667169" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">evidencia y versiones</text>
+
+      <rect x="480" y="400" width="240" height="80" rx="8" fill="#fbfcf9" stroke="#56665b" stroke-width="1.5"/>
+      <text x="496" y="420" fill="#526056" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">NUEVO</text>
+      <text x="600" y="446" fill="#172019" font-size="18" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">Grafo semántico</text>
+      <text x="600" y="466" fill="#667169" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">conceptos · GraphML</text>
+
+      <rect x="80" y="400" width="240" height="80" rx="8" fill="#fbfcf9" stroke="#aeb9b0" stroke-width="1.5"/>
+      <text x="96" y="420" fill="#667169" font-size="10" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.2">EXISTENTE + AMPLIACIÓN</text>
+      <text x="200" y="446" fill="#172019" font-size="18" font-family="Inter, sans-serif" text-anchor="middle" font-weight="700">API + Órbita</text>
+      <text x="200" y="466" fill="#667169" font-size="12" font-family="Inter, sans-serif" text-anchor="middle">OpenAPI · dashboard</text>
+
+      <line x1="80" y1="592" x2="1200" y2="592" stroke="#d0d8d1" stroke-width="1"/>
+      <text x="80" y="624" fill="#667169" font-size="11" font-family="Inter, sans-serif" font-weight="700" letter-spacing="1.5">LECTURA DEL PLAN</text>
+      <rect x="280" y="611" width="20" height="20" rx="4" fill="#fbfcf9" stroke="#aeb9b0"/>
+      <text x="310" y="625" fill="#526056" font-size="13" font-family="Inter, sans-serif">reutilizar</text>
+      <rect x="472" y="611" width="20" height="20" rx="4" fill="#fbfcf9" stroke="#56665b"/>
+      <text x="502" y="625" fill="#526056" font-size="13" font-family="Inter, sans-serif">añadir</text>
+      <rect x="644" y="611" width="20" height="20" rx="4" fill="#def4e9" stroke="#0a8f5a"/>
+      <text x="674" y="625" fill="#526056" font-size="13" font-family="Inter, sans-serif">reconocimiento MLP</text>
+      <text x="80" y="677" fill="#667169" font-size="12" font-family="Inter, sans-serif">Sin decisiones automáticas de despacho; las asociaciones con Amazon siguen siendo simuladas.</text>
+    </svg>
+  </div>
+  <p class="caption">Las cajas «existente + ampliación» representan componentes que se mantienen y reciben lecturas o registros nuevos. El detalle de las fases, criterios y decisiones abiertas está en <a href="plan-semana-08.md">el plan Markdown</a>.</p>
+</main>
+</body>
+</html>
