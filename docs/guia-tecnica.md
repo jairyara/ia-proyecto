@@ -243,6 +243,28 @@ se rechaza sin sobrescribir ni reasignar; no hay GC ni reparación automáticos.
 
 ## Pruebas y desarrollo
 
+### Práctica visual de Semana 9
+
+```bash
+python -m src.vision.escena_semana09   # opcional: reconstruye la imagen versionada
+python -m src.semana09_vision          # recalcula figura y métricas
+python -m unittest tests.test_semana09_vision -v
+```
+
+La entrada `data/imagen_proyecto.png` es una **escena sintética propia**, no
+una imagen del piloto de Semana 8 ni un envío Amazon. El CLI calcula Canny para
+sigma 1, 2 y 4, Otsu sobre el gris original y componentes de 8 vecinos. Guarda
+`artifacts/semana09_vision.png` y `artifacts/semana09_resultados.json` (ambos
+versionados para la entrega). Las decisiones, resultados y límites están en
+[`reports/semana09.md`](../reports/semana09.md).
+
+`GET /api/vision-semana09/resultados` devuelve las métricas y rechaza un JSON
+obsoleto si cambia el hash de la imagen. `GET /api/vision-semana09/evidencia` y
+`GET /api/vision-semana09/imagen` sirven los PNG. Los tres endpoints se
+documentan en `/docs`; la vista **Semana 09** de Órbita los consume. Abrir el
+dashboard no recalcula métricas ni accede a PostgreSQL para esta práctica.
+
+
 ```bash
 python -m unittest discover -s tests -v
 python -m src.clasificador_requerimientos --fail-on-mismatch

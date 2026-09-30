@@ -11,6 +11,7 @@ import ResumenView from './views/ResumenView.jsx'
 import ParadasView from './views/ParadasView.jsx'
 import VisualView from './views/VisualView.jsx'
 import MlpView from './views/MlpView.jsx'
+import Semana09View from './views/Semana09View.jsx'
 import { api } from './services/api.js'
 
 const SIDEBAR_STORAGE_KEY = 'orbita.sidebarCollapsed'
@@ -25,6 +26,7 @@ const views = {
   semana05: Semana05View,
   semana07: Semana07View,
   semana08: MlpView,
+  semana09: Semana09View,
 }
 
 export default function App() {

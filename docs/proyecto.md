@@ -33,6 +33,7 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
 | Representaciones de Semana 7 | Implementadas y probadas | Módulo del proyecto |
 | Datos Amazon, PostgreSQL y API de inspección | Implementados | Infraestructura y datos |
 | Imágenes, MLP y GraphML de Semana 8 | Experimento reproducible; MLP 0,48 frente a baseline 0,50 | Práctica de reconocimiento presentada en Órbita; **no** automatización operativa |
+| Canny, Otsu y regiones de Semana 9 | Escena sintética propia de un paquete, CLI y evidencia versionada | Preparación visual didáctica; **no** detector de daños ni conteo operativo de bultos |
 | Integración de una jornada completa | Aún no hay orquestador ni prueba extremo a extremo | Objetivo acumulativo de cortes posteriores, no tarea que desplace la guía semanal |
 
 **Ciclo de trabajo por semana:**
@@ -51,8 +52,9 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
    Integrar con otros módulos cuando el corte lo requiera, en un cambio separado.
 
 **Siguiente paso:** contrastar Semana 8 con su rúbrica y registrar en el informe
-las equivalencias técnicas ya decididas. Después, revisar la guía de Semana 9
-antes de diseñar su módulo.
+las equivalencias técnicas ya decididas. Semana 9 se documenta en
+[`reports/semana09.md`](../reports/semana09.md), manteniendo Canny, Otsu y
+regiones como módulo independiente sin asociarlo artificialmente con Amazon.
 
 **Regla de orden:** `docs/proyecto.md` decide alcance y prioridades;
 `docs/guia-tecnica.md` explica operación; `reports/` conserva resultados;

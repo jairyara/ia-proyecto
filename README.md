@@ -3,6 +3,11 @@
 > **Empieza por:** [estado, alcance y próximos pasos](docs/proyecto.md).
 > **Para ejecutar:** [guía técnica y operación](docs/guia-tecnica.md).
 
+**Semana 9:** [`reports/semana09.md`](reports/semana09.md) documenta Canny,
+Otsu y regiones conectadas sobre una escena logística sintética propia. Se
+reproduce con `python -m src.semana09_vision` y se consulta también en Órbita
+y en `/docs`; no es un detector operativo de daños.
+
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
 arquitectura híbrida que combina búsqueda heurística, aprendizaje automático

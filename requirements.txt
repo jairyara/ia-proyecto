@@ -18,3 +18,7 @@ python-dotenv==1.2.3
 
 # Auditoría y preparación de imágenes del experimento visual.
 Pillow==12.3.0
+
+# Semana 9: bordes, umbral, componentes y evidencia visual reproducible.
+scikit-image==0.26.0
+matplotlib==3.11.1

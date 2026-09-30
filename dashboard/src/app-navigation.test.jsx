@@ -9,6 +9,21 @@ vi.mock('./views/ResumenView.jsx', () => ({ default: () => <div>Resumen nuevo</d
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
 
 describe('navegación existente', () => {
+  it('abre Semana 9 desde el Corte 2 y conserva las tres pestañas', () => {
+    vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
+    vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })
+    vi.spyOn(api, 'resultadosVision09').mockResolvedValue({
+      otsu_umbral_0_255: 105, regiones_conectadas: 2, mascara_porcentaje: 23.13,
+      ancho_px: 960, alto_px: 540, origen: 'escena sintética', sha256_imagen: 'a'.repeat(64),
+      intensidad_media_0_255: 71.35, color_medio_rgb: [74, 71, 66], canny: [],
+    })
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Corte 2' }))
+    fireEvent.click(screen.getByRole('button', { name: /Semana 9: Visión de paquetes/i }))
+    expect(screen.getByText(/Del píxel a la/i)).toBeTruthy()
+    expect(screen.getByRole('button', { name: /código explicado/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /^informe/i })).toBeTruthy()
+  })
   it('abre el laboratorio anterior con sus pestañas de demostración, código e informe', () => {
     vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
     vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })

@@ -617,3 +617,8 @@ td:first-child { color: #344139; font-weight: 700; }
 .flow-strip span:not(:last-child)::after { content: ' →'; }
 @media (max-width: 1180px) { .data-stats { grid-template-columns: repeat(2, 1fr); } .visual-layout { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .data-grid, .data-stats { grid-template-columns: 1fr; } .visual-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } .visual-detail dl { grid-template-columns: 1fr; gap: 3px; } }
+.semana09-figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.semana09-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+.semana09-grid .panel { min-width: 0; }
+.semana09-grid p, .semana09-grid li { line-height: 1.6; }
+@media (max-width: 900px) { .semana09-grid { grid-template-columns: 1fr; } }

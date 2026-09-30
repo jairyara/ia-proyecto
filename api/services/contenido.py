@@ -159,10 +159,34 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("sem08-reconocimiento", "Resultados y límites del MLP", "reports/sem-08-reconocimiento.md"),
         ],
     },
+    "semana09": {
+        "numero": 9,
+        "titulo": "Características, contornos y segmentación",
+        "ejercicios": [
+            {
+                "id": "inspeccion-paquete",
+                "titulo": "Del píxel a regiones de un paquete",
+                "descripcion": "Escena sintética propia, Canny, Otsu y componentes conexas.",
+                "archivos": [
+                    ("escena-semana09", "Imagen reproducible", "src/vision/escena_semana09.py"),
+                    ("pipeline-semana09", "Pipeline visual", "src/semana09_vision.py"),
+                    ("api-semana09", "API de resultados", "api/routers/vision_semana09.py"),
+                ],
+            },
+        ],
+        "informes": [
+            ("semana09", "Análisis y decisiones de Semana 9", "reports/semana09.md"),
+        ],
+    },
 }
 
 
 FUNCTION_DESCRIPTIONS: dict[tuple[str, str], str] = {
+    ("src/vision/escena_semana09.py", "generar_escena"): "Dibuja una imagen original determinista del dominio logístico, sin redistribuir el dataset anterior.",
+    ("src/semana09_vision.py", "analizar_imagen"): "Convierte píxeles RGB a intensidad, compara Canny y calcula Otsu y regiones conexas.",
+    ("src/semana09_vision.py", "guardar_figura"): "Reúne las seis vistas de evidencia en un PNG comparable.",
+    ("src/semana09_vision.py", "ejecutar"): "Genera y versiona métricas y figura a partir de la misma imagen.",
+    ("api/routers/vision_semana09.py", "resultados"): "Publica las métricas verificando el hash de la imagen para evitar evidencia obsoleta.",
     ("src/vision/particion.py", "preparar_piloto"): "Audita originales y prepara vectores sin sustituir archivos faltantes.",
     ("src/vision/particion.py", "separar_grupos"): "Estratifica por grupo para evitar fugas entre entrenamiento y prueba.",
     ("src/vision/modelo_mlp.py", "entrenar_y_evaluar"): "Entrena solo en train y compara MLP con línea base sobre test reservado.",

@@ -6,6 +6,12 @@ aplica a las entregas de los cortes 1, 2 y 3.
 
 ## [En curso]
 
+- **feat** (2026-09-30): Semana 9 adapta Canny, Otsu y regiones conectadas a
+  una escena sintética propia de inspección de paquetes. Versiona imagen,
+  métricas y figura; añade API documentada, laboratorio en Órbita, pruebas e
+  informe de decisiones/limitaciones. No convierte regiones en conteo de
+  paquetes ni diagnóstico automático.
+
 - **fix** (2026-09-26): Semana 8 distingue el conjunto visual, la asociación
   simulada con Amazon y la partición 75 % entrenamiento / 25 % prueba. El
   resumen consulta el estado real del MLP; el laboratorio permite escoger

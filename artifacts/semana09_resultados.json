@@ -1,0 +1,46 @@
+{
+  "imagen": "data/imagen_proyecto.png",
+  "sha256_imagen": "db3d5b5a0fbc5ee520e5b78bfaa1c062d539ad29c7b3c4aeef015c61cc6bb749",
+  "origen": "escena sintética propia; no fotografía ni envío Amazon",
+  "ancho_px": 960,
+  "alto_px": 540,
+  "intensidad_media_0_255": 71.35,
+  "intensidad_desviacion_0_255": 56.16,
+  "color_medio_rgb": [
+    74.26,
+    71.08,
+    66.29
+  ],
+  "otsu_umbral_0_255": 105,
+  "mascara_pixeles": 119925,
+  "mascara_porcentaje": 23.13,
+  "conectividad": 8,
+  "regiones_conectadas": 2,
+  "regiones_mayores": [
+    {
+      "etiqueta": 1,
+      "area_px": 98085
+    },
+    {
+      "etiqueta": 2,
+      "area_px": 21840
+    }
+  ],
+  "canny": [
+    {
+      "sigma": 1.0,
+      "pixeles_borde": 10694,
+      "densidad_porcentaje": 2.06
+    },
+    {
+      "sigma": 2.0,
+      "pixeles_borde": 5628,
+      "densidad_porcentaje": 1.09
+    },
+    {
+      "sigma": 4.0,
+      "pixeles_borde": 3027,
+      "densidad_porcentaje": 0.58
+    }
+  ]
+}
