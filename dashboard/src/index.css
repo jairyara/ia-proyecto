@@ -620,5 +620,9 @@ td:first-child { color: #344139; font-weight: 700; }
 .semana09-figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
 .semana09-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
 .semana09-grid .panel { min-width: 0; }
-.semana09-grid p, .semana09-grid li { line-height: 1.6; }
+.semana09-card-body { padding: 18px 22px 22px; overflow-wrap: break-word; }
+.semana09-card-body p, .semana09-card-body ul { margin: 0; }
+.semana09-card-body ul { padding-left: 1.35em; }
+.semana09-card-body p + p, .semana09-card-body ul + p { margin-top: 12px; }
+.semana09-card-body p, .semana09-card-body li { line-height: 1.6; }
 @media (max-width: 900px) { .semana09-grid { grid-template-columns: 1fr; } }

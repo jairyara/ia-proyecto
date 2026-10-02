@@ -39,16 +39,18 @@ export default function Semana09View() {
         <div className="semana09-grid">
           <section className="panel">
             <div className="panel-heading"><div><span className="eyebrow">CARACTERÍSTICAS</span><h2>Qué medimos</h2></div></div>
-            <p>Intensidad media: <b>{result.intensidad_media_0_255}/255</b>. Color medio RGB: <b>{result.color_medio_rgb.join(' · ')}</b>. El contraste claro/oscuro permite aislar el paquete; los bordes muestran también cinta, etiqueta y rasgadura.</p>
+            <div className="semana09-card-body"><p>Intensidad media: <b>{result.intensidad_media_0_255}/255</b>. Color medio RGB: <b>{result.color_medio_rgb.join(' · ')}</b>. El contraste claro/oscuro permite aislar el paquete; los bordes muestran también cinta, etiqueta y rasgadura.</p></div>
           </section>
           <section className="panel">
             <div className="panel-heading"><div><span className="eyebrow">SENSIBILIDAD</span><h2>Sigma en Canny</h2></div></div>
-            <ul>{result.canny.map((item) => <li key={item.sigma}>σ={item.sigma}: <b>{item.pixeles_borde.toLocaleString('es-CO')}</b> píxeles de borde ({item.densidad_porcentaje}%)</li>)}</ul>
-            <p>Más sigma suaviza el detalle; Otsu se calcula aparte y no cambia al variar este parámetro.</p>
+            <div className="semana09-card-body">
+              <ul>{result.canny.map((item) => <li key={item.sigma}>σ={item.sigma}: <b>{item.pixeles_borde.toLocaleString('es-CO')}</b> píxeles de borde ({item.densidad_porcentaje}%)</li>)}</ul>
+              <p>Más sigma suaviza el detalle; Otsu se calcula aparte y no cambia al variar este parámetro.</p>
+            </div>
           </section>
           <section className="panel">
             <div className="panel-heading"><div><span className="eyebrow">INTERPRETACIÓN</span><h2>Dos regiones ≠ dos paquetes</h2></div></div>
-            <p>La máscara divide las caras claras de un único paquete por sus líneas oscuras. Las regiones reflejan conectividad de píxeles, no un conteo fiable de objetos físicos ni un diagnóstico de daño.</p>
+            <div className="semana09-card-body"><p>La máscara divide las caras claras de un único paquete por sus líneas oscuras. Las regiones reflejan conectividad de píxeles, no un conteo fiable de objetos físicos ni un diagnóstico de daño.</p></div>
           </section>
         </div>
       </>}
