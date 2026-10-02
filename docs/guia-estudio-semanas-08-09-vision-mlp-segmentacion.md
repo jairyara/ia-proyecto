@@ -15,6 +15,7 @@
 1. [Visión Panorámica y Continuidad Pedagógica](#1-visión-panorámica-y-continuidad-pedagógica)
    - [1.1 Evolución del Proyecto: de Semana 7 a Semanas 8 y 9](#11-evolución-del-proyecto-de-semana-7-a-semanas-8-y-9)
    - [1.2 Adaptación al Dominio Logístico vs Ejercicios de Clase](#12-adaptación-al-dominio-logístico-vs-ejercicios-de-clase)
+   - [1.3 Fundamentos de Python en Semana 8 (`@property`, Tuplas `...`, `*` y `raise`)](#13-fundamentos-de-python-en-semana-8-property-tuplas--y-raise)
 2. [Semana 08: Reconocimiento con Redes Neuronales (MLP) y Evidencia](#2-semana-08-reconocimiento-con-redes-neuronales-mlp-y-evidencia)
    - [2.1 El Problema de Negocio: Inspección de Integridad (`intacto` vs `danado`)](#21-el-problema-de-negocio-inspección-de-integridad-intacto-vs-danado)
    - [2.2 Conjunto de Datos y Blindaje Contra Data Leakage (`particion.py`)](#22-conjunto-de-datos-y-blindaje-contra-data-leakage-particionpy)
@@ -95,6 +96,42 @@ flowchart LR
 | **Imagen Semana 09** | Monedas estándar (`skimage.data.coins()`). | Escena logística original de 960×540 px generada por código (`escena_semana09.py`) con caja 3D, banda transportadora, etiqueta y rasgadura. | Evita plagio de imágenes de internet, previene violaciones de copyright y provee una escena con control geométrico paramétrico. |
 | **Pipeline Semana 09** | Demostración interactiva básica en Jupyter Notebook. | CLI desacoplado (`src/semana09_vision.py`), validación de hash de entrada, API REST con HTTP 503 por desincronización y panel interactivo en React 19. | Separación estricta de responsabilidades (SoC), robustez y reproducibilidad de nivel productivo. |
 
+
+### 1.3 Fundamentos de Python en Semana 8 (`@property`, Tuplas `...`, `*` y `raise`)
+
+Para entender con soltura el código de `src/vision/particion.py` y `modelo_mlp.py`, se emplean varios patrones idiomáticos del Python moderno:
+
+#### A. El Decorador `@property` (Propiedad Calculada / Getter de Solo Lectura)
+Convierte un método en un atributo de solo lectura. Permite acceder a una computación dinámica **sin paréntesis `()`**:
+```python
+@property
+def X_train(self) -> np.ndarray:
+    return np.stack([self.muestras[i].vector for i in self.indices_train])
+```
+* **Evaluación perezosa (*Lazy Evaluation*):** La matriz pesada de $150 \times 256$ flotantes no se almacena duplicada en memoria; se genera en el milisegundo exacto en que el modelo la solicita para entrenar.
+* **Inmutabilidad estricta:** Al no definir un setter (`@X_train.setter`), cualquier intento de reasignar (`particion.X_train = ...`) arroja `AttributeError`, blindando los datos de entrenamiento.
+* **Compatibilidad idiomática:** Permite la sintaxis limpia de scikit-learn: `modelo.fit(particion.X_train, particion.y_train)`.
+
+#### B. El Objeto `Ellipsis` (`...`) en Tuplas Homogéneas
+En la firma `muestras: tuple[MuestraVisual, ...]`, los tres puntos representan el singleton built-in `Ellipsis`:
+* `tuple[str, int]`: Modela una tupla de **longitud fija de exactamente 2 elementos** heterogéneos.
+* `tuple[MuestraVisual, ...]`: Indica una tupla de **longitud variable arbitraria** (0, 50, 200 o más) donde **todos** los elementos son homogéneos y de tipo `MuestraVisual`.
+
+#### C. El Asterisco Solitario `*` (Argumentos Solo por Palabra Clave / Keyword-Only — PEP 3102)
+En la firma:
+```python
+def separar_grupos(muestras: tuple[MuestraVisual, ...], *, semilla: int = SEMILLA_PARTICION, ...)
+```
+El `*` suelto establece una **frontera obligatoria**: cualquier parámetro a su derecha **no puede pasarse por posición**, exige obligatoriamente ser nombrado (`semilla=20260925`). Esto previene errores de paso accidental de números y fuerza código legible y auto-documentado.
+
+#### D. La Instrucción `raise` (Disparo de Excepciones)
+Es el equivalente en Python a `throw` en JavaScript, Java o C#. Detiene inmediatamente el flujo de ejecución de la función y propaga el error:
+```python
+if not 0 < fraccion_prueba < 1:
+    raise ValueError("La fracción de prueba debe estar entre 0 y 1.")
+```
+Se utiliza `raise ErrorVisual(...)` para excepciones del dominio de visión y `raise ValueError(...)` para violaciones de argumentos matemáticos.
+
 ---
 
 ## 2. Semana 08: Reconocimiento con Redes Neuronales (MLP) y Evidencia
@@ -169,8 +206,8 @@ flowchart LR
         S2["P(intacto)"]
     end
 
-    Entrada -->|W₁: 256 × 64| Oculta
-    Oculta -->|W₂: 64 × 2| Salida
+    Entrada -->|"W₁: 256 × 64"| Oculta
+    Oculta -->|"W₂: 64 × 2"| Salida
 ```
 
 * **Capa de entrada:** 256 neuronas correspondientes al vector aplanado de 16×16.
