@@ -618,11 +618,74 @@ td:first-child { color: #344139; font-weight: 700; }
 @media (max-width: 1180px) { .data-stats { grid-template-columns: repeat(2, 1fr); } .visual-layout { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .data-grid, .data-stats { grid-template-columns: 1fr; } .visual-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } .visual-detail dl { grid-template-columns: 1fr; gap: 3px; } }
 .semana09-figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
-.semana09-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
-.semana09-grid .panel { min-width: 0; }
 .semana09-card-body { padding: 18px 22px 22px; overflow-wrap: break-word; }
-.semana09-card-body p, .semana09-card-body ul { margin: 0; }
-.semana09-card-body ul { padding-left: 1.35em; }
-.semana09-card-body p + p, .semana09-card-body ul + p { margin-top: 12px; }
-.semana09-card-body p, .semana09-card-body li { line-height: 1.6; }
-@media (max-width: 900px) { .semana09-grid { grid-template-columns: 1fr; } }
+.semana09-card-body p { margin: 0; line-height: 1.6; }
+
+/* Semanas 08–09: misma gramática de laboratorio, resultado y evidencia que los cortes anteriores. */
+.mlp-lab-card { min-width: 0; border-top: 3px solid #bfe5cf; }
+.mlp-lab-card:nth-child(3) { border-top-color: var(--mint-dark); }
+.mlp-lab-card:nth-child(4) { border-top-color: var(--violet); }
+.mlp-lab-card .eyebrow { color: var(--mint-dark); }
+.mlp-lab-card .mlp-example-image { display: block; max-height: 230px; object-fit: cover; }
+.mlp-lab-card .mlp-relations { padding: 12px 12px 12px 32px; background: #f4f7f3; border: 1px solid var(--line); border-radius: 7px; font: 12px/1.6 ui-monospace, monospace; }
+.mlp-view .explainability-strip, .semana09-view .explainability-strip { margin-top: 18px; }
+.semana09-lab-grid { align-items: stretch; }
+.semana09-controls { overflow: hidden; }
+.semana09-controls .semana09-card-body { padding: 20px 22px; }
+.semana09-controls .semana09-card-body > p:first-child { color: var(--muted); font-size: 14px; }
+.semana09-sigma-picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.semana09-sigma-picker button { padding: 9px 15px; color: #41604c; background: #f1f6f1; border: 1px solid #d4e2d6; border-radius: 7px; font-weight: 750; }
+.semana09-sigma-picker button.active { color: #fff; background: var(--mint-dark); border-color: var(--mint-dark); }
+.semana09-result { min-height: 280px; }
+.semana09-result h2 { font-size: 48px; }
+.semana09-figure { overflow: hidden; }
+.semana09-figure img { border-radius: 0; }
+@media (max-width: 900px) { .semana09-lab-grid { grid-template-columns: 1fr; } }
+
+/* Recorridos semanales: el resultado de un caso permanece a la vista paso a paso. */
+.mlp-process-map { margin-bottom: 18px; overflow: hidden; }
+.mlp-process-map__body { padding: 22px; }
+.mlp-process-map__chain { display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr); align-items: center; gap: 8px; }
+.mlp-process-map__chain > b { color: var(--mint-dark); font-size: 22px; text-align: center; }
+.mlp-process-map__chain > div, .mlp-process-map__lanes > div, .mlp-process-map__outcomes > div { min-width: 0; padding: 15px; display: grid; gap: 4px; background: #f5f8f4; border: 1px solid #dce8dc; border-radius: 8px; }
+.mlp-process-map small { color: #0a8051; font-size: 11px; font-weight: 800; letter-spacing: .09em; }
+.mlp-process-map strong { color: #1b3526; font-size: 16px; }
+.mlp-process-map span { color: #667169; font-size: 12px; line-height: 1.45; }
+.mlp-process-map__lanes, .mlp-process-map__outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.mlp-process-map__lanes > div:first-child { background: #e8f7ed; border-color: #bfe5cf; }
+.mlp-process-map__lanes > div:last-child { background: #eef4fc; border-color: #d0dfef; }
+.mlp-process-map__join { margin-top: 18px; padding: 13px 16px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 15px; background: #17271e; border-radius: 8px; }
+.mlp-process-map__join > span:first-child { color: var(--mint); font-size: 22px; }
+.mlp-process-map__join strong { color: #effaf2; }
+.mlp-process-map__join > span:last-child { color: #a9c5b2; }
+.mlp-process-map__outcomes > div:last-child { background: #f1eefb; border-color: #ddd4f4; }
+.mlp-process-map__body > p { margin: 17px 0 0; color: #69766c; font-size: 13px; line-height: 1.55; }
+.learning-sequence { display: grid; gap: 18px; }
+.learning-sequence .mlp-lab-card { position: relative; border-top-width: 1px; border-left: 4px solid #bfe5cf; }
+.learning-sequence .mlp-lab-card:nth-child(3) { border-left-color: var(--mint-dark); }
+.learning-sequence .mlp-lab-card:nth-child(4) { border-left-color: var(--blue); }
+.learning-sequence .mlp-lab-card:nth-child(5) { border-left-color: var(--violet); }
+.learning-sequence .data-select { max-width: 100%; }
+.learning-sequence .data-select select { max-width: 100%; }
+.learning-case { display: flex; align-items: center; gap: 20px; margin: 14px 0; padding: 12px; background: #f3f7f3; border: 1px solid var(--line); border-radius: 8px; }
+.learning-case img { width: min(32%, 240px); max-height: 145px; object-fit: cover; }
+.learning-case p { margin: 0; }
+.mlp-network { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin: 18px 0; }
+.mlp-network span { padding: 10px 14px; color: #17583a; background: #e5f5ea; border: 1px solid #c8e4d0; border-radius: 7px; font-size: 13px; font-weight: 750; }
+.mlp-network b { color: var(--mint-dark); }
+.learning-equation { padding: 12px 15px; overflow-x: auto; color: #244530 !important; background: #eaf5ec; border-left: 3px solid var(--mint-dark); border-radius: 5px; }
+.learning-equation code, .learning-sequence code { overflow-wrap: anywhere; }
+.learning-conclusion { margin-top: 17px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px; color: #6a4d27; background: #fff7e9; border: 1px solid #eed7ab; border-radius: 8px; }
+.learning-conclusion svg { flex: 0 0 auto; margin-top: 2px; }
+.learning-conclusion p { margin: 0; color: inherit; }
+.learning-vision-stage { margin-top: 18px; }
+.learning-vision-input { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); align-items: start; gap: 22px; }
+.learning-vision-input img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+.learning-vision-input p:first-child { margin-top: 0; }
+.learning-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.learning-facts > div { min-width: 160px; padding: 13px 16px; display: grid; gap: 2px; background: #f1f7f2; border: 1px solid #d8e8da; border-radius: 8px; }
+.learning-facts strong { color: #176943; font-size: 24px; }
+.learning-facts small { color: #647168; font-size: 12px; }
+.semana09-lab-grid { margin-top: 18px; }
+.semana09-controls .semana09-card-body > p + p { margin-top: 12px; }
+@media (max-width: 760px) { .learning-vision-input { grid-template-columns: 1fr; } .learning-case { align-items: flex-start; flex-direction: column; } .learning-case img { width: 100%; max-height: 220px; } .mlp-process-map__chain { grid-template-columns: 1fr; } .mlp-process-map__chain > b { transform: rotate(90deg); } .mlp-process-map__lanes, .mlp-process-map__outcomes { grid-template-columns: 1fr; } }
