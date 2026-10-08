@@ -6,6 +6,18 @@ Arquitectura modular del sistema:
 - `src.modelado`: Modelos predictivos supervisados y evaluación de riesgo de retraso.
 - `src.clasificacion`: Clasificador simbólico y mapeo de taxonomía de IA para requerimientos logísticos.
 - `src.busqueda`: Búsqueda heurística A*, líneas base no informadas (Dijkstra/BFS) y replanificación dinámica de rutas.
+- `src.vision`: Contratos y partición del piloto visual de paquetes (Semana 08),
+  más soporte de la escena didáctica de Semana 09.
+
+Entradas semanales de visión que viven directamente en `src/`:
+- `src.semana08_reconocimiento`: MLP, evidencia persistente y ontología.
+- `src.semana09_vision`: Canny, Otsu y regiones sobre una escena sintética.
+- `src.semana10_texturas`: regiones, histograma de intensidad y LBP sobre
+  150 imágenes auditadas; genera descriptores 53D y evidencia visual, sin clasificar.
+
+El mapa de archivos, integraciones y límites de Semanas 08–10 está en
+`src/vision/__init__.py`. Estas entradas no se importan desde aquí para evitar
+ejecutar dependencias visuales al usar otros módulos del proyecto.
 """
 
 from __future__ import annotations

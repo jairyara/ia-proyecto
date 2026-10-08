@@ -16,6 +16,9 @@ para consultar la evidencia en Órbita y `/docs` sin recalcularla. Las 50
 imágenes de prueba siguen reservadas; no se entrenó un detector de daños.
 Órbita permite alternar entre cada paquete y la comparación conjunta, con
 imagen, máscara y gráficas interactivas enlazadas a cada caso.
+Para preparar la sustentación, consulta la
+[`guía de estudio de Semana 10`](docs/guia-estudio-semana-10-regiones-intensidad-textura.md),
+centrada en decisiones del proyecto, lectura del código y preguntas breves.
 
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una

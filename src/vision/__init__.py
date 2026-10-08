@@ -1,10 +1,13 @@
 """Módulo de Visión Artificial y Reconocimiento de Imágenes (Corte 2).
 
-¿Por qué comparten la carpeta 'src/vision/'?
-Ambas semanas abordan el mismo dominio físico: la inspección visual de paquetes
-logísticos en estación de reparto. Sin embargo, resuelven dos problemas distintos:
+¿Por qué se relacionan con 'src/vision/'?
+Las Semanas 08–10 abordan el mismo dominio físico: la inspección visual de
+paquetes logísticos en estación de reparto. Sin embargo, cada una tiene un
+objetivo y una entrada diferentes:
 - Semana 08: Aprendizaje automático supervisado (Red Neuronal MLP + Ontología).
 - Semana 09: Visión artificial clásica y determinista (Canny + Otsu + Componentes).
+- Semana 10: Descriptores numéricos de regiones, intensidad y textura LBP;
+  no entrena un clasificador ni diagnostica daños.
 
 ================================================================================
 📦 BLOQUE SEMANA 08: RECONOCIMIENTO VISUAL, MLP Y ONTOLOGÍA
@@ -39,6 +42,36 @@ Integración Semana 09:
   - API:       api/routers/vision_semana09.py (Valida SHA-256 de entrada; HTTP 503 si cambia).
   - Dashboard: dashboard/src/views/Semana09View.jsx (Laboratorio, Código, Informe).
   - Pruebas:   tests/test_semana09_vision.py
+
+================================================================================
+▦ BLOQUE SEMANA 10: REGIONES, INTENSIDAD Y TEXTURA DE PAQUETES
+================================================================================
+Núcleo del experimento (orden de revisión recomendado):
+  1. src/vision/manifiesto.py      -> Contrato y hashes de los 200 originales sintéticos.
+  2. src/vision/particion.py       -> Reutiliza la partición por grupo de Semana 08;
+                                     150 entrenamiento / 50 prueba reservada.
+  3. src/semana10_texturas.py      -> CLI principal: Otsu, regiones de 8 vecinos,
+                                     32 bins de intensidad, LBP uniforme (18 bins)
+                                     y vector 53D por imagen de entrenamiento.
+
+Evidencia versionada en artifacts/:
+  - semana10_resultados.json       -> Configuración, IDs, métricas, hashes y dos ejemplos.
+  - semana10_features.npy         -> Matriz 150 x 53, en orden de IDs del JSON.
+  - semana10_comparacion.png       -> Figura técnica completa y reproducible.
+  - semana10_{danado,intacto}_{gris,mascara}.png
+                                  -> Imágenes y máscaras individuales de los dos ejemplos.
+
+Integración Semana 10:
+  - API:       api/routers/vision_semana10.py (solo lectura, valida hashes).
+  - Dashboard: dashboard/src/views/Semana10View.jsx y Semana10Charts.jsx
+               (Ambos / Dañado / Intacto; Laboratorio, Código, Informe).
+  - Informe:   reports/semana10.md
+  - Estudio:   docs/guia-estudio-semana-10-regiones-intensidad-textura.md
+  - Pruebas:   tests/test_semana10_texturas.py y
+               dashboard/src/views/Semana10View.test.jsx
+
+Límite: Otsu también segmenta la banda transportadora. Regiones conectadas no
+equivalen a paquetes ni a daños; ningún descriptor autoriza despacho.
 ================================================================================
 """
 
