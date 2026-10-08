@@ -34,6 +34,24 @@ describe('navegación existente', () => {
     expect(screen.getByRole('button', { name: /^informe/i })).toBeTruthy()
   })
 
+  it('abre Semana 10 desde el Corte 2 con el espacio didáctico completo', () => {
+    vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
+    vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })
+    vi.spyOn(api, 'resultadosVision10').mockResolvedValue({
+      entrenamiento: 150, prueba_reservada_sin_descriptores: 50,
+      vector: { dimension: 53 }, origen: 'piloto sintético',
+      manifiesto_sha256: 'a'.repeat(64), dimensiones_analisis: [480, 270],
+      conectividad: 8, filtro_area_px: 50, ejemplos: [], resumen_clases: {},
+      advertencia: 'Sin decisión operativa.',
+    })
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Corte 2' }))
+    fireEvent.click(screen.getByRole('button', { name: /Semana 10: Textura de paquetes/i }))
+    expect(screen.getByText(/Del paquete a un/i)).toBeTruthy()
+    expect(screen.getByRole('button', { name: /código explicado/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /^informe/i })).toBeTruthy()
+  })
+
   it('mantiene el icono y la acción original para contraer el aside en las vistas nuevas', () => {
     vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
     vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })

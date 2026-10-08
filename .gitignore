@@ -27,6 +27,13 @@ artifacts/*
 !artifacts/.gitkeep
 !artifacts/semana09_vision.png
 !artifacts/semana09_resultados.json
+!artifacts/semana10_resultados.json
+!artifacts/semana10_comparacion.png
+!artifacts/semana10_features.npy
+!artifacts/semana10_danado_gris.png
+!artifacts/semana10_danado_mascara.png
+!artifacts/semana10_intacto_gris.png
+!artifacts/semana10_intacto_mascara.png
 reports/*.png
 
 # Frontend del dashboard

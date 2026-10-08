@@ -20,6 +20,7 @@ from api.routers import (
     modelado,
     representaciones,
     vision_semana09,
+    vision_semana10,
 )
 
 
@@ -56,6 +57,7 @@ app.include_router(contenido.router)
 app.include_router(datos.router)
 app.include_router(modelo_visual.router)
 app.include_router(vision_semana09.router)
+app.include_router(vision_semana10.router)
 
 
 @app.get("/api/health", tags=["sistema"])

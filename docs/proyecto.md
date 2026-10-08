@@ -34,6 +34,7 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
 | Datos Amazon, PostgreSQL y API de inspección | Implementados | Infraestructura y datos |
 | Imágenes, MLP y GraphML de Semana 8 | Experimento reproducible; MLP 0,48 frente a baseline 0,50 | Práctica de reconocimiento presentada en Órbita; **no** automatización operativa |
 | Canny, Otsu y regiones de Semana 9 | Escena sintética propia de un paquete, CLI y evidencia versionada | Preparación visual didáctica; **no** detector de daños ni conteo operativo de bultos |
+| Regiones, intensidad y LBP de Semana 10 | 150 imágenes auditadas de entrenamiento, vector 53D y comparación por clase | Descripción exploratoria; la banda domina parte de la máscara y **no** valida detección de daños |
 | Integración de una jornada completa | Aún no hay orquestador ni prueba extremo a extremo | Objetivo acumulativo de cortes posteriores, no tarea que desplace la guía semanal |
 
 **Ciclo de trabajo por semana:**
@@ -51,10 +52,10 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
    tecnologías del ejemplo: documentar objetivo, adaptación, motivo y evidencia.
    Integrar con otros módulos cuando el corte lo requiera, en un cambio separado.
 
-**Siguiente paso:** contrastar Semana 8 con su rúbrica y registrar en el informe
-las equivalencias técnicas ya decididas. Semana 9 se documenta en
-[`reports/semana09.md`](../reports/semana09.md), manteniendo Canny, Otsu y
-regiones como módulo independiente sin asociarlo artificialmente con Amazon.
+**Siguiente paso:** contrastar cada práctica con su rúbrica y conservar sus
+límites. Semanas 9 y 10 se documentan en [`reports/semana09.md`](../reports/semana09.md)
+y [`reports/semana10.md`](../reports/semana10.md), sin asociar imágenes a
+envíos Amazon observados ni activar decisiones de despacho.
 
 **Regla de orden:** `docs/proyecto.md` decide alcance y prioridades;
 `docs/guia-tecnica.md` explica operación; `reports/` conserva resultados;
@@ -100,6 +101,9 @@ operativo del modelo.
 - [x] API e interfaz de inspección, con OpenAPI en `/docs`.
 - [x] Semana 8: MLP visual evaluado, evidencia PostgreSQL y ontología GraphML.
   Accuracy de prueba **0,48**, inferior a la línea base **0,50**; uso solo didáctico.
+- [x] Semana 9: Canny, Otsu y regiones sobre escena dibujada, sin diagnóstico.
+- [x] Semana 10: extracción descriptiva 53D sobre 150 imágenes sintéticas auditadas;
+  50 casos de prueba permanecen reservados y no hay clasificador nuevo.
 
 Comandos y arquitectura vigente: [guía técnica](guia-tecnica.md).
 
@@ -191,7 +195,7 @@ no migrar retroactivamente las entregas académicas anteriores.
 
 ## Roadmap
 
-Material confirmado del curso hasta la **Semana 8** (fuentes previas y `Semana_08_Representaciones_Reconocimiento_Diseno_Semana07.pptx`, `Explicacion_Semana_08.md`). Las semanas posteriores se actualizan según se publique el material.
+Material confirmado del curso hasta la **Semana 10**. Las semanas posteriores se actualizan según se publique el material.
 
 | Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
 |---:|---|---|---|
@@ -204,7 +208,9 @@ Material confirmado del curso hasta la **Semana 8** (fuentes previas y `Semana_0
 | **7** | Representaciones del reconocimiento | Vectores Amazon, euclidiana/IQR, hechos P75 y AFD POD (`src.representaciones`) | **Completado** |
 | Pre-8 | Hito técnico acordado por el equipo, no actividad oficial adicional | BD, migraciones, seed Amazon, piloto visual sintético y dashboard de inspección | **Completado** |
 | **8** | Redes neuronales, base de imágenes y ontologías | MLP sobre piloto de 200 imágenes, evidencia PostgreSQL y GraphML; resultado inferior a baseline, solo didáctico | **Implementado y evaluado** |
-| 9–12 | Reglas y representación del conocimiento, sujeto a materiales oficiales | Motor de restricciones, ontología y base de conocimiento (`src.reglas`) | Pendiente |
+| **9** | Características, contornos y segmentación | Canny, Otsu y regiones en una escena logística sintética | **Implementado y evaluado** |
+| **10** | Segmentación por histogramas, regiones y texturas | Descriptor 53D sobre imágenes auditadas, con comparación descriptiva y límites explícitos | **Implementado y evaluado** |
+| 11–12 | Materiales pendientes | Alcance sujeto a guías oficiales; motor de restricciones y conocimiento siguen como objetivos del corte | Pendiente |
 | **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |
 | 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación (`src.vision`, `src.agentes`) | Pendiente |
 | **18** | **Corte 3** | **Sistema integrado — `v3.0.0`** | **Meta hito** |

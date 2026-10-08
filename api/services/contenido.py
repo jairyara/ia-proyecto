@@ -178,10 +178,32 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("semana09", "Análisis y decisiones de Semana 9", "reports/semana09.md"),
         ],
     },
+    "semana10": {
+        "numero": 10,
+        "titulo": "Regiones, intensidad y textura de paquetes",
+        "ejercicios": [
+            {
+                "id": "descriptores-paquete",
+                "titulo": "De la imagen auditada al vector 53D",
+                "descripcion": "Otsu, componentes conexas, histograma de intensidad y LBP sobre cada imagen del piloto.",
+                "archivos": [
+                    ("pipeline-semana10", "Extracción y evidencia", "src/semana10_texturas.py"),
+                    ("api-semana10", "API de evidencia", "api/routers/vision_semana10.py"),
+                ],
+            },
+        ],
+        "informes": [
+            ("semana10", "Resultados y límites de Semana 10", "reports/semana10.md"),
+        ],
+    },
 }
 
 
 FUNCTION_DESCRIPTIONS: dict[tuple[str, str], str] = {
+    ("src/semana10_texturas.py", "extraer_caracteristicas"): "Mide regiones, tonos y textura LBP de una misma imagen y forma el vector fijo de 53 valores.",
+    ("src/semana10_texturas.py", "leer_gris"): "Prepara una vista lateral auditada a gris 480×270 sin modificar el original.",
+    ("src/semana10_texturas.py", "ejecutar"): "Reutiliza la partición por grupos de Semana 8 y procesa solo los 150 casos de entrenamiento.",
+    ("api/routers/vision_semana10.py", "resultados"): "Expone resultados calculados offline tras verificar integridad de manifiesto y artefactos.",
     ("src/vision/escena_semana09.py", "generar_escena"): "Dibuja una imagen original determinista del dominio logístico, sin redistribuir el dataset anterior.",
     ("src/semana09_vision.py", "analizar_imagen"): "Convierte píxeles RGB a intensidad, compara Canny y calcula Otsu y regiones conexas.",
     ("src/semana09_vision.py", "guardar_figura"): "Reúne las seis vistas de evidencia en un PNG comparable.",

@@ -8,6 +8,15 @@ Otsu y regiones conectadas sobre una escena logística sintética propia. Se
 reproduce con `python -m src.semana09_vision` y se consulta también en Órbita
 y en `/docs`; no es un detector operativo de daños.
 
+**Semana 10:** [`reports/semana10.md`](reports/semana10.md) documenta regiones,
+intensidad y LBP sobre 150 imágenes auditadas del piloto sintético. Se
+reproduce con `python -m src.semana10_texturas` cuando están disponibles los
+originales autorizados; el JSON, la matriz 53D y la figura quedan versionados
+para consultar la evidencia en Órbita y `/docs` sin recalcularla. Las 50
+imágenes de prueba siguen reservadas; no se entrenó un detector de daños.
+Órbita permite alternar entre cada paquete y la comparación conjunta, con
+imagen, máscara y gráficas interactivas enlazadas a cada caso.
+
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
 arquitectura híbrida que combina búsqueda heurística, aprendizaje automático

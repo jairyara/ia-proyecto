@@ -689,3 +689,52 @@ td:first-child { color: #344139; font-weight: 700; }
 .semana09-lab-grid { margin-top: 18px; }
 .semana09-controls .semana09-card-body > p + p { margin-top: 12px; }
 @media (max-width: 760px) { .learning-vision-input { grid-template-columns: 1fr; } .learning-case { align-items: flex-start; flex-direction: column; } .learning-case img { width: 100%; max-height: 220px; } .mlp-process-map__chain { grid-template-columns: 1fr; } .mlp-process-map__chain > b { transform: rotate(90deg); } .mlp-process-map__lanes, .mlp-process-map__outcomes { grid-template-columns: 1fr; } }
+
+/* Semana 10: respiración propia para tarjetas y gráficas de comparación. */
+.semana10-view .learning-vision-stage { padding: clamp(22px, 2.5vw, 34px); }
+.semana10-view .learning-vision-stage > p:last-child { margin-bottom: 0; }
+.semana10-examples { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 21px 0 18px; gap: 16px; }
+.semana10-examples--solo { grid-template-columns: minmax(0, 1fr); }
+.semana10-examples > article { min-width: 0; padding: 24px; background: #f7faf7; border-color: #e2ebe4; box-shadow: none; }
+.semana10-mode-switch { width: fit-content; max-width: 100%; margin: 19px 0 0; padding: 4px; display: flex; flex-wrap: wrap; gap: 4px; background: #edf3ed; border: 1px solid #d9e5da; border-radius: 11px; }
+.semana10-mode-switch button { min-width: 92px; padding: 9px 15px; color: #617268; background: transparent; border: 0; border-radius: 8px; font-size: 13px; font-weight: 750; }
+.semana10-mode-switch button:hover { color: #224b34; }
+.semana10-mode-switch button.active { color: #135c3e; background: #fff; box-shadow: 0 2px 9px rgba(26, 57, 34, .1); }
+.semana10-image-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; margin-top: 18px; }
+.semana10-image-pair figure { min-width: 0; margin: 0; padding: 7px 7px 9px; background: #fff; border: 1px solid #dde8df; border-radius: 10px; }
+.semana10-image-pair img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; }
+.semana10-image-pair figcaption { padding: 8px 3px 0; color: #69786d; font-size: 11px; font-weight: 700; line-height: 1.35; }
+.semana10-examples > article:first-child { border-top: 3px solid #dc695d; }
+.semana10-examples > article:last-child { border-top: 3px solid #168c71; }
+.semana10-examples h3 { margin: 13px 0 8px; color: #213629; font-size: 22px; letter-spacing: -.035em; }
+.semana10-examples p { margin: 8px 0 0; overflow-wrap: anywhere; }
+.semana10-chart-section { margin-top: 19px; }
+.semana10-chart-intro { padding: 8px 4px 20px; }
+.semana10-chart-intro h2 { margin: 8px 0 7px; color: #213629; font-size: clamp(25px, 2.4vw, 34px); letter-spacing: -.04em; }
+.semana10-chart-intro p { max-width: 700px; margin: 0; color: #6a796f; line-height: 1.55; }
+.semana10-chart-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 17px; }
+.semana10-chart-legend > span { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; color: #46584c; background: #fff; border: 1px solid #dfe8e0; border-radius: 100px; font-size: 12px; font-weight: 760; }
+.semana10-swatch { width: 9px; height: 9px; display: inline-block; border-radius: 50%; }
+.semana10-swatch--danado { background: #dc695d; }.semana10-swatch--intacto { background: #168c71; }
+.semana10-chart-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.semana10-chart-card { min-width: 0; padding: 25px 26px 20px; background: #fff; border: 1px solid #dce8df; border-radius: 16px; box-shadow: 0 18px 38px rgba(24, 48, 31, .065); }
+.semana10-chart-card__heading > span { color: #0c8760; font: 800 11px/1.4 ui-monospace, monospace; letter-spacing: .13em; }
+.semana10-chart-card__heading h3 { margin: 8px 0 4px; color: #203729; font-size: 21px; letter-spacing: -.035em; }
+.semana10-chart-card__heading p { margin: 0; color: #718076; font-size: 13px; line-height: 1.5; }
+.semana10-chart-canvas { width: 100%; height: 315px; margin: 17px 0 8px; }
+.semana10-chart-card__foot { min-height: 40px; margin: 12px 0 0; padding-top: 13px; color: #6e7b71; border-top: 1px solid #e8eee8; font-size: 12px; line-height: 1.5; }
+.semana10-tooltip { padding: 9px 11px; display: flex; align-items: center; gap: 7px; background: #fff; border: 1px solid #e0e9e1; border-radius: 9px; box-shadow: 0 10px 26px rgba(27, 46, 30, .12); font-size: 12px; }
+.semana10-tooltip i { width: 9px; height: 9px; border-radius: 50%; }.semana10-tooltip span { color: #637267; }
+.semana10-chart-loading { margin-top: 18px; padding: 28px; }
+.semana10-raw-evidence { margin-top: 18px; overflow: hidden; }
+.semana10-raw-evidence summary { min-height: 82px; padding: 20px 26px; display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; list-style: none; }
+.semana10-raw-evidence summary::-webkit-details-marker { display: none; }
+.semana10-raw-evidence summary > span { display: grid; gap: 5px; }
+.semana10-raw-evidence summary strong { color: #2d4635; font-size: 16px; }
+.semana10-raw-evidence summary > svg { flex: 0 0 auto; color: #5c7564; transition: transform .18s ease; }
+.semana10-raw-evidence[open] summary > svg { transform: rotate(90deg); }
+.semana10-raw-evidence__body { padding: 20px 26px 26px; border-top: 1px solid #e5ebe5; }
+.semana10-raw-evidence__body p { margin: 0 0 16px; color: #6b786e; line-height: 1.55; }
+.semana10-raw-evidence__body img { display: block; width: 100%; height: auto; border: 1px solid #e1e9e2; border-radius: 10px; }
+@media (max-width: 1180px) { .semana10-chart-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .semana10-examples { grid-template-columns: 1fr; } .semana10-chart-card { padding: 20px 14px 17px; } .semana10-chart-canvas { height: 280px; } .semana10-raw-evidence summary, .semana10-raw-evidence__body { padding-left: 18px; padding-right: 18px; } }
