@@ -66,12 +66,48 @@ No hay una sintaxis nueva que sea el centro de la semana. Estos detalles importa
 
 **Para ubicar la carga:** `ejecutar()` llama a `preparar_piloto()`, recorre `indices_train`, busca cada ruta segura y la pasa a `leer_gris()`. El cálculo empieza en `extraer_caracteristicas()`. El bloque `if __name__ == "__main__": main()` solo ejecuta el CLI cuando se invoca `python -m src.semana10_texturas`; importar el módulo no dispara la extracción.
 
+## Downsampling con Lanczos: por qué y cómo funciona
+
+* **Qué es matemáticamente:** `Image.Resampling.LANCZOS` es un filtro de remuestreo basado en la función sinc cardinal ventana (`sinc(x) · sinc(x/a)` con radio de ventana $a=3$, evaluando vecindades de $8 \times 8$). En procesamiento de señales es el filtro pasabajas ideal que aproxima el teorema de Nyquist-Shannon.
+* **Por qué se eligió frente a otros:**
+  * *Nearest Neighbor (Vecino más cercano):* introduce bordes dentados y efecto escalera (*aliasing*).
+  * *Bilineal:* atenúa y difumina micro-contrastes.
+  * *Bicúbica:* suaviza texturas sutiles.
+  * *Lanczos:* elimina altas frecuencias que generarían patrones falsos de Moiré pero **retiene la máxima nitidez de bordes y micro-textura**.
+* **Por qué 480×270 y no 16×16:** En Semana 8, el MLP requería un vector plano pequeño de $16 \times 16$. En Semana 10, **LBP compara píxeles a radio $R=2$**; comprimir a $16 \times 16$ destruiría la rugosidad del cartón corrugado y los bordes finos. Reducir a la mitad ($480 \times 270$) con Lanczos preserva la textura local minimizando costo computacional.
+
+## Lectura correcta de los histogramas en el Dashboard (Órbita)
+
+En la vista de Semana 10 (`Semana10Charts.jsx`), los histogramas interactivos de Nivo comparan los dos casos auditados (🔴 Dañado / 🟢 Intacto):
+
+1. **Histograma de intensidad (Curvas continuas de 32 bins):**
+   * **Eje X (0 a 256):** Tonalidades agrupadas en 32 intervalos de ancho 8. La izquierda ($0-64$) representa zonas oscuras/sombras; el centro ($64-192$) representa el cartón y la banda; la derecha ($192-256$) representa reflejos y etiquetas.
+   * **Eje Y:** Probabilidad (proporción de píxeles en ese intervalo). **Cada curva individual suma exactamente 1.0**.
+   * **Interpretación rigurosa:** Un ligero desplazamiento horizontal entre curvas refleja ligeras variaciones de iluminación o encuadre de la toma sintética, **no la presencia o ausencia de un daño físico**.
+2. **Patrones locales LBP (Barras de 18 categorías):**
+   * **Eje X (0 a 17):** Categorías de micro-textura. Los índices $0$ a $16$ son los patrones uniformes ordenados por número de transiciones y densidad de unos; el índice $17$ es la categoría general de **patrones no uniformes (ruido / micro-rugosidad irregular)**.
+   * **Eje Y:** Probabilidad. El conjunto de 18 barras de cada clase suma **exactamente 1.0**.
+   * **Interpretación rigurosa:** La similitud de alturas entre las barras rojas y verdes evidencia visualmente por qué el descriptor global no separa clases: el cartón y la banda transportadora cubren más del 90% de los píxeles en ambas imágenes, enmascarando cualquier rasgadura puntual.
+
+## Tarjeta de bolsillo: Respuestas ejecutivas y trampas de sustentación
+
+Para presentar ante directores, stakeholders o evaluadores técnicos con alta síntesis y rigor metodológico:
+
+| Pregunta de sustentación | Trampa común | Respuesta ejecutiva rigurosa |
+|---|---|---|
+| **¿Por qué 150 y no las 200 imágenes?** | Decir que las 50 de prueba «se procesaron igual» o se ignoraron. | **Gobierno y rigor metodológico:** Las 50 imágenes son el 25% de prueba reservada. Se auditan para certificar integridad, pero se guardan en «caja fuerte» sin extraer descriptores para evitar **fuga de datos (data leakage)**. Solo usamos las 150 de entrenamiento para explorar métricas. |
+| **¿Una región válida equivale a un daño o rasgadura?** | Responder que sí (llevaría al absurdo de que los intactos tienen 34 «daños»). | **Rotundamente no:** Es cualquier mancha de píxeles claros $>50\text{ px}$ que supera el umbral Otsu. La mayoría son rodillos metálicos de la banda y etiquetas. Otsu no tiene semántica de avería. |
+| **¿Por qué 8 vecinos (`connectivity=2`)?** | Confundirlo con el radio $R=2$ de LBP. | **Continuidad morfológica:** 8 vecinos evalúa los 4 lados y las 4 diagonales. Con 4 vecinos, cualquier trazo o rasgadura diagonal se fragmentaría artificialmente en micro-pedazos inconexos. Con 8 se preserva la unidad natural del componente. |
+| **¿Por qué dividir entre `gris.size` y no usar `density=True`?** | Decir que `density=True` daba error. | **Probabilidades discretas que sumen 1.0:** `density=True` normaliza el área geométrica continua; con bins de ancho 8, las barras habrían sumado $1/8 = 0.125$. Dividir los conteos entre el total de píxeles produce probabilidades puras y comparables. |
+| **¿Qué diferencias hubo entre clases y cómo impacta el despacho?** | Vender falsas diferencias o asegurar que el sistema detecta daños. | **Cero automatización en despacho:** Las medianas son casi idénticas (33 vs 34 regiones; 1.51% vs 1.47% de área) porque la banda contamina la escena. La inspección humana sigue siendo obligatoria. El paso técnico indispensable es aislar el paquete (ROI) antes de entrenar un clasificador. |
+| **¿Por qué 480×270 y no 16×16? ¿Superaron la precisión de Semana 8?** | Decir que aumentó la precisión o accuracy. | **Resolución para textura y honestidad de alcance:** LBP requiere vecindad local a radio 2; a $16 \times 16$ se destruiría la rugosidad del cartón. Además, **no medimos precisión porque no hay clasificador entrenado**; Semana 10 es ingeniería de características explicables, no un modelo predictivo. |
+
 ## Preguntas de práctica para responder puntual
 
 1. **¿Cuál es el resultado real de Semana 10?** Un descriptor explicable 53D por cada una de 150 imágenes de entrenamiento, evidencia visual y resumen descriptivo; no un detector.
 2. **¿De dónde salen las imágenes y dónde se cargan?** Del piloto sintético auditado de 200 originales indicado en el manifiesto; `preparar_piloto()` fija la partición y `leer_gris()` abre cada PNG seleccionado para entrenamiento.
 3. **¿Se procesan los 50 casos de prueba?** Se auditan al reconstruir la partición, pero no reciben descriptores de Semana 10 ni entran en resúmenes o ejemplos.
-4. **¿Por qué no usamos los mismos `16×16` del MLP?** Reducir tanto la imagen destruiría detalle local útil para textura; Semana 10 usa 480×270.
+4. **¿Por qué no usamos los mismos `16×16` del MLP?** Reducir tanto la imagen destruiría detalle local útil para textura; Semana 10 usa 480×270 con Lanczos.
 5. **¿Qué entrega Otsu exactamente?** Un umbral global de intensidad; al aplicar `gris > umbral` se obtiene una máscara de píxeles claros, no una máscara semántica de daño.
 6. **¿Qué significan ocho vecinos?** Al etiquetar en 2D, se consideran los cuatro vecinos ortogonales y los cuatro diagonales para decidir continuidad de una región.
 7. **¿Una región válida es un paquete o una rasgadura?** No. Es un componente conectado de la máscara con área mayor de 50 píxeles; puede provenir de cartón, etiqueta, banda o fondo.
