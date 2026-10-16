@@ -1,0 +1,110 @@
+{
+  "version": 2,
+  "origen": "Paradas Amazon Last Mile curadas; etiqueta de riesgo heurística, no retraso observado",
+  "dataset": "data/amazon_pedidos.csv",
+  "sha256_dataset": "82fe3732ef9c1ea815c1a5679abc4f3678beb9e9b6f978ab8aff18b0dd5a12eb",
+  "sha256_codigo": "a63562f3c0b3216fedb7c1b5215526718488e4df49027903e63228d20487b33d",
+  "sha256_csv": "4de5b85c79f52fce67b8e8013cb1333885a48ece46ba334a5f6b6502573a22e5",
+  "semilla": 20260828,
+  "test_size_objetivo": 0.25,
+  "test_size_real": 0.2452,
+  "cv_folds": 5,
+  "particion": "primer pliegue StratifiedGroupKFold(4), route_id disjunto",
+  "n_raw": 14411,
+  "n_excluded_station": 100,
+  "n_total": 14311,
+  "n_train": 10802,
+  "n_test": 3509,
+  "n_routes_train": 76,
+  "n_routes_test": 24,
+  "positivos_test": 251,
+  "tasa_retraso": 0.0715,
+  "variables": [
+    "distancia_deposito_km",
+    "num_paquetes",
+    "volumen_total_m3",
+    "tiempo_servicio_seg",
+    "duracion_ventana_min",
+    "capacidad_vehiculo_m3",
+    "tiene_ventana_horaria"
+  ],
+  "target": "retrasado_estimado",
+  "variables_excluidas": [
+    "pedido_id",
+    "route_id",
+    "stop_id",
+    "secuencia_real",
+    "fecha",
+    "hora_salida_utc",
+    "lat",
+    "lng",
+    "zone_id",
+    "station_code"
+  ],
+  "metrica_umbral": "F2 en probabilidades out-of-fold, 5 pliegues agrupados por route_id; rejilla 0.025–0.75",
+  "metodo_tiempo": "fit final; inferencia lote test repetida 20 veces / n_test",
+  "versiones": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0"
+  },
+  "modelos": {
+    "logistic": {
+      "f2_cv": 0.6421,
+      "matriz_confusion": [
+        [
+          2824,
+          434
+        ],
+        [
+          55,
+          196
+        ]
+      ],
+      "advertencias_convergencia": []
+    },
+    "forest": {
+      "f2_cv": 0.9961,
+      "matriz_confusion": [
+        [
+          3257,
+          1
+        ],
+        [
+          0,
+          251
+        ]
+      ],
+      "advertencias_convergencia": []
+    },
+    "mlp": {
+      "f2_cv": 0.9525,
+      "matriz_confusion": [
+        [
+          3239,
+          19
+        ],
+        [
+          7,
+          244
+        ]
+      ],
+      "advertencias_convergencia": []
+    },
+    "hist": {
+      "f2_cv": 0.993,
+      "matriz_confusion": [
+        [
+          3256,
+          2
+        ],
+        [
+          2,
+          249
+        ]
+      ],
+      "advertencias_convergencia": []
+    }
+  },
+  "advertencia": "La etiqueta Amazon es una regla heurística, parcialmente basada en secuencia_real; el benchmark no valida retrasos observados ni decisiones autónomas."
+}

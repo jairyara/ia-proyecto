@@ -194,6 +194,37 @@ está disponible, estos endpoints responden 503; las semanas históricas siguen
 operativas. Semana 8 agrega `/api/modelo-visual/resumen`, `/predicciones` y
 `/ontologia`, con respuestas documentadas por OpenAPI y sin cargar `pickle` en HTTP.
 
+### Benchmark de Semana 11
+
+`GET /api/semana11/benchmark` entrega evidencia precalculada del cuarteto
+`logistic`, `forest`, `mlp`, `hist` sobre `data/amazon_pedidos.csv`; **no** ajusta modelos
+en una solicitud. La respuesta contiene `evidencia` (tamaño/split, semilla,
+variables, versiones, matriz de confusión, advertencias, hashes SHA-256 y límite
+de uso de etiqueta heurística) y `resultados` (cuatro filas con accuracy,
+precision/recall/F1, average precision, falsos negativos/positivos, umbral F2,
+tiempo de ajuste e inferencia por lote). Las 14.411 filas importadas incluyen
+100 estaciones sin entrega; el benchmark filtra 14.311 `Dropoff` y reserva rutas
+completas en un split ~75/25. `retrasado_estimado` se deriva de reglas y **no**
+equivale a retraso observado; Forest gana al imitarlas, no valida anticipación real.
+Responde **503** si faltan artefactos o no coinciden los hashes de CSV, dataset
+y código. No consulta PostgreSQL. Los tiempos del CSV no equivalen a latencia
+HTTP ni al flujo completo de la Torre.
+
+```bash
+python -m src.semana11_benchmark
+python -m pytest -q tests/test_semana11_benchmark.py
+curl http://localhost:8000/api/semana11/benchmark
+```
+
+Los artefactos versionados son `artifacts/benchmark.csv` y
+`artifacts/semana11_benchmark.json`; [informe](../reports/semana11.md) y
+[ADR-011](../reports/semana11_adr.md) explican la decisión **solo para la
+simulación heurística**. El SVG de diagram-design del informe se publica también como
+`/figuras/semana11-f1-diagram-design.svg` al compilar Órbita, porque esa es la
+ruta a la que resuelve el Markdown relativo en el navegador. El HTML archify
+interactivo se sirve como `/semana11-benchmark.html`. Ambos son activos estáticos
+de documentación, no endpoints predictivos.
+
 ### Experimento visual de Semana 8
 
 ```bash

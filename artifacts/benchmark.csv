@@ -1,0 +1,5 @@
+modelo,accuracy,precision_retraso,recall_retraso,f1_retraso,average_precision,falsos_negativos,falsos_positivos,fit_seconds,infer_ms_por_pedido_p50,infer_ms_por_pedido_p95,umbral
+logistic,0.8606,0.3111,0.7809,0.4449,0.4413,55,434,0.005267,0.000193,0.000233,0.1
+forest,0.9997,0.996,1.0,0.998,1.0,0,1,0.417299,0.003977,0.004022,0.3
+mlp,0.9926,0.9278,0.9721,0.9494,0.9943,7,19,1.878561,0.00025,0.000471,0.15
+hist,0.9989,0.992,0.992,0.992,0.9999,2,2,0.385864,0.003025,0.003564,0.6

@@ -23,7 +23,14 @@ function textContent(value) {
   return value == null ? '' : String(value)
 }
 
-export function MarkdownRenderer({ content }) {
+function reportAssetUrl(url, sourcePath) {
+  if (sourcePath?.startsWith('reports/') && /^figuras\/[\w.-]+\.(?:svg|html|png|jpe?g|webp)$/i.test(url || '')) {
+    return `/${url}`
+  }
+  return url
+}
+
+export function MarkdownRenderer({ content, sourcePath }) {
   const components = useMemo(() => {
     const headings = {}
     for (let level = 1; level <= 6; level += 1) {
@@ -32,10 +39,11 @@ export function MarkdownRenderer({ content }) {
     }
     return {
       ...headings,
-      a: ({ children, ...props }) => <a {...props} target="_blank" rel="noreferrer">{children}</a>,
+      a: ({ children, href, ...props }) => <a {...props} href={reportAssetUrl(href, sourcePath)} target="_blank" rel="noreferrer">{children}</a>,
+      img: ({ src, alt, ...props }) => <img {...props} src={reportAssetUrl(src, sourcePath)} alt={alt || ''} loading="lazy" />,
       table: ({ children, ...props }) => <div className="markdown-table"><table {...props}>{children}</table></div>,
     }
-  }, [])
+  }, [sourcePath])
 
   return (
     <article className="markdown-body">
@@ -52,6 +60,7 @@ export default function MarkdownViewer({ week }) {
   const [raw, setRaw] = useState(false)
   const [query, setQuery] = useState('')
   const [error, setError] = useState('')
+  const hasSemana11Adr = week.id === 'semana11' && week.informes.some((item) => item.id === 'semana11-adr')
 
   useEffect(() => {
     if (!reportId) return undefined
@@ -83,11 +92,21 @@ export default function MarkdownViewer({ week }) {
       />
 
       <div className="report-toolbar panel">
-        <label className="field">INFORME
-          <select value={reportId} onChange={(event) => setReportId(event.target.value)}>
-            {week.informes.map((item) => <option value={item.id} key={item.id}>{item.titulo}</option>)}
-          </select>
-        </label>
+        {hasSemana11Adr
+          ? <nav className="report-document-switch" aria-label="Documentos de Semana 11">
+            {week.informes.map((item) => <button
+              type="button"
+              key={item.id}
+              className={reportId === item.id ? 'active' : ''}
+              aria-pressed={reportId === item.id}
+              onClick={() => setReportId(item.id)}
+            >{item.id === 'semana11-adr' ? 'ADR-011 · Decisión' : 'Informe de resultados'}</button>)}
+          </nav>
+          : <label className="field">INFORME
+            <select value={reportId} onChange={(event) => setReportId(event.target.value)}>
+              {week.informes.map((item) => <option value={item.id} key={item.id}>{item.titulo}</option>)}
+            </select>
+          </label>}
         <label className="report-search"><Icon name="search" size={16} /><span className="sr-only">Buscar en el informe</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar en el informe…" /></label>
         <button className={`raw-toggle ${raw ? 'active' : ''}`} onClick={() => setRaw((value) => !value)}><Icon name="raw" size={16} />{raw ? 'Vista renderizada' : 'Ver Markdown'}</button>
       </div>
@@ -112,7 +131,7 @@ export default function MarkdownViewer({ week }) {
             {query && matches.length === 0 && <div className="search-results">Sin coincidencias para “{query}”.</div>}
             {raw
               ? <pre className="raw-markdown"><code>{report.contenido}</code></pre>
-              : <MarkdownRenderer content={report.contenido} />}
+              : <MarkdownRenderer content={report.contenido} sourcePath={report.ruta} />}
           </section>
         </div>
       )}

@@ -20,6 +20,17 @@ Para preparar la sustentación, consulta la
 [`guía de estudio de Semana 10`](docs/guia-estudio-semana-10-regiones-intensidad-textura.md),
 centrada en decisiones del proyecto, lectura del código y preguntas breves.
 
+**Semana 11:** [`reports/semana11.md`](reports/semana11.md) compara Logistic,
+Random Forest, MLP e HistGradientBoosting sobre **14.311 entregas Amazon elegibles**
+(14.411 paradas importadas menos 100 estaciones), con rutas reservadas y umbral
+elegido solo en entrenamiento. Forest gana el benchmark de la etiqueta
+`retrasado_estimado`, pero esta es una **regla heurística, no demora observada**;
+el [`ADR-011`](reports/semana11_adr.md) no sustituye la regla explícita por un
+modelo que la imita. Reproduce con `python -m src.semana11_benchmark`. Órbita
+conserva las pestañas del laboratorio y añade el diagrama interactivo archify.
+La [decisión tecnológica y el plan de Torre](docs/decision-tecnologica-y-plan-torre-control.md)
+separan este laboratorio de las tareas para llegar a Semana 18.
+
 Proyecto 8 del curso **Inteligencia Artificial** de décimo semestre. El
 sistema busca apoyar la planificación de rutas de reparto mediante una
 arquitectura híbrida que combina búsqueda heurística, aprendizaje automático

@@ -196,10 +196,31 @@ SEMANAS: dict[str, dict[str, Any]] = {
             ("semana10", "Resultados y límites de Semana 10", "reports/semana10.md"),
         ],
     },
+    "semana11": {
+        "numero": 11,
+        "titulo": "Benchmark y decisión de arquitectura",
+        "ejercicios": [{
+            "id": "benchmark-logistico",
+            "titulo": "Cuatro familias, un protocolo",
+                "descripcion": "Paradas Amazon, rutas reservadas, etiqueta heurística, umbral F2 y ADR.",
+            "archivos": [
+                ("pipeline-semana11", "Benchmark reproducible", "src/semana11_benchmark.py"),
+                ("api-semana11", "API de evidencia", "api/routers/semana11.py"),
+            ],
+        }],
+        "informes": [
+            ("semana11", "Resultados y límites de Semana 11", "reports/semana11.md"),
+            ("semana11-adr", "ADR-011 · Modelo de riesgo", "reports/semana11_adr.md"),
+        ],
+    },
 }
 
 
 FUNCTION_DESCRIPTIONS: dict[tuple[str, str], str] = {
+    ("src/semana11_benchmark.py", "modelos"): "Construye las cuatro familias con preprocesamiento aprendido solo en el entrenamiento de cada pliegue.",
+    ("src/semana11_benchmark.py", "_umbral_validado"): "Selecciona un umbral mediante F2 y probabilidades fuera de pliegue, sin consultar test.",
+    ("src/semana11_benchmark.py", "ejecutar"): "Reserva rutas Amazon enteras, compara cuatro modelos sobre etiqueta heurística y persiste CSV, métricas y hashes.",
+    ("api/routers/semana11.py", "benchmark"): "Publica evidencia precalculada solo si CSV, dataset y código coinciden con sus hashes.",
     ("src/semana10_texturas.py", "extraer_caracteristicas"): "Mide regiones, tonos y textura LBP de una misma imagen y forma el vector fijo de 53 valores.",
     ("src/semana10_texturas.py", "leer_gris"): "Prepara una vista lateral auditada a gris 480×270 sin modificar el original.",
     ("src/semana10_texturas.py", "ejecutar"): "Reutiliza la partición por grupos de Semana 8 y procesa solo los 150 casos de entrenamiento.",

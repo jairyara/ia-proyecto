@@ -1,4 +1,6 @@
 # Proyección Estratégica · Tercer Corte
+
+> **Nota de vigencia (2026-10-14):** visión estratégica inicial. El plan de ejecución aprobado y las dudas pendientes de datos observados están en [`decision-tecnologica-y-plan-torre-control.md`](decision-tecnologica-y-plan-torre-control.md). El [benchmark de Semana 11](../reports/semana11.md) ya se hizo sobre Amazon: Forest imita mejor `retrasado_estimado`, pero esa etiqueta es una regla heurística y **no valida retrasos reales**. La selección de SVC/OCR y las cifras de servidor, costo y latencia de este borrador siguen sin validación; OCR tendrá respaldo manual y cualquier decisión visual exigirá evaluación.
 ## Arquitectura de la Torre de Control Logística y Sistema Integrado
 
 > **Documento de referencia para el cierre de semestre (Corte 3)**  

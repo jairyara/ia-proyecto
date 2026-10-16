@@ -13,6 +13,7 @@ const corteTwoSections = [
   { id: 'semana08', week: '08', title: 'MLP visual', subtitle: 'Red · evidencia · ontología', icon: 'brain' },
   { id: 'semana09', week: '09', title: 'Visión de paquetes', subtitle: 'Canny · Otsu · regiones', icon: 'search' },
   { id: 'semana10', week: '10', title: 'Textura de paquetes', subtitle: 'Regiones · tonos · LBP', icon: 'texture' },
+  { id: 'semana11', week: '11', title: 'Benchmark logístico', subtitle: '4 modelos · decisión ADR', icon: 'activity' },
 ]
 
 const cuts = [

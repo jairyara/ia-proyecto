@@ -35,6 +35,7 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
 | Imágenes, MLP y GraphML de Semana 8 | Experimento reproducible; MLP 0,48 frente a baseline 0,50 | Práctica de reconocimiento presentada en Órbita; **no** automatización operativa |
 | Canny, Otsu y regiones de Semana 9 | Escena sintética propia de un paquete, CLI y evidencia versionada | Preparación visual didáctica; **no** detector de daños ni conteo operativo de bultos |
 | Regiones, intensidad y LBP de Semana 10 | 150 imágenes auditadas de entrenamiento, vector 53D y comparación por clase | Descripción exploratoria; la banda domina parte de la máscara y **no** valida detección de daños |
+| Benchmark de Semana 11 | Cuatro modelos sobre 14.311 entregas Amazon elegibles, rutas reservadas y ADR-011 | Forest imita mejor la etiqueta heurística; la regla explícita sigue vigente y no existe predictor de retraso observado |
 | Integración de una jornada completa | Aún no hay orquestador ni prueba extremo a extremo | Objetivo acumulativo de cortes posteriores, no tarea que desplace la guía semanal |
 
 **Ciclo de trabajo por semana:**
@@ -52,10 +53,13 @@ acumulativa cuando el contenido del curso y el corte correspondiente la exijan.
    tecnologías del ejemplo: documentar objetivo, adaptación, motivo y evidencia.
    Integrar con otros módulos cuando el corte lo requiera, en un cambio separado.
 
-**Siguiente paso:** contrastar cada práctica con su rúbrica y conservar sus
-límites. Semanas 9 y 10 se documentan en [`reports/semana09.md`](../reports/semana09.md)
-y [`reports/semana10.md`](../reports/semana10.md), sin asociar imágenes a
-envíos Amazon observados ni activar decisiones de despacho.
+**Siguiente paso:** iniciar el flujo integrado de Semana 12 según el
+[plan de Torre](decision-tecnologica-y-plan-torre-control.md), sin desplazar la
+rúbrica semanal. Semanas 9–11 están documentadas en
+[`reports/semana09.md`](../reports/semana09.md),
+[`reports/semana10.md`](../reports/semana10.md) y
+[`reports/semana11.md`](../reports/semana11.md). Ningún resultado actual
+autoriza despacho ni asocia imágenes a envíos Amazon observados.
 
 **Regla de orden:** `docs/proyecto.md` decide alcance y prioridades;
 `docs/guia-tecnica.md` explica operación; `reports/` conserva resultados;
@@ -104,6 +108,8 @@ operativo del modelo.
 - [x] Semana 9: Canny, Otsu y regiones sobre escena dibujada, sin diagnóstico.
 - [x] Semana 10: extracción descriptiva 53D sobre 150 imágenes sintéticas auditadas;
   50 casos de prueba permanecen reservados y no hay clasificador nuevo.
+- [x] Semana 11: benchmark reproducible de cuatro modelos sobre entregas Amazon,
+  ADR-011 y laboratorio Órbita; Forest gana la etiqueta heurística, no demora real.
 
 Comandos y arquitectura vigente: [guía técnica](guia-tecnica.md).
 
@@ -182,20 +188,20 @@ antes de inferir.
 
 ## Próximo trabajo
 
-Cerrar el [módulo de Semana 8](../reports/sem-08-reconocimiento.md) contra su
-rúbrica con una matriz de equivalencias y justificaciones; **no** agregar SQLite
-ni otro ejemplo genérico solo para copiar la presentación. El resultado del MLP
-no justifica automatizar decisiones de despacho.
-Continuar con la próxima guía mediante el [ciclo semanal](#forma-de-trabajo-y-continuidad).
-La jornada extremo a extremo permanece como meta de integración por cortes,
-sin reemplazar las prácticas semanales. CI consolidada sigue pendiente.
+Conservar el cierre académico de cada módulo y sus límites; el resultado del
+MLP visual de Semana 8 no justifica automatizar decisiones de despacho.
+Continuar con la próxima guía mediante el [ciclo semanal](#forma-de-trabajo-y-continuidad)
+y construir la Torre secuencialmente desde Semana 12. La jornada extremo a
+extremo sigue pendiente; CI consolidada también.
 
 Trabajar por incrementos revisables con pruebas y confirmación del usuario;
 no migrar retroactivamente las entregas académicas anteriores.
 
 ## Roadmap
 
-Material confirmado del curso hasta la **Semana 10**. Las semanas posteriores se actualizan según se publique el material.
+Material confirmado del curso hasta la **Semana 11**. La integración progresiva de
+la Torre se planifica en el [documento de decisión](decision-tecnologica-y-plan-torre-control.md);
+las semanas posteriores se contrastarán con cada guía oficial.
 
 | Semana | Contenido oficial | Aplicación al proyecto logístico | Estado |
 |---:|---|---|---|
@@ -210,9 +216,10 @@ Material confirmado del curso hasta la **Semana 10**. Las semanas posteriores se
 | **8** | Redes neuronales, base de imágenes y ontologías | MLP sobre piloto de 200 imágenes, evidencia PostgreSQL y GraphML; resultado inferior a baseline, solo didáctico | **Implementado y evaluado** |
 | **9** | Características, contornos y segmentación | Canny, Otsu y regiones en una escena logística sintética | **Implementado y evaluado** |
 | **10** | Segmentación por histogramas, regiones y texturas | Descriptor 53D sobre imágenes auditadas, con comparación descriptiva y límites explícitos | **Implementado y evaluado** |
-| 11–12 | Materiales pendientes | Alcance sujeto a guías oficiales; motor de restricciones y conocimiento siguen como objetivos del corte | Pendiente |
+| **11** | Benchmark y ADR | Cuarteto Logistic/Forest/MLP/Hist sobre paradas Amazon elegibles; regla heurística, ganador académico y límites documentados | **Implementado y evaluado** |
+| 12 | Cierre del Corte 2 | Flujo pedido → riesgo → reglas → A* → decisión persistida según plan; sujeto a validación académica | Pendiente |
 | **12** | **Corte 2** | **Opera con restricciones — `v2.0.0`** | **Meta hito** |
-| 13–18 | Visión, agentes e integración | Verificación de paquetes, eventos y replanificación (`src.vision`, `src.agentes`) | Pendiente |
+| 13–18 | Torre de Control simulada | Guía/recepción, OCR con respaldo manual, SVC visual evaluado, eventos, E2E y carga; ver plan secuencial | Pendiente |
 | **18** | **Corte 3** | **Sistema integrado — `v3.0.0`** | **Meta hito** |
 
 ## Especificación técnica — Semana 4: Búsqueda y Planificación de Rutas

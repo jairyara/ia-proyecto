@@ -34,11 +34,14 @@ artifacts/*
 !artifacts/semana10_danado_mascara.png
 !artifacts/semana10_intacto_gris.png
 !artifacts/semana10_intacto_mascara.png
+!artifacts/benchmark.csv
+!artifacts/semana11_benchmark.json
 reports/*.png
 
 # Frontend del dashboard
 dashboard/node_modules/
 dashboard/dist/
+dashboard/public/*.visual-check.*
 
 # Originales externos y material de revisión visual: no redistribuir en Git.
 data/visual/

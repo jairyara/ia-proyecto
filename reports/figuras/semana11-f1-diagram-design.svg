@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="semana11-f1-title semana11-f1-desc" id="semana11-f1-diagram-design-root">
+<title id="semana11-f1-title">F1 de riesgo heurístico Amazon · cuatro modelos</title>
+<desc id="semana11-f1-desc">Barras de F1 en 3509 paradas Amazon reservadas por ruta: logistic 0,4449; forest 0,9980; MLP 0,9494; HistGradient 0,9920. La etiqueta es heurística, no retraso observado.</desc>
+  <defs>
+      <style>#semana11-f1-diagram-design-root { color: #172019; font-family: Inter,system-ui,sans-serif; }
+      #semana11-f1-diagram-design-root .diagram-container { width:100%;overflow-x:auto;border:1px solid #dce2da;background:#fbfcf9 }
+      #semana11-f1-diagram-design-root .diagram-container { overflow-x:visible }</style>
+  </defs>
+<rect width="1000" height="500" fill="#fbfcf9"/>
+<g stroke="#dce2da" stroke-width="1"><line x1="80" x2="960" y1="40" y2="40"/><line x1="80" x2="960" y1="116" y2="116"/><line x1="80" x2="960" y1="192" y2="192"/><line x1="80" x2="960" y1="268" y2="268"/><line x1="80" x2="960" y1="344" y2="344"/></g>
+<path d="M80 40V420H960" fill="none" stroke="#667169" stroke-width="1"/>
+<g fill="#667169" font-family="ui-monospace,monospace" font-size="10" text-anchor="end"><text x="69" y="44">1,0</text><text x="69" y="120">0,8</text><text x="69" y="196">0,6</text><text x="69" y="272">0,4</text><text x="69" y="348">0,2</text><text x="69" y="424">0</text></g>
+<text x="28" y="232" transform="rotate(-90 28 232)" fill="#667169" font-size="10" font-family="ui-monospace,monospace" text-anchor="middle">F1 · ETIQUETA HEURÍSTICA</text>
+<!-- Bars encode F1 on a full 0–1 scale; forest leads in this heuristic task. -->
+<rect x="146" y="251" width="112" height="169" fill="#e5eae5" stroke="#667169" stroke-width="1"/>
+<rect x="346" y="41" width="112" height="379" fill="#d7f5e6" stroke="#08633e" stroke-width="2"/>
+<rect x="546" y="59" width="112" height="361" fill="#e5eae5" stroke="#667169" stroke-width="1"/>
+<rect x="746" y="43" width="112" height="377" fill="#e5eae5" stroke="#667169" stroke-width="1"/>
+<g font-family="ui-monospace,monospace" font-size="12" text-anchor="middle" font-weight="700"><text x="202" y="237" fill="#4b5b50">0,4449</text><text x="402" y="27" fill="#08633e">0,9980</text><text x="602" y="45" fill="#4b5b50">0,9494</text><text x="802" y="29" fill="#4b5b50">0,9920</text></g>
+<g fill="#172019" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="650" text-anchor="middle"><text x="202" y="447">Logistic</text><text x="402" y="447">Forest</text><text x="602" y="447">MLP</text><text x="802" y="447">HistGradient</text></g>
+<text x="80" y="484" fill="#667169" font-size="11" font-family="Inter,system-ui,sans-serif">Fuente: artifacts/benchmark.csv · 3.509 paradas Amazon reservadas por ruta · etiqueta heurística</text>
+</svg>

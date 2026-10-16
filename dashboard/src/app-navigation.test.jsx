@@ -52,6 +52,35 @@ describe('navegación existente', () => {
     expect(screen.getByRole('button', { name: /^informe/i })).toBeTruthy()
   })
 
+  it('abre Semana 11 en Órbita y conserva laboratorio, código e informe', async () => {
+    vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
+    vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })
+    vi.spyOn(api, 'benchmarkSemana11').mockResolvedValue({
+      evidencia: {
+        n_raw: 14411, n_excluded_station: 100, n_total: 14311,
+        n_train: 10802, n_test: 3509, n_routes_train: 76, n_routes_test: 24,
+        dataset: 'data/amazon_pedidos.csv', sha256_dataset: 'a'.repeat(64),
+        advertencia: 'Solo riesgo heurístico.',
+        modelos: { forest: { matriz_confusion: [[3257, 1], [0, 251]], advertencias_convergencia: [] } },
+      },
+      resultados: [{
+        modelo: 'forest', accuracy: 0.9997, precision_retraso: 0.996,
+        recall_retraso: 1, f1_retraso: 0.998, falsos_negativos: 0, falsos_positivos: 1,
+        umbral: 0.3, fit_seconds: 0.417, infer_ms_por_pedido_p95: 0.004,
+      }],
+    })
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Corte 2' }))
+    fireEvent.click(screen.getByRole('button', { name: /Semana 11: Benchmark logístico/i }))
+    expect(await screen.findByText(/Cuatro modelos\./i)).toBeTruthy()
+    expect(screen.getByText('14.411')).toBeTruthy()
+    expect(screen.getByText(/paradas Amazon importadas/i)).toBeTruthy()
+    expect(screen.getByText(/rutas completas reservadas/i)).toBeTruthy()
+    expect(screen.getByTitle('Flujo interactivo del benchmark de Semana 11, generado con archify')).toBeTruthy()
+    expect(screen.getByRole('button', { name: /código explicado/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /^informe/i })).toBeTruthy()
+  })
+
   it('mantiene el icono y la acción original para contraer el aside en las vistas nuevas', () => {
     vi.spyOn(api, 'health').mockResolvedValue({ estado: 'ok' })
     vi.spyOn(api, 'contenidoSemanas').mockResolvedValue({ semanas: [] })

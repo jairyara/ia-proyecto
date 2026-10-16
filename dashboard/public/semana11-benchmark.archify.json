@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {"title": "Semana 11 · Benchmark Amazon", "quality_profile": "showcase", "viewBox": [1080, 400]},
+  "stages": [
+    {"label": "Paradas Amazon"}, {"label": "Protocolo"}, {"label": "Comparación"},
+    {"label": "Evidencia"}, {"label": "Decisión"}
+  ],
+  "nodes": [
+    {"id": "pedidos", "type": "database", "label": "14.311 entregas", "sublabel": "Amazon · etiqueta heurística", "stage": 0, "row": 0, "width": 138},
+    {"id": "particion", "type": "backend", "label": "Rutas disjuntas", "sublabel": "10.802 train · 3.509 test", "stage": 1, "row": 0, "width": 146},
+    {"id": "candidatos", "type": "backend", "label": "Cuatro modelos", "sublabel": "lineal · árboles · MLP", "stage": 2, "row": 0, "width": 154},
+    {"id": "metricas", "type": "database", "label": "Benchmark", "sublabel": "F1 · FN · FP · tiempos", "stage": 3, "row": 0, "width": 146},
+    {"id": "adr", "type": "frontend", "label": "ADR del proyecto", "sublabel": "Forest gana la heurística", "stage": 4, "row": 0, "width": 154}
+  ],
+  "flows": [
+    {"from": "pedidos", "to": "particion", "label": "route_id"},
+    {"from": "particion", "to": "candidatos", "label": "mismo train"},
+    {"from": "candidatos", "to": "metricas", "label": "test reservado", "labelAt": [640, 200]},
+    {"from": "metricas", "to": "adr", "label": "trade-offs"}
+  ],
+  "cards": [
+    {"dot": "emerald", "title": "Candidatos", "items": ["Logistic · línea base", "Random Forest · bagging", "MLP · red neuronal", "HistGradient · boosting"]},
+    {"dot": "amber", "title": "Límites de la evidencia", "items": ["100 estaciones excluidas", "Retraso estimado por regla, no observado", "800 sintéticos y 200 imágenes no incluidos"]}
+  ]
+}

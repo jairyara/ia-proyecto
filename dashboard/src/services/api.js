@@ -78,6 +78,7 @@ export const api = {
   evidenciaVision09: () => `${API_URL}/api/vision-semana09/evidencia`,
   imagenVision09: () => `${API_URL}/api/vision-semana09/imagen`,
   resultadosVision10: () => request('/api/vision-semana10/resultados'),
+  benchmarkSemana11: () => request('/api/semana11/benchmark'),
   evidenciaVision10: () => `${API_URL}/api/vision-semana10/evidencia`,
   ejemploVision10: (clase, tipo) => `${API_URL}/api/vision-semana10/ejemplos/${encodeURIComponent(clase)}/${encodeURIComponent(tipo)}`,
   contenidoSemanas: () => request('/api/contenido/semanas'),

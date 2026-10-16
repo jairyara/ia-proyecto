@@ -1,5 +1,7 @@
 # Base de Trabajo · Semana 11: Benchmark de Modelos y Registro de Decisiones de Arquitectura (ADR)
 
+> **Nota de vigencia (2026-10-14):** este borrador conserva propuestas iniciales, **no el protocolo ni la decisión finales**. La implementación y cifras verificadas están en [`reports/semana11.md`](reports/semana11.md), [`artifacts/benchmark.csv`](artifacts/benchmark.csv) y [`reports/semana11_adr.md`](reports/semana11_adr.md); el plan de Torre está en [`docs/decision-tecnologica-y-plan-torre-control.md`](docs/decision-tecnologica-y-plan-torre-control.md). Se compararon cuatro modelos sobre **14.311 entregas Amazon**, con `retrasado_estimado` heurístico: Forest ganó el benchmark, pero la regla explícita sigue siendo la señal para simulación. Los **800 pedidos sintéticos** permanecen en Semana 2, no son un segundo benchmark de Semana 11. `load_digits`, `random_state=42`, cifras de servidor/costo y elección anticipada de SVC más abajo son referencias o hipótesis del borrador, **no hechos de la implementación**.
+
 > **Documento temporal de preparación en la raíz del repositorio**  
 > Sirve como guía de implementación para `src/semana11_benchmark.py`, `artifacts/benchmark.csv` y `reports/semana11_adr.md`.
 
